@@ -5,7 +5,8 @@
 Gamepad and mouse support.<br />
 Build with NW.js (http://nwjs.io/)<br />
 
-Download: http://download.xan105.com/app/FFX&X-2_LAUNCHER.exe
+Download: https://github.com/xan105/FFX-X2_LAUNCHER/releases/tag/v1.0
+Mirror Download link: http://download.xan105.com/app/FFX&X-2_LAUNCHER.exe
 
 I can't guarantee that it will work with every gamepad that exist but as long as yours support xinput you are in the green i guess. It works great with my Logitech F310 ^-^.
 
