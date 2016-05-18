@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+Launcher by c 2016 Xan.
+
+c2001-2004, 2013-2016 SQUARE ENIX CO., LTD.
+This Launcher is not affiliated nor associated with SQUARE ENIX CO., LTD.
+Other trademarks are the property of their respective owners.
+No copyright or trademark infringement is intended in using FINAL FANTASY™ content.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="style.css" />
+        <script src="lib/jquery-2.1.3.min.js" type="text/javascript"></script>
+        <script src="lib/os-homedir.js" type="text/javascript"></script>
+        <script src="app.js" type="text/javascript"></script>
+    </head>
+    <body>  
+<audio id="bgm" autoplay="true" loop="loop"><source src="resources/sound/bgm.ogg" type="audio/ogg"></audio>
+<audio id="sfx"><source id="oggSource" src="resources/sound/sfx_select.ogg" type="audio/ogg"></audio>
+<div id="sidebar">
+  <div id="prompt"><p>Press <img src="resources/img/Button_A_032.png" class="valign" draggable="false"> to activate gamepad.</p></div>
+  <ul id="menu">
+    <li><div id="button0" class="button"></div></li>
+    <li><div id="button1" class="button"></div></li>
+    <li><div id="button2" class="button"></div></li>
+    <li><div id="button3" class="button"></div></li>
+    <li><div id="button4" class="button"></div></li>
+    <li><div id="button5" class="button"></div></li>
+    <li><div id="button6" class="button"></div></li>
+  </ul>
+</div>
+
+<div id="settings">
+<div id="container">
+
+  <ul id="game_lang">
+  <h1>Game Language</h1>
+    <li id="setting1"><div class="cursor"></div><div class="setting-title">Text :</div><div class="btn" id="text_en">EN</div><div class="btn" id="text_fr">FR</div><div class="btn" id="text_de">DE</div><div class="btn" id="text_it">IT</div><div class="btn" id="text_es">ES</div><div class="btn" id="text_jp">JP</div><div class="btn" id="text_ecn">CN</div><div class="btn" id="text_kr">KR</div></li>
+    <li id="setting2"><div class="cursor"></div><div class="setting-title">Audio:</div><div class="btn" id="audio_en">English</div><div class="btn" id="audio_jp">Japanese</div></li>
+  </ul>
+
+  <ul id="video">
+  <h1>Video</h1>
+    <li id="setting3"><div class="cursor"></div><div class="setting-title">Screen mode:</div><div class="btn" id="screen_full">Fullscreen</div><div class="btn" id="screen_border">Borderless</div><div class="btn" id="screen_win">Window</div></li>
+    <li id="setting4"><div class="cursor"></div><div class="setting-title" id="resolution_setting">Resolution :</div><div class="btn">-</div><div class="btn">+</div>  <span id="resolution"></span></li>
+    <li id="setting5"><div class="cursor"></div><div class="setting-title">Video Quality Setting:</div><div class="btn" id="quality_low">Low</div><div class="btn" id="quality_medium">Medium</div><div class="btn" id="quality_high">High</div></li>
+    <li id="setting6"><div class="cursor"></div><div class="setting-title">DPI Scaling:</div><div class="btn" id="dpi_isDisabled">False</div><div class="btn" id="dpi_isEnabled">True</div></li>
+  </ul>
+
+  <ul id="input">
+  <h1>Input</h1>
+    <li id="setting7"><div class="cursor"></div><div class="setting-title">Hide Cursor:</div><div class="btn" id="hide_cursor">True</div><div class="btn" id="show_cursor">False</div></li>
+    <li id="setting8"><div class="cursor"></div><div class="setting-title" id="timeout_setting">Hide after:</div><div class="btn">-</div><div class="btn">+</div> <span id="cursortimeout"></span></li>
+    <li id="setting9"><div class="cursor"></div><div class="setting-title">Unhide on keyboard input:</div><div class="btn" id="donothing_on_kinput">False</div><div class="btn" id="show_on_kinput">True</div></li>
+  </ul>
+
+  <ul id="misc">
+  <h1>Misc</h1>
+    <li id="setting10"><div class="cursor"></div><div class="setting-title" id="volume_setting">Launcher Music:</div><div class="btn">-</div><div class="btn">+</div> <span id="volume"></span></li>
+  </ul>
+</div>
+  <div id="right"><input type="button" value="Save" id="save_button"><input  type="button" value="Cancel" id="cancel_button"></div>
+  <div id="left"><img src="resources/img/Button_A_032.png" class="valign" draggable="false"> Save <img src="resources/img/Button_B_032.png" class="valign" draggable="false"> Cancel</div>
+  
+</div>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+@font-face {
+font-family: 'FFXSIMTH';
+src: url('resources/font/FFXSIMTH.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}	 
+
+body { padding: 0; margin: 0; position: relative;}
+body { background-image:url("resources/img/background.png"); background-repeat: no-repeat; width:1278px; height: 703px; -webkit-user-select: none; -webkit-app-region: no-drag; }
+*:focus { outline: none; }
+img { border: none; -webkit-user-select: none; -webkit-app-region: no-drag; }
+
+ul { padding: 0; margin: 0; list-style-type: none;}
+#sidebar { margin-left: 81px; width: 373px; height: 703px;}
+
+#prompt { padding-top: 15px; }
+#prompt>p { color: white; font-family: FFXSIMTH; font-size: 20px; cursor: default; margin: 0px; padding: 0px; text-align: center; font-size: 24px; vertical-align: top;}
+
+#menu { padding-top: 78px; }
+#button0 { background-image:url("resources/img/ffx_button.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button0[gamepad="selected"], #button0:hover { background-image:url("resources/img/ffx_button-hover.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button1 { background-image:url("resources/img/ffx_ec_button.png"); width: 373px; height: 83px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button1[gamepad="selected"], #button1:hover { background-image:url("resources/img/ffx_ec_button-hover.png"); width: 373px; height: 83px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button2 { background-image:url("resources/img/ffx2_button.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button2[gamepad="selected"], #button2:hover { background-image:url("resources/img/ffx2_button-hover.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button3 { background-image:url("resources/img/ffx2_lm_button.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button3[gamepad="selected"], #button3:hover { background-image:url("resources/img/ffx2_lm_button-hover.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button4 { background-image:url("resources/img/credits_button.png"); width: 373px; height: 73px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button4[gamepad="selected"], #button4:hover { background-image:url("resources/img/credits_button-hover.png"); width: 373px; height: 73px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button5 { background-image:url("resources/img/exit_button.png"); width: 373px; height: 73px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; margin-top: 9px;}
+#button5[gamepad="selected"], #button5:hover { background-image:url("resources/img/exit_button-hover.png"); width: 373px; height: 73px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; margin-top: 9px;}
+#button6 { background-image:url("resources/img/setting_button.png"); width: 373px; height: 56px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button6[gamepad="selected"], #button6:hover { background-image:url("resources/img/setting_button-hover.png"); width: 373px; height: 56px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+
+
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.setting-title {
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #9aa1a6;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.btn[selected="selected"]{
+  background: #fca63c;
+  background-image: -webkit-linear-gradient(top, #fca63c, #d9a234);
+  background-image: -moz-linear-gradient(top, #fca63c, #d9a234);
+  background-image: -ms-linear-gradient(top, #fca63c, #d9a234);
+  background-image: -o-linear-gradient(top, #fca63c, #d9a234);
+  background-image: linear-gradient(to bottom, #fca63c, #d9a234);
+  text-decoration: none;
+}
+
+.nextline { margin-left: 96px;}
+.valign { vertical-align: bottom; }
+.cursor { background-image:url("resources/img/cursor.png"); width: 53px; height: 29px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; margin-right: 5px; display: inline-block; vertical-align: middle; visibility: hidden;}
+
+#settings { position: absolute; z-index: 2; top: 0; right: 0; width: 805px; height: 703px; background-color: white; display: none; font-family: FFXSIMTH; font-size: 24px; color: black; cursor: default;}
+#settings li { margin-top: 5px; margin-bottom: 5px; }
+#container { position: static; margin: 5px 10px 5px 10px; }
+h1 {   text-decoration: underline; font-size: 24px; font-size: 28px; margin-top: 5px; margin-bottom: 10px; margin-left: 58px; color: #3498DB;}
+
+
+#left { position: fixed; bottom:6px; left: 483px;}
+#right{ position: fixed; bottom:6px; right: 10px; }
+#right input { margin-left: 2px; margin-right: 2px; }
