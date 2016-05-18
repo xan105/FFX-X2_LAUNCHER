@@ -2,20 +2,26 @@
 *Launcher with Gamepad support for FINAL FANTASY X/X-2 HD Remaster (PC)*
 --------------------------------
 
-'Remake' of the official launcher with Gamepad and mouse support
+Gamepad and mouse support.
+Build with NW.js (http://nwjs.io/)
 
-If you have UnX installed it will display more configuration option in the setting screen. (see [https://steamcommunity.com/app/359870/discussions/0/364041517007524857/]) 
+```Download: ()```
+
+I can't guarantee that it will work with every gamepad that exist but as long as yours support xinput you are in the green i guess. It works great with my Logitech F310 ^-^.
+
+If you have UnX installed it will display more configuration option in the setting screen. (see https://steamcommunity.com/app/359870/discussions/0/364041517007524857/) 
 NB: UnX.ini needs to be re-encoded to utf-8 for this to work.<br />
-NB2: Launcher needs admin right if ```UnX.ini``` is in a protected folder (eg: ```**C:\Program Files**\Steam\FFX-X2\```)<br />
-NB3: Last tested with v0.0.4<br />
+NB2: Launcher needs admin right to save settings in UnX.ini if ```UnX.ini``` is in a protected folder (eg: ```**C:\Program Files**\Steam\FFX-X2\```)<br />
+NB3: Last tested with UnX v0.0.4<br />
 
 Install
 -------
 
-Replace FFX&X-2_LAUNCHER.exe in the 'FINAL FANTASY FFX&FFX-2 HD Remaster' folder.
+Replace ```FFX&X-2_LAUNCHER.exe``` in the ```'FINAL FANTASY FFX&FFX-2 HD Remaster'``` folder.
 
 Screenshot
 ----------
+
 
 
 Legal
