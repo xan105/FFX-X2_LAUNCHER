@@ -23,7 +23,13 @@ Replace ```FFX&X-2_LAUNCHER.exe``` in the ```'FINAL FANTASY FFX&FFX-2 HD Remaste
 Screenshot
 ----------
 
+![screen01](https://cloud.githubusercontent.com/assets/14090532/15367796/c4f818da-1d54-11e6-97d5-cb3a9fe13895.png)
 
+Setting Screen with UnX detected:
+![screen02](https://cloud.githubusercontent.com/assets/14090532/15367806/cf73912c-1d54-11e6-81d2-bc3d0222aa04.png)
+
+Setting Screen without UnX detected:
+![screen03](https://cloud.githubusercontent.com/assets/14090532/15367807/cfd3e55e-1d54-11e6-9179-1ffd4bfa12c6.png)
 
 Legal
 -----
