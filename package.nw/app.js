@@ -92,6 +92,7 @@ function settings_write_ini(){
 
   var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
   var unx_ini = nwDir+'\\UnX.ini';
+  var gamepad_ini = nwDir+'\\unx_gamepad.ini';
   
   fs.stat(ff_ini, function(err, stat) {
       if(err == null) {
@@ -130,22 +131,85 @@ function settings_write_ini(){
 
       if ($('#dpi_isDisabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = "true"; }
       else if ($('#dpi_isEnabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = "false"; }
+      else { config.UnX.Display.DisableDPIScaling = "true"; }
 
       if ($('#hide_cursor').is("[selected='selected']")) { config.UnX.Input.ManageCursor = "true"; }
       else if ($('#show_cursor').is("[selected='selected']")) { config.UnX.Input.ManageCursor = "false"; }
+      else { config.UnX.Input.ManageCursor = "true"; }
 
       if ($('#donothing_on_kinput').is("[selected='selected']")) { config.UnX.Input.KeysActivateCursor = "false"; }
       else if ($('#show_on_kinput').is("[selected='selected']")) { config.UnX.Input.KeysActivateCursor = "true"; }
+      else { config.UnX.Input.KeysActivateCursor = "false"; }
 
       if ($('#audio_en').is("[selected='selected']")) { config.UnX.Language.Voice = "en"; }
       else if ($('#audio_jp').is("[selected='selected']")) { config.UnX.Language.Voice = "jp"; }
-
+      else { config.UnX.Language.Voice = "jp"; }
+      
       config.UnX.Input.CursorTimeout = cursorTimeout;
       
       if ($('#screen_exclu').is("[selected='selected']")) { config.UnX.Display.EnableFullscreen = true; }
       else { config.UnX.Display.EnableFullscreen = false;}
+      
+      if ($('#skin_them').is("[selected='selected']")) { config.UnX.Textures.Inject = true; }
+      else if ($('#dont°skin_them').is("[selected='selected']")) { config.UnX.Textures.Inject = false; }
+      else { config.UnX.Textures.Inject = true; }
 
       fs.writeFileSync(unx_ini, '\ufeff'+ini.stringify(config), 'utf16le');
+      
+         fs.stat(gamepad_ini, function(err, stat) {
+         if(err == null) {
+              config = ini.parse(fs.readFileSync(gamepad_ini, 'utf16le').slice(1));
+
+              if ($('#skin_glossy').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'PlayStation_Glossy'; }
+              else if ($('#skin_ps3').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'PS3'; }
+              else if ($('#skin_ps4').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'PS4'; }
+              else if ($('#skin_x360').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'Xbox360'; }
+              else if ($('#skin_xone').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'XboxOne'; }
+              else { config.Gamepad.Type.TextureSet = 'PlayStation_Glossy'; }
+              
+            var combo = [ ["","",""] , ["","",""] , ["","",""] , ["","",""] , ["","",""] ];
+               
+            for(var i=0;i<combo.length;i++) {
+                for(var y=0;y<3;y++) {
+               
+                if ($('#f'+i+'_'+y).is("[xbutton='a']")) { combo[i][y] = "A"; }
+                else if ($('#f'+i+'_'+y).is("[xbutton='x']")) { combo[i][y] = "X"; }    
+                else if ($('#f'+i+'_'+y).is("[xbutton='y']")) { combo[i][y] = "Y"; }   
+                else if ($('#f'+i+'_'+y).is("[xbutton='b']")) { combo[i][y] = "B"; }   
+                else if($('#f'+i+'_'+y).is("[xbutton='select']")) { combo[i][y] = "Select"; }     
+                else if ($('#f'+i+'_'+y).is("[xbutton='start']")) { combo[i][y] = "Start"; }
+                else if ($('#f'+i+'_'+y).is("[xbutton='LB']")) { combo[i][y] = "LB"; }   
+                else if ($('#f'+i+'_'+y).is("[xbutton='LT']")) { combo[i][y] = "LT"; }   
+                else if ($('#f'+i+'_'+y).is("[xbutton='RB']")) { combo[i][y] = "RB"; }   
+                else if ($('#f'+i+'_'+y).is("[xbutton='RT']")) { combo[i][y] = "RT"; }   
+                else if ($('#f'+i+'_'+y).is("[xbutton='L']")) { combo[i][y] = "L3"; }    
+                else if ($('#f'+i+'_'+y).is("[xbutton='R']")) { combo[i][y] = "R3"; }   
+                else if ($('#f'+i+'_'+y).is("[xbutton='up']")) { combo[i][y] = "UP"; }    
+                else if ($('#f'+i+'_'+y).is("[xbutton='down']")) { combo[i][y] = "DOWN"; }    
+                else if ($('#f'+i+'_'+y).is("[xbutton='left']")) { combo[i][y] = "LEFT"; }    
+                else if ($('#f'+i+'_'+y).is("[xbutton='right']")) { combo[i][y] = "UP"; }               
+
+                
+                if (combo[i][y] == undefined) { combo[i][y] = "" }
+                
+                if (y == 2 && combo[i][2] != "") {
+                   combo[i][2] = '+'+combo[i][2]
+                 }
+   
+              }
+            }
+  
+            config.Gamepad.PC.F1 = combo[0][0]+'+'+combo[0][1]+combo[0][2];
+            config.Gamepad.PC.F2 = combo[1][0]+'+'+combo[1][1]+combo[1][2];
+            config.Gamepad.PC.F3 = combo[2][0]+'+'+combo[2][1]+combo[2][2];
+            config.Gamepad.PC.F4 = combo[3][0]+'+'+combo[3][1]+combo[3][2];
+            config.Gamepad.PC.F5 = combo[4][0]+'+'+combo[4][1]+combo[4][2];
+
+            fs.writeFileSync(gamepad_ini, '\ufeff'+ini.stringify(config), 'utf16le'); 
+         }
+         });
+      
+      
    }
 
   localStorage.volumeBGM = volumeBGM;
@@ -156,6 +220,7 @@ function settings_write_ini(){
 function settings_read_ini(){
 
   $('.btn').removeAttr( "selected" );
+  $('.btn.configurable').removeAttr( "xbutton" );
 
   var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
   var unx_ini = nwDir+'\\UnX.ini';
