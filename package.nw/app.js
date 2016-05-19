@@ -151,7 +151,7 @@ function settings_write_ini(){
       else { config.UnX.Display.EnableFullscreen = false;}
       
       if ($('#skin_them').is("[selected='selected']")) { config.UnX.Textures.Inject = true; }
-      else if ($('#dont°skin_them').is("[selected='selected']")) { config.UnX.Textures.Inject = false; }
+      else if ($('#dont_skin_them').is("[selected='selected']")) { config.UnX.Textures.Inject = false; }
       else { config.UnX.Textures.Inject = true; }
 
       fs.writeFileSync(unx_ini, '\ufeff'+ini.stringify(config), 'utf16le');
@@ -583,8 +583,8 @@ function settingSelect(i){
               else if ( curPosition_setting == 0 ) { curPosition_setting = 10; }
      }  
      else if (page == 2) {
-              if ( curPosition_setting == 14 ) { curPosition_setting = 11; }
-              else if ( curPosition_setting == 10 ) { curPosition_setting = 13; }
+              if ( curPosition_setting == 10 ) { curPosition_setting = 17; }
+              else if ( curPosition_setting == 18 ) { curPosition_setting = 11; }
      }
 
     $("#setting"+curPosition_setting).find(".cursor").css("visibility","visible")
