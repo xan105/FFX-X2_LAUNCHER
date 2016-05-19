@@ -5,8 +5,8 @@ font-weight: normal;
 font-style: normal;
 }	 
 
-body { padding: 0; margin: 0; position: relative;}
-body { background-image:url("resources/img/background.png"); background-repeat: no-repeat; width:1278px; height: 703px; -webkit-user-select: none; -webkit-app-region: no-drag; }
+html, body { margin: 0; padding: 0; overflow: hidden; border:0;}
+body { background-image:url("resources/img/background.png"); background-repeat: no-repeat; background-size: contain; width:1278px; height: 703px; -webkit-user-select: none; -webkit-app-region: no-drag; position: relative;}
 *:focus { outline: none; }
 img { border: none; -webkit-user-select: none; -webkit-app-region: no-drag; }
 
