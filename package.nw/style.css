@@ -82,8 +82,68 @@ ul { padding: 0; margin: 0; list-style-type: none;}
 #settings li { margin-top: 5px; margin-bottom: 5px; }
 #container { position: static; margin: 5px 10px 5px 10px; }
 h1 {   text-decoration: underline; font-size: 24px; font-size: 28px; margin-top: 5px; margin-bottom: 10px; margin-left: 58px; color: #3498DB;}
-
+#page_indicator { float: right; }
+#page_indicator:after { clear:both; }
+#page2 { display: none; }
 
 #left { position: fixed; bottom:6px; left: 483px;}
 #right{ position: fixed; bottom:6px; right: 10px; }
 #right input { margin-left: 2px; margin-right: 2px; }
+
+#popup {  
+  font-family: 'Open Sans';
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  -webkit-box-shadow: 2px 2px 3px #666666;
+  -moz-box-shadow: 2px 2px 3px #666666;
+  box-shadow: 2px 2px 3px #666666;
+  color: #000000;
+  font-size: 16px;
+  background: #ffffff;
+  padding: 10px 20px 10px 20px;
+  border: solid #CCCCCC 1px;
+  text-decoration: none;
+  display: block;
+  visibility: hidden;
+}
+
+#popup ul { list-style-type: none; }
+#popup ul, #popup li { padding: 0px; margin: 0px;}
+#popup > ul > li:first-child{ margin-left: 12px; }
+#popup > ul > li:last-child{ margin-left: 5px; }
+#popup .buttonx { display: inline-block; margin: 7px; padding: 10px;}
+#popup .buttonx:hover { border-style: solid; border-width: 2px; border-color: black; margin: 5px;}
+#popup #LT {  background-image:url("resources/img/button_select/LT.png"); width: 49px; height: 63px; background-repeat: no-repeat; background-position: center; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#popup #RT {  background-image:url("resources/img/button_select/RT.png"); width: 45px; height: 61px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #LB {  background-image:url("resources/img/button_select/LB.png"); width: 64px; height: 45px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #RB {  background-image:url("resources/img/button_select/RB.png"); width: 65px; height: 45px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #xleft {  background-image:url("resources/img/button_select/left.png"); width: 64px; height: 64px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #xup {  background-image:url("resources/img/button_select/up.png"); width: 64px; height: 64px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #xdown {  background-image:url("resources/img/button_select/down.png"); width: 64px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #xright {  background-image:url("resources/img/button_select/right.png"); width: 64px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #a {  background-image:url("resources/img/button_select/a.png"); width: 63px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #b {  background-image:url("resources/img/button_select/b.png"); width: 61px; height: 60px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #y {  background-image:url("resources/img/button_select/y.png"); width: 64px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #x {  background-image:url("resources/img/button_select/x.png"); width: 61px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #L {  background-image:url("resources/img/button_select/JoyLeft.png"); width: 62px; height: 60px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #select {  background-image:url("resources/img/button_select/select.png"); width: 60px; height: 52px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #start {  background-image:url("resources/img/button_select/start.png"); width: 61px; height: 52px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#popup #R {  background-image:url("resources/img/button_select/JoyRight.png"); width: 61px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable{ vertical-align: bottom; height: 23px; }
+.btn.configurable[xbutton="LT"] {  background-image:url("resources/img/button_select/LT_20.png"); width: 16px; background-repeat: no-repeat; background-position: center; -webkit-user-select: none; -webkit-app-region: no-drag; }
+.btn.configurable[xbutton="RT"] {  background-image:url("resources/img/button_select/RT_20.png"); width: 15px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="LB"] {  background-image:url("resources/img/button_select/LB_20.png"); width: 28px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="RB"] {  background-image:url("resources/img/button_select/RB_20.png"); width: 29px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="left"] {  background-image:url("resources/img/button_select/left_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="up"] {  background-image:url("resources/img/button_select/up_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="down"] {  background-image:url("resources/img/button_select/down_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="right"] {  background-image:url("resources/img/button_select/right_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="a"] {  background-image:url("resources/img/button_select/a_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="b"] {  background-image:url("resources/img/button_select/b_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="y"] {  background-image:url("resources/img/button_select/y_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="x"] {  background-image:url("resources/img/button_select/x_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="L"] {  background-image:url("resources/img/button_select/JoyLeft_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="select"] {  background-image:url("resources/img/button_select/select_20.png"); width: 23px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="start"] {  background-image:url("resources/img/button_select/start_20.png"); width: 23px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+.btn.configurable[xbutton="R"] {  background-image:url("resources/img/button_select/JoyRight_20.png"); width: 20px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }

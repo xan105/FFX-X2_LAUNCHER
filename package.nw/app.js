@@ -14,6 +14,8 @@ var insideSettings = false;
 var unxIsPresent = false;
 var curPosition = 0;
 var curPosition_setting = 1;
+var page = 1;
+var nbr_page = 1;
 var isRunning = false;
 var resolutionList = [
     "1440*900",
@@ -35,7 +37,7 @@ var resolutionList = [
     "720*480",
     "640*480" ]
 var currrentResolution = undefined;
-var cursorTimeout = 0.5;
+var cursorTimeout = 0.0;
 var volumeBGM = 0.3;
  if (localStorage.getItem("volumeBGM") === null){}
  else
@@ -47,6 +49,7 @@ var volumeBGM = 0.3;
   
   updateVolumeBGM(0);
   mouse_fallback();
+  $('#popup').popup();
   
   if(!!navigator.getGamepads){
 
@@ -58,8 +61,14 @@ var volumeBGM = 0.3;
                     curPosition = 0;
                     PlaySound(0);
                     if (insideSettings){
-                      $("#setting1").find(".cursor").css("visibility","visible")
-                      curPosition_setting = 1;
+                     if (page == 1){ 
+                        $("#setting1").find(".cursor").css("visibility","visible")
+                        curPosition_setting = 1;
+                      }
+                      else if (page == 2){ 
+                        $("#setting11").find(".cursor").css("visibility","visible")
+                        curPosition_setting = 11;
+                      }
                     }                 
                     gamepad = navigator.getGamepads()[0];
                     for (i = 0; i < gamepad.buttons.length-4; i++) {
@@ -97,16 +106,19 @@ function settings_write_ini(){
           else if ($('#text_jp').is("[selected='selected']")) { config.Language = "jp"; }
           else if ($('#text_cn').is("[selected='selected']")) { config.Language = "cn"; }
           else if ($('#text_kr').is("[selected='selected']")) { config.Language = "kr"; }
+          else { config.Language = "en" };
 
           config.Resolution = resolutionList[currrentResolution];
 
           if ($('#screen_full').is("[selected='selected']")) { config.ScreenMode = "SM_FULLSCREEN"; }
           else if ($('#screen_border').is("[selected='selected']")) { config.ScreenMode = "SM_BORDERLESS"; }
           else if ($('#screen_win').is("[selected='selected']")) { config.ScreenMode = "SM_WINDOW"; }
+          else { config.ScreenMode = "SM_FULLSCREEN"; }
 
           if ($('#quality_low').is("[selected='selected']")) { config.Quality = "VQ_LOW"; }
           else if ($('#quality_medium').is("[selected='selected']")) { config.Quality = "VQ_MEDIUM"; }
           else if ($('#quality_high').is("[selected='selected']")) { config.Quality= "VQ_HIGH"; }
+          else { config.Quality = "VQ_MEDIUM"; }
 
           fs.writeFileSync(ff_ini, ini.stringify(config), 'utf8');
   }
@@ -129,6 +141,9 @@ function settings_write_ini(){
       else if ($('#audio_jp').is("[selected='selected']")) { config.UnX.Language.Voice = "jp"; }
 
       config.UnX.Input.CursorTimeout = cursorTimeout;
+      
+      if ($('#screen_exclu').is("[selected='selected']")) { config.UnX.Display.EnableFullscreen = true; }
+      else { config.UnX.Display.EnableFullscreen = false;}
 
       fs.writeFileSync(unx_ini, '\ufeff'+ini.stringify(config), 'utf16le');
    }
@@ -144,6 +159,7 @@ function settings_read_ini(){
 
   var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
   var unx_ini = nwDir+'\\UnX.ini';
+  var gamepad_ini = nwDir+'\\unx_gamepad.ini';
 
   
   fs.stat(ff_ini, function(err, stat) {
@@ -237,6 +253,15 @@ function settings_read_ini(){
               break;
           }
           
+          switch (config.UnX.Display.EnableFullscreen) {
+              case true:
+                      $('#screen_exclu').attr('selected', 'selected' );
+                      $('#screen_full').removeAttr( "selected" );
+                      $('#screen_border').removeAttr( "selected" );
+                      $('#screen_win').removeAttr( "selected" );
+              break;
+          }
+          
           switch (config.UnX.Input.ManageCursor) {
               case true:
                       $('#hide_cursor').attr('selected', 'selected' ); 
@@ -273,6 +298,18 @@ function settings_read_ini(){
               break;
           }
           
+          switch (config.UnX.Textures.Inject) {
+              case true:
+                      $('#skin_them').attr('selected', 'selected' ); 
+              break;
+              case false:
+                      $('#dont_skin_them').attr('selected', 'selected' ); 
+              break;
+              default:
+                      $('#skin_them').attr('selected', 'selected' );  
+              break;
+          }
+          
           cursorTimeout = parseFloat(config.UnX.Input.CursorTimeout);
           $('#cursortimeout').text(cursorTimeout+"s")
           
@@ -280,12 +317,120 @@ function settings_read_ini(){
           $('#input').show();
           $('#setting6').show();
           $('#setting2').show();
+          $('#screen_exclu').show();
           
-      } else {
+          
+          
+              fs.stat(gamepad_ini, function(err, stat) {
+              if(err == null) {
+          
+                config = ini.parse(fs.readFileSync(gamepad_ini, 'utf16le').slice(1));
+                
+                switch (config.Gamepad.Type.TextureSet) {
+                case "PlayStation_Glossy":
+                      $('#skin_glossy').attr('selected', 'selected' ); 
+                break;
+                case "PS3":
+                      $('#skin_ps3').attr('selected', 'selected' );    
+                break;
+                case "PS4":
+                      $('#skin_ps4').attr('selected', 'selected' );    
+                break;
+                case "Xbox360":
+                      $('#skin_x360').attr('selected', 'selected' );    
+                break;
+                case "XboxOne":
+                      $('#skin_xone').attr('selected', 'selected' );    
+                break;
+                default:
+                      $('#skin_glossy').attr('selected', 'selected' );   
+                break;
+              }
+                    
+               
+               var combo = [ config.Gamepad.PC.F1.split("+"), config.Gamepad.PC.F2.split("+"), config.Gamepad.PC.F3.split("+"), config.Gamepad.PC.F4.split("+"), config.Gamepad.PC.F5.split("+")   ] 
+               
+               for(var i=0;i<combo.length;i++) {
+                    for(var y=0;y<combo[i].length;y++) {
+                    
+                                switch (combo[i][y]) {
+                                case 'A':
+                                case 'Cross':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'a' ); 
+                                break;
+                                case 'B':
+                                case 'Circle':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'b' );    
+                                break;
+                                case 'X':
+                                case 'Square':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'x' );     
+                                break;
+                                case 'Y':
+                                case 'Triangle':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'y' );     
+                                break;
+                                case 'Back':
+                                case 'Select':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'select' );     
+                                break;
+                                case 'Start':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'start' ); 
+                                break;
+                                case 'LB':
+                                case 'L1':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'LB' );    
+                                break;
+                                case 'LT':
+                                case 'L2':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'LT' );    
+                                break;
+                                case 'RB':
+                                case 'R1':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'RB' );    
+                                break;
+                                case 'RT':
+                                case 'R2':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'RT' );    
+                                break;
+                                case 'L3':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'L' );    
+                                break;
+                                case 'R3':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'R' );    
+                                break;
+                                case 'UP':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'up' );    
+                                break;
+                                case 'DOWN':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'down' );    
+                                break;
+                                case 'LEFT':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'left' );    
+                                break;
+                                case 'RIGHT':
+                                      $('#f'+i+'_'+y).attr('xbutton', 'right' );    
+                                break;
+                               }
+                    
+                    
+                      }
+                    }
+                    
+                    $('#gamepad_button_skin').show();
+                    $('#gamepad_key').show();  
+                    nbr_page = 2;   
+  
+              }}); 
+          } else {
           
           $('#input').hide();
           $('#setting6').hide();
           $('#setting2').hide();
+          $('#gamepad_button_skin').hide();
+          $('#gamepad_key').hide();
+          $('#screen_exclu').hide();
+          
       }
   });
     
@@ -367,9 +512,15 @@ function settingSelect(i){
          else if ( previousPosition > curPosition_setting && curPosition_setting == 2 ) { curPosition_setting -= 1; }    
     }
     
-      if ( curPosition_setting == 11 ) { curPosition_setting = 1; }
-      else if ( curPosition_setting == 0 ) { curPosition_setting = 10; } 
-
+      
+     if (page == 1) {  
+              if ( curPosition_setting == 11 ) { curPosition_setting = 1; }
+              else if ( curPosition_setting == 0 ) { curPosition_setting = 10; }
+     }  
+     else if (page == 2) {
+              if ( curPosition_setting == 14 ) { curPosition_setting = 11; }
+              else if ( curPosition_setting == 10 ) { curPosition_setting = 13; }
+     }
 
     $("#setting"+curPosition_setting).find(".cursor").css("visibility","visible")
     PlaySound(0);
@@ -377,7 +528,6 @@ function settingSelect(i){
     setTimeout(function() {
         isRunning = false;
     }, 100);
-
 
 
   } 
@@ -427,7 +577,7 @@ function updateSetting(i){
             setTimeout(function() {$("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").removeAttr( "selected" )}, 100);
         }
     
-    }
+    }   
       
     PlaySound(0);
     
@@ -481,7 +631,9 @@ var spawn = require("child_process").spawn
         break;
         case 6:
                 settings_read_ini();
-                enter_settings();
+                setTimeout(function() {
+                  enter_settings();
+                }, 100);
         break;
       }             
 }
@@ -496,8 +648,11 @@ function enter_settings(){
           $("#setting1").find(".cursor").css("visibility","visible")
           curPosition_setting = 1;
        }
-       $('#settings').fadeIn("slow");
-                
+       page = 1;
+       $('.page').hide();
+       $('#page'+page).show();
+       $('#page_indicator').text(page+'/'+nbr_page);
+       $('#settings').fadeIn("slow");          
 }
 
 function exit_settings(){
@@ -544,6 +699,30 @@ function change_timeout(i){
 
 }
 
+function change_page(){
+  
+    $('#page'+page).hide();
+    page++;
+    
+    if (page == nbr_page+1) {
+       page = 1;
+    }
+
+    $('#page'+page).show();
+    $('#page_indicator').text(page+'/'+nbr_page);
+    
+    $(".cursor").css("visibility","hidden")
+    if (page == 1){
+        curPosition_setting = 1;
+    }
+    if (page == 2){
+        curPosition_setting = 11;
+    }
+    if (isGamepadConnected){
+      $("#setting"+curPosition_setting).find(".cursor").css("visibility","visible")
+    }
+}
+
 
 function mouse_fallback() {
   $(".button").on("mouseenter", function(e){
@@ -574,6 +753,34 @@ function mouse_fallback() {
                 save_settings();
    });
    
+   $("#changePage_button").click(function() { 
+                change_page();
+   });
+   
+   
+   var xbutton = undefined;
+   $(".configurable").click(function() {  
+         $('#popup').popup('show');
+         xbutton = $(this);
+         setTimeout(function(){xbutton.removeAttr( "selected" );}, 200);
+   });
+   
+         $("#LT").click(function(){xbutton.attr("xbutton","LT" ); $('#popup').popup('hide');});
+         $("#RT").click(function(){xbutton.attr("xbutton","RT" ); $('#popup').popup('hide');});
+         $("#LB").click(function(){xbutton.attr("xbutton","LB" ); $('#popup').popup('hide');});
+         $("#RB").click(function(){xbutton.attr("xbutton","RB" ); $('#popup').popup('hide');});
+         $("#xleft").click(function(){xbutton.attr("xbutton","left" ); $('#popup').popup('hide');});
+         $("#xup").click(function(){xbutton.attr("xbutton","up" ); $('#popup').popup('hide');});
+         $("#xdown").click(function(){xbutton.attr("xbutton","down" ); $('#popup').popup('hide');});
+         $("#xright").click(function(){xbutton.attr("xbutton","right" ); $('#popup').popup('hide');});
+         $("#a").click(function(){xbutton.attr("xbutton","a" ); $('#popup').popup('hide');});
+         $("#b").click(function(){xbutton.attr("xbutton","b" ); $('#popup').popup('hide');});
+         $("#y").click(function(){xbutton.attr("xbutton","y" ); $('#popup').popup('hide');});
+         $("#x").click(function(){xbutton.attr("xbutton","x" ); $('#popup').popup('hide');});
+         $("#L").click(function(){xbutton.attr("xbutton","L" ); $('#popup').popup('hide');});
+         $("#select").click(function(){xbutton.attr("xbutton","select" ); $('#popup').popup('hide');});
+         $("#start").click(function(){xbutton.attr("xbutton","start" ); $('#popup').popup('hide');});
+         $("#R").click(function(){xbutton.attr("xbutton","R" ); $('#popup').popup('hide');});
   
    $(".btn").click(function() { 
    
@@ -641,7 +848,7 @@ function mouse_fallback() {
             else if (!gamepad.buttons[2].pressed && LastFrameButtonStatus[2] ) { LastFrameButtonStatus[2] = false; } // X
                        
             else if (gamepad.buttons[3].pressed) { LastFrameButtonStatus[3] = true;}
-            else if (!gamepad.buttons[3].pressed && LastFrameButtonStatus[3] ) { LastFrameButtonStatus[3] = false; } // Y
+            else if (!gamepad.buttons[3].pressed && LastFrameButtonStatus[3] ) { if (insideSettings){ change_page(); } LastFrameButtonStatus[3] = false; } // Y
                         
             else if (gamepad.buttons[4].pressed) { LastFrameButtonStatus[4] = true;}
             else if (!gamepad.buttons[4].pressed && LastFrameButtonStatus[4] ) { LastFrameButtonStatus[4] = false; } // LB
