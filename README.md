@@ -12,9 +12,9 @@ I can't guarantee that it will work with every gamepad that exist but as long as
 
 If you have UnX installed it will display more configuration option in the setting screen.<br /> 
 (see https://steamcommunity.com/app/359870/discussions/0/364041517007524857/)<br /> 
-NB: ```UnX.ini``` needs to be re-encoded to utf-8 for this to work.<br />
+~~NB: ```UnX.ini``` needs to be re-encoded to utf-8 for this to work.<br />~~
 NB2: Launcher needs admin right to save settings in ```UnX.ini``` if ```UnX.ini``` is in a protected folder (eg: **C:\Program Files**\Steam\FFX-X2\)<br />
-NB3: Last tested with UnX v0.0.4<br />
+NB3: Last tested with UnX ~~v0.0.4~~ v2.0<br />
 
 Install
 -------
