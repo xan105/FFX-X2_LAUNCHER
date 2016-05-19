@@ -83,33 +83,38 @@ function settings_write_ini(){
 
   var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
   var unx_ini = nwDir+'\\UnX.ini';
+  
+  fs.stat(ff_ini, function(err, stat) {
+      if(err == null) {
 
-  var config = ini.parse(fs.readFileSync(ff_ini, 'utf-8'));
+          var config = ini.parse(fs.readFileSync(ff_ini, 'utf8'));
 
-  if ($('#text_en').is("[selected='selected']")) { config.Language = "en"; }
-  else if ($('#text_fr').is("[selected='selected']")) { config.Language = "fr"; }
-  else if ($('#text_de').is("[selected='selected']")) { config.Language = "de"; }
-  else if ($('#text_it').is("[selected='selected']")) { config.Language = "it"; }
-  else if ($('#text_es').is("[selected='selected']")) { config.Language = "es"; }
-  else if ($('#text_jp').is("[selected='selected']")) { config.Language = "jp"; }
-  else if ($('#text_cn').is("[selected='selected']")) { config.Language = "cn"; }
-  else if ($('#text_kr').is("[selected='selected']")) { config.Language = "kr"; }
+          if ($('#text_en').is("[selected='selected']")) { config.Language = "en"; }
+          else if ($('#text_fr').is("[selected='selected']")) { config.Language = "fr"; }
+          else if ($('#text_de').is("[selected='selected']")) { config.Language = "de"; }
+          else if ($('#text_it').is("[selected='selected']")) { config.Language = "it"; }
+          else if ($('#text_es').is("[selected='selected']")) { config.Language = "es"; }
+          else if ($('#text_jp').is("[selected='selected']")) { config.Language = "jp"; }
+          else if ($('#text_cn').is("[selected='selected']")) { config.Language = "cn"; }
+          else if ($('#text_kr').is("[selected='selected']")) { config.Language = "kr"; }
 
-  config.Resolution = resolutionList[currrentResolution];
+          config.Resolution = resolutionList[currrentResolution];
 
-  if ($('#screen_full').is("[selected='selected']")) { config.ScreenMode = "SM_FULLSCREEN"; }
-  else if ($('#screen_border').is("[selected='selected']")) { config.ScreenMode = "SM_BORDERLESS"; }
-  else if ($('#screen_win').is("[selected='selected']")) { config.ScreenMode = "SM_WINDOW"; }
+          if ($('#screen_full').is("[selected='selected']")) { config.ScreenMode = "SM_FULLSCREEN"; }
+          else if ($('#screen_border').is("[selected='selected']")) { config.ScreenMode = "SM_BORDERLESS"; }
+          else if ($('#screen_win').is("[selected='selected']")) { config.ScreenMode = "SM_WINDOW"; }
 
-  if ($('#quality_low').is("[selected='selected']")) { config.Quality = "VQ_LOW"; }
-  else if ($('#quality_medium').is("[selected='selected']")) { config.Quality = "VQ_MEDIUM"; }
-  else if ($('#quality_high').is("[selected='selected']")) { config.Quality= "VQ_HIGH"; }
+          if ($('#quality_low').is("[selected='selected']")) { config.Quality = "VQ_LOW"; }
+          else if ($('#quality_medium').is("[selected='selected']")) { config.Quality = "VQ_MEDIUM"; }
+          else if ($('#quality_high').is("[selected='selected']")) { config.Quality= "VQ_HIGH"; }
 
-  fs.writeFileSync(ff_ini, ini.stringify(config));
+          fs.writeFileSync(ff_ini, ini.stringify(config), 'utf8');
+  }
+  });
 
   if (unxIsPresent) {
 
-      config = ini.parse(fs.readFileSync(unx_ini, 'utf-8'));
+      config = ini.parse(fs.readFileSync(unx_ini, 'utf16le').slice(1));
 
       if ($('#dpi_isDisabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = "true"; }
       else if ($('#dpi_isEnabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = "false"; }
@@ -125,7 +130,7 @@ function settings_write_ini(){
 
       config.UnX.Input.CursorTimeout = cursorTimeout;
 
-      fs.writeFileSync(unx_ini, ini.stringify(config));
+      fs.writeFileSync(unx_ini, '\ufeff'+ini.stringify(config), 'utf16le');
    }
 
   localStorage.volumeBGM = volumeBGM;
@@ -140,80 +145,86 @@ function settings_read_ini(){
   var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
   var unx_ini = nwDir+'\\UnX.ini';
 
-  var config = ini.parse(fs.readFileSync(ff_ini, 'utf-8'));
+  
+  fs.stat(ff_ini, function(err, stat) {
+      if(err == null) {
+  
+      var config = ini.parse(fs.readFileSync(ff_ini, 'utf8'));
       
-      switch (config.Language) {
-          case 'en':
-                  $('#text_en').attr('selected', 'selected' ); 
-          break;
-          case 'fr':
-                  $('#text_fr').attr('selected', 'selected' ); 
-          break;
-          case 'de':
-                  $('#text_de').attr('selected', 'selected' ); 
-          break;
-          case 'it':
-                  $('#text_it').attr('selected', 'selected' ); 
-          break;
-          case 'es':
-                  $('#text_es').attr('selected', 'selected' ); 
-          break;
-          case 'jp':
-                  $('#text_jp').attr('selected', 'selected' ); 
-          break;
-          case 'cn':
-                  $('#text_cn').attr('selected', 'selected' ); 
-          break;
-          case 'kr':
-                  $('#text_kr').attr('selected', 'selected' ); 
-          break;
-          default:
-                  $('#text_en').attr('selected', 'selected' );
-          break;
-      }
+        switch (config.Language) {
+            case 'en':
+                    $('#text_en').attr('selected', 'selected' ); 
+            break;
+            case 'fr':
+                    $('#text_fr').attr('selected', 'selected' ); 
+            break;
+            case 'de':
+                    $('#text_de').attr('selected', 'selected' ); 
+            break;
+            case 'it':
+                    $('#text_it').attr('selected', 'selected' ); 
+            break;
+            case 'es':
+                    $('#text_es').attr('selected', 'selected' ); 
+            break;
+            case 'jp':
+                    $('#text_jp').attr('selected', 'selected' ); 
+            break;
+            case 'cn':
+                    $('#text_cn').attr('selected', 'selected' ); 
+            break;
+            case 'kr':
+                    $('#text_kr').attr('selected', 'selected' ); 
+            break;
+            default:
+                    $('#text_en').attr('selected', 'selected' );
+            break;
+        }
 
-      for (i = 0; i < resolutionList.length; i++) {  
-        if (config.Resolution == resolutionList[i]) { currrentResolution = i; break; }
-        else if ( i == resolutionList.length-1) { currrentResolution = 1; }
-      } 
-      $("#resolution").text(resolutionList[currrentResolution]);
+        for (i = 0; i < resolutionList.length; i++) {  
+          if (config.Resolution == resolutionList[i]) { currrentResolution = i; break; }
+          else if ( i == resolutionList.length-1) { currrentResolution = 1; }
+        } 
+        $("#resolution").text(resolutionList[currrentResolution]);
 
-    switch (config.ScreenMode) {
-          case 'SM_FULLSCREEN':
-                  $('#screen_full').attr('selected', 'selected' ); 
-          break;
-          case 'SM_BORDERLESS':
-                  $('#screen_border').attr('selected', 'selected' ); 
-          break;
-          case 'SM_WINDOW':
-                  $('#screen_win').attr('selected', 'selected' ); 
-          break;
-          default:
-                  $('#screen_full').attr('selected', 'selected' );
-          break;
+      switch (config.ScreenMode) {
+            case 'SM_FULLSCREEN':
+                    $('#screen_full').attr('selected', 'selected' ); 
+            break;
+            case 'SM_BORDERLESS':
+                    $('#screen_border').attr('selected', 'selected' ); 
+            break;
+            case 'SM_WINDOW':
+                    $('#screen_win').attr('selected', 'selected' ); 
+            break;
+            default:
+                    $('#screen_full').attr('selected', 'selected' );
+            break;
+        }
+        
+        switch (config.Quality) {
+            case 'VQ_HIGH':
+                    $('#quality_high').attr('selected', 'selected' ); 
+            break;
+            case 'VQ_MEDIUM':
+                    $('#quality_medium').attr('selected', 'selected' ); 
+            break;
+            case 'VQ_LOW':
+                    $('#quality_low').attr('selected', 'selected' ); 
+            break;
+            default:
+                    $('#quality_medium').attr('selected', 'selected' ); 
+            break; 
+        }
       }
-      
-      switch (config.Quality) {
-          case 'VQ_HIGH':
-                  $('#quality_high').attr('selected', 'selected' ); 
-          break;
-          case 'VQ_MEDIUM':
-                  $('#quality_medium').attr('selected', 'selected' ); 
-          break;
-          case 'VQ_LOW':
-                  $('#quality_low').attr('selected', 'selected' ); 
-          break;
-          default:
-                  $('#quality_medium').attr('selected', 'selected' ); 
-          break; 
-      }
+      });
       
       fs.stat(unx_ini, function(err, stat) {
       if(err == null) {
           
           unxIsPresent = true;
-          config = ini.parse(fs.readFileSync(unx_ini, 'utf-8'));
-          
+          config = ini.parse(fs.readFileSync(unx_ini, 'utf16le').slice(1));
+
           switch (config.UnX.Display.DisableDPIScaling) {
               case true:
                       $('#dpi_isDisabled').attr('selected', 'selected' ); 
@@ -536,13 +547,11 @@ function change_timeout(i){
 
 function mouse_fallback() {
   $(".button").on("mouseenter", function(e){
-    console.log("hover!");
     $(".button").attr("gamepad","");
     PlaySound(0);
   });
   
   $(".button").on("mouseleave", function(e){
-    console.log("quit!");
     
     if (isGamepadConnected){
       $("#button"+curPosition).attr("gamepad","selected");
