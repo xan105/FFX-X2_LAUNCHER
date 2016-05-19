@@ -33,6 +33,10 @@ Setting Screen with UnX detected:
 Setting Screen without UnX detected:
 ![screen03](https://cloud.githubusercontent.com/assets/14090532/15367807/cfd3e55e-1d54-11e6-9179-1ffd4bfa12c6.png)
 
+Gamepad Special Keys (UnX)
+![screen04](https://cloud.githubusercontent.com/assets/14090532/15409018/2942f880-1e3d-11e6-9361-b92b5aab3b5d.png)
+![screen05](https://cloud.githubusercontent.com/assets/14090532/15409020/2b54ba28-1e3d-11e6-891e-3c1ef16fb54c.png)
+
 Legal
 -----
 ©2001-2004, 2013-2016 SQUARE ENIX CO., LTD.<br />
