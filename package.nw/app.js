@@ -379,7 +379,7 @@ function settings_read_ini(){
                 switch (config.Gamepad.Type.TextureSet) {
                 case "":
                       $('#skin_none').attr('selected', 'selected' );
-                break
+                break;
                 case "PlayStation_Glossy":
                       $('#skin_glossy').attr('selected', 'selected' ); 
                 break;
