@@ -86,6 +86,8 @@ h1 {   text-decoration: underline; font-size: 24px; font-size: 28px; margin-top:
 #page_indicator:after { clear:both; }
 #page2 { display: none; }
 
+.description { float: right; line-height: 43px; }
+
 #left { position: fixed; bottom:6px; left: 483px;}
 #right{ position: fixed; bottom:6px; right: 10px; }
 #right input { margin-left: 2px; margin-right: 2px; }
