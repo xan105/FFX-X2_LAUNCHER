@@ -87,6 +87,7 @@ h1 {   text-decoration: underline; font-size: 24px; font-size: 28px; margin-top:
 #page2 { display: none; }
 
 .description { float: right; line-height: 43px; }
+.valign_m { vertical-align: middle; }
 
 #left { position: fixed; bottom:6px; left: 483px;}
 #right{ position: fixed; bottom:6px; right: 10px; }

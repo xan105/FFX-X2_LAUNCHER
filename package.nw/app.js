@@ -129,17 +129,17 @@ function settings_write_ini(){
 
       config = ini.parse(fs.readFileSync(unx_ini, 'utf16le').slice(1));
 
-      if ($('#dpi_isDisabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = "true"; }
-      else if ($('#dpi_isEnabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = "false"; }
-      else { config.UnX.Display.DisableDPIScaling = "true"; }
+      if ($('#dpiFix_Enabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = true; }
+      else if ($('#dpiFix_Disabled').is("[selected='selected']")) { config.UnX.Display.DisableDPIScaling = false; }
+      else { config.UnX.Display.DisableDPIScaling = false; }
 
-      if ($('#hide_cursor').is("[selected='selected']")) { config.UnX.Input.ManageCursor = "true"; }
-      else if ($('#show_cursor').is("[selected='selected']")) { config.UnX.Input.ManageCursor = "false"; }
-      else { config.UnX.Input.ManageCursor = "true"; }
+      if ($('#hide_cursor').is("[selected='selected']")) { config.UnX.Input.ManageCursor = true; }
+      else if ($('#show_cursor').is("[selected='selected']")) { config.UnX.Input.ManageCursor = false; }
+      else { config.UnX.Input.ManageCursor = true; }
 
-      if ($('#donothing_on_kinput').is("[selected='selected']")) { config.UnX.Input.KeysActivateCursor = "false"; }
-      else if ($('#show_on_kinput').is("[selected='selected']")) { config.UnX.Input.KeysActivateCursor = "true"; }
-      else { config.UnX.Input.KeysActivateCursor = "false"; }
+      if ($('#donothing_on_kinput').is("[selected='selected']")) { config.UnX.Input.KeysActivateCursor = false; }
+      else if ($('#show_on_kinput').is("[selected='selected']")) { config.UnX.Input.KeysActivateCursor = true; }
+      else { config.UnX.Input.KeysActivateCursor = false; }
 
       if ($('#audio_en').is("[selected='selected']")) { config.UnX.Language.Voice = "us"; }
       else if ($('#audio_jp').is("[selected='selected']")) { config.UnX.Language.Voice = "jp"; }
@@ -149,25 +149,44 @@ function settings_write_ini(){
       
       if ($('#screen_exclu').is("[selected='selected']")) { config.UnX.Display.EnableFullscreen = true; }
       else { config.UnX.Display.EnableFullscreen = false;}
-      
+ 
+      if ($('#flipON').is("[selected='selected']")) { config.UnX.Render.FlipMode = true; }
+      else if ($('#flipOFF').is("[selected='selected']")) { config.UnX.Render.FlipMode = false; }
+      else { config.UnX.Render.FlipMode = false; }
+   
+      if ($('#BypassON').is("[selected='selected']")) { config.UnX.Render.BypassIntel = true; }
+      else if ($('#BypassOFF').is("[selected='selected']")) { config.UnX.Render.BypassIntel = false; }
+      else { config.UnX.Render.BypassIntel = true; }
+     
+      if ($('#saluteON').is("[selected='selected']")) { config.UnX.Input.FourFingerSalute = true; }
+      else if ($('#saluteOFF').is("[selected='selected']")) { config.UnX.Input.FourFingerSalute = false; }
+      else { config.UnX.Input.FourFingerSalute = true; }
+
       fs.writeFileSync(unx_ini, '\ufeff'+ini.stringify(config), 'utf16le');
       
          fs.stat(gamepad_ini, function(err, stat) {
          if(err == null) {
-              config = ini.parse(fs.readFileSync(gamepad_ini, 'utf16le').slice(1));
-              
+              config = ini.parse(fs.readFileSync(gamepad_ini, 'utf16le').slice(1));     
+         }
+         else{
+              Type = { TextureSet:"", UseXInput:true } 
+              PC = { F1:"", F2:"", F3:"", F4:"", F5:"" }
+              Gamepad = { Type, PC }
+              config = { Gamepad }
+         }
+             
               if ($('#skin_none').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = ""; }
               else if ($('#skin_glossy').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'PlayStation_Glossy'; }
               else if ($('#skin_ps3').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'PS3'; }
               else if ($('#skin_ps4').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'PS4'; }
               else if ($('#skin_x360').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'Xbox360'; }
               else if ($('#skin_xone').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'XboxOne'; }
-              else { config.Gamepad.Type.TextureSet = 'PlayStation_Glossy'; }
+              else { config.Gamepad.Type.TextureSet = ''; }
               
             var combo = [ ["","",""] , ["","",""] , ["","",""] , ["","",""] , ["","",""] ];
                
             for(var i=0;i<combo.length;i++) {
-                for(var y=0;y<3;y++) {
+                for(var y=0;y<combo[i].length;y++) {
                
                 if ($('#f'+i+'_'+y).is("[xbutton='a']")) { combo[i][y] = "A"; }
                 else if ($('#f'+i+'_'+y).is("[xbutton='x']")) { combo[i][y] = "X"; }    
@@ -184,29 +203,31 @@ function settings_write_ini(){
                 else if ($('#f'+i+'_'+y).is("[xbutton='up']")) { combo[i][y] = "UP"; }    
                 else if ($('#f'+i+'_'+y).is("[xbutton='down']")) { combo[i][y] = "DOWN"; }    
                 else if ($('#f'+i+'_'+y).is("[xbutton='left']")) { combo[i][y] = "LEFT"; }    
-                else if ($('#f'+i+'_'+y).is("[xbutton='right']")) { combo[i][y] = "UP"; }               
+                else if ($('#f'+i+'_'+y).is("[xbutton='right']")) { combo[i][y] = "UP"; }             
 
-                
-                if (combo[i][y] == undefined) { combo[i][y] = "" }
-                
-                if (y == 2 && combo[i][2] != "") {
-                   combo[i][2] = '+'+combo[i][2]
-                 }
-   
               }
+              
+              if (( combo[i][1] != "" ) && ( combo[i][0] != "")) {
+                combo[i][0] += '+'
+              }
+              if (( combo[i][2] != "" ) && ( combo[i][1] != "" )){ 
+                combo[i][1] += '+'
+              }
+              else if (( combo[i][2] != "" ) && ( combo[i][0] != "" )) {
+                combo[i][0] += '+'
+              }
+              
             }
   
-            config.Gamepad.PC.F1 = combo[0][0]+'+'+combo[0][1]+combo[0][2];
-            config.Gamepad.PC.F2 = combo[1][0]+'+'+combo[1][1]+combo[1][2];
-            config.Gamepad.PC.F3 = combo[2][0]+'+'+combo[2][1]+combo[2][2];
-            config.Gamepad.PC.F4 = combo[3][0]+'+'+combo[3][1]+combo[3][2];
-            config.Gamepad.PC.F5 = combo[4][0]+'+'+combo[4][1]+combo[4][2];
-
-            fs.writeFileSync(gamepad_ini, '\ufeff'+ini.stringify(config), 'utf16le'); 
-         }
+            config.Gamepad.PC.F1 = combo[0][0]+combo[0][1]+combo[0][2];
+            config.Gamepad.PC.F2 = combo[1][0]+combo[1][1]+combo[1][2];
+            config.Gamepad.PC.F3 = combo[2][0]+combo[2][1]+combo[2][2];
+            config.Gamepad.PC.F4 = combo[3][0]+combo[3][1]+combo[3][2];
+            config.Gamepad.PC.F5 = combo[4][0]+combo[4][1]+combo[4][2];
+              
+            fs.writeFileSync(gamepad_ini, '\ufeff'+ini.stringify(config), 'utf16le');        
          });
-      
-      
+
    }
 
   localStorage.volumeBGM = volumeBGM;
@@ -300,18 +321,19 @@ function settings_read_ini(){
       fs.stat(unx_ini, function(err, stat) {
       if(err == null) {
           
-          unxIsPresent = true;
           config = ini.parse(fs.readFileSync(unx_ini, 'utf16le').slice(1));
+          unxIsPresent = true;
+          nbr_page = 2;
 
           switch (config.UnX.Display.DisableDPIScaling) {
               case true:
-                      $('#dpi_isDisabled').attr('selected', 'selected' ); 
+                      $('#dpiFix_Enabled').attr('selected', 'selected' ); 
               break;
               case false:
-                      $('#dpi_isEnabled').attr('selected', 'selected' ); 
+                      $('#dpiFix_Disabled').attr('selected', 'selected' ); 
               break;
               default:
-                      $('#dpi_isDisabled').attr('selected', 'selected' );
+                      $('#dpiFix_Disabled').attr('selected', 'selected' );
               break;
           }
           
@@ -321,6 +343,30 @@ function settings_read_ini(){
                       $('#screen_full').removeAttr( "selected" );
                       $('#screen_border').removeAttr( "selected" );
                       $('#screen_win').removeAttr( "selected" );
+              break;
+          }
+          
+          switch (config.UnX.Render.FlipMode) {
+              case true:
+                      $('#flipON').attr('selected', 'selected' ); 
+              break;
+              case false:
+                      $('#flipOFF').attr('selected', 'selected' ); 
+              break;
+              default:
+                      $('#flipOFF').attr('selected', 'selected' );
+              break;
+          }
+          
+          switch (config.UnX.Render.BypassIntel) {
+              case true:
+                      $('#BypassON').attr('selected', 'selected' ); 
+              break;
+              case false:
+                      $('#BypassOFF').attr('selected', 'selected' ); 
+              break;
+              default:
+                      $('#BypassON').attr('selected', 'selected' );
               break;
           }
           
@@ -348,6 +394,18 @@ function settings_read_ini(){
               break;
           }
           
+          switch (config.UnX.Input.FourFingerSalute) {
+              case true:
+                      $('#saluteON').attr('selected', 'selected' ); 
+              break;
+              case false:
+                      $('#saluteOFF').attr('selected', 'selected' ); 
+              break;
+              default:
+                      $('#saluteON').attr('selected', 'selected' ); 
+              break;
+          }
+          
           switch (config.UnX.Language.Voice) {
               case 'jp':
                       $('#audio_jp').attr('selected', 'selected' ); 
@@ -362,20 +420,12 @@ function settings_read_ini(){
           
           cursorTimeout = parseFloat(config.UnX.Input.CursorTimeout);
           $('#cursortimeout').text(cursorTimeout+"s")
-          
-          
-          $('#input').show();
-          $('#setting6').show();
-          $('#setting2').show();
-          $('#screen_exclu').show();
-          
-          
-          
+
               fs.stat(gamepad_ini, function(err, stat) {
               if(err == null) {
           
                 config = ini.parse(fs.readFileSync(gamepad_ini, 'utf16le').slice(1));
-                
+
                 switch (config.Gamepad.Type.TextureSet) {
                 case "":
                       $('#skin_none').attr('selected', 'selected' );
@@ -396,7 +446,7 @@ function settings_read_ini(){
                       $('#skin_xone').attr('selected', 'selected' );    
                 break;
                 default:
-                      $('#skin_glossy').attr('selected', 'selected' );   
+                      $('#skin_none').attr('selected', 'selected' );   
                 break;
               }
                     
@@ -469,20 +519,17 @@ function settings_read_ini(){
                     
                       }
                     }
-                    
-                    $('#gamepad_button_skin').show();
-                    $('#gamepad_key').show();  
-                    nbr_page = 2;   
-  
               }}); 
           } else {
           
           $('#input').hide();
-          $('#setting6').hide();
-          $('#setting2').hide();
           $('#gamepad_button_skin').hide();
           $('#gamepad_key').hide();
           $('#screen_exclu').hide();
+          $('#setting2').hide();
+          $('#setting6').hide();
+          $('#setting7').hide();
+          $('#setting8').hide();
           
       }
   });
@@ -524,6 +571,10 @@ function PlaySound(i){
                       source.src='resources/sound/sfx_save.ogg'
                       audio.volume=0.5
                   break;
+                  case 4:
+                      source.src='resources/sound/sfx_change_page.ogg'
+                      audio.volume=0.5
+                  break;
             }
     
                 audio.load();
@@ -559,20 +610,22 @@ function settingSelect(i){
     curPosition_setting += i;
 
     if (!unxIsPresent) { 
-         if ( previousPosition < curPosition_setting && curPosition_setting == 6 ) { curPosition_setting += 4; }
-         else if ( previousPosition > curPosition_setting && curPosition_setting == 9 ) { curPosition_setting -= 4; }
+         if ( previousPosition < curPosition_setting && curPosition_setting == 6 ) { curPosition_setting += 3; }
+         else if ( previousPosition > curPosition_setting && curPosition_setting == 8 ) { curPosition_setting -= 3; }
          else if ( previousPosition < curPosition_setting && curPosition_setting == 2 ) { curPosition_setting += 1; }
          else if ( previousPosition > curPosition_setting && curPosition_setting == 2 ) { curPosition_setting -= 1; }    
     }
     
       
      if (page == 1) {  
-              if ( curPosition_setting == 11 ) { curPosition_setting = 1; }
-              else if ( curPosition_setting == 0 ) { curPosition_setting = 10; }
+              var nbr_element = ($('#page1').find( "li" ).length);
+              if ( curPosition_setting == nbr_element+1 ) { curPosition_setting = 1; }
+              else if ( curPosition_setting == 0 ) { curPosition_setting = nbr_element; }
      }  
      else if (page == 2) {
-              if ( curPosition_setting == 10 ) { curPosition_setting = 16; }
-              else if ( curPosition_setting == 17 ) { curPosition_setting = 11; }
+              var nbr_element = ($('#page2').find( "li" ).length);
+              if ( curPosition_setting == nbr_element+1+10 ) { curPosition_setting = 11; }
+              else if ( curPosition_setting == 10 ) { curPosition_setting = nbr_element+10; }
      }
 
     $("#setting"+curPosition_setting).find(".cursor").css("visibility","visible")
@@ -704,7 +757,13 @@ function enter_settings(){
        page = 1;
        $('.page').hide();
        $('#page'+page).show();
-       $('#page_indicator').text(page+'/'+nbr_page);
+       if (nbr_page == 1){
+          $('#page_indicator').hide();
+          $('.next_page').hide();
+       }
+       else{
+          $('#page_indicator').text(page+'/'+nbr_page);
+       }
        $('#settings').fadeIn("slow");          
 }
 
@@ -774,6 +833,7 @@ function change_page(){
     if (isGamepadConnected){
       $("#setting"+curPosition_setting).find(".cursor").css("visibility","visible")
     }
+    PlaySound(4);
 }
 
 
@@ -901,7 +961,7 @@ function mouse_fallback() {
             else if (!gamepad.buttons[2].pressed && LastFrameButtonStatus[2] ) { LastFrameButtonStatus[2] = false; } // X
                        
             else if (gamepad.buttons[3].pressed) { LastFrameButtonStatus[3] = true;}
-            else if (!gamepad.buttons[3].pressed && LastFrameButtonStatus[3] ) { if (insideSettings){ change_page(); } LastFrameButtonStatus[3] = false; } // Y
+            else if (!gamepad.buttons[3].pressed && LastFrameButtonStatus[3] ) { if (insideSettings && unxIsPresent){ change_page(); } LastFrameButtonStatus[3] = false; } // Y
                         
             else if (gamepad.buttons[4].pressed) { LastFrameButtonStatus[4] = true;}
             else if (!gamepad.buttons[4].pressed && LastFrameButtonStatus[4] ) { LastFrameButtonStatus[4] = false; } // LB
