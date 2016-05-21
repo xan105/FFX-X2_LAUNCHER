@@ -12,8 +12,10 @@ I can't guarantee that it will work with every gamepad that exist but as long as
 
 If you have UnX installed it will display more configuration option in the setting screen.<br /> 
 (see https://steamcommunity.com/app/359870/discussions/0/364041517007524857/)<br /> 
-NB2: Launcher needs admin right to save settings in ```UnX.ini``` if ```UnX.ini``` is in a protected folder (eg: **C:\Program Files**\Steam\FFX-X2\)<br />
-NB3: Last tested with UnX v0.2.1<br />
+UnX:<br/>
+- Launcher needs admin right to save settings in UnX.ini if UnX.ini is in a protected folder (eg: C:\Program Files\Steam\FFX-X2)
+- Custom Gamepad special key can only be configured with the mouse for now.
+- Last tested with UnX v0.2.1
 
 Install
 -------
