@@ -1,4 +1,4 @@
-# FFX-X2_LAUNCHER
+#FINAL FANTASY X/X-2 LAUNCHER+
 *Gamepad and UnX friendly Launcher for FINAL FANTASY X/X-2 HD Remaster (PC)*
 --------------------------------
 
