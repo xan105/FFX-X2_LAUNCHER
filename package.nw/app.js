@@ -631,6 +631,8 @@ function settings_read_ini(){
           $('#setting6').hide();
           $('#setting7').hide();
           $('#setting8').hide();
+          $('#setting9').hide();
+          $('#audio').hide();
           
       }
   });
