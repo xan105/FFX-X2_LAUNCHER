@@ -16,7 +16,7 @@ ul { padding: 0; margin: 0; list-style-type: none;}
 #prompt { padding-top: 15px; }
 #prompt>p { color: white; font-family: FFXSIMTH; font-size: 20px; cursor: default; margin: 0px; padding: 0px; text-align: center; font-size: 24px; vertical-align: top;}
 
-#menu { padding-top: 78px; }
+#menu { padding-top: 40px; }
 #button0 { background-image:url("resources/img/ffx_button.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
 #button0[gamepad="selected"], #button0:hover { background-image:url("resources/img/ffx_button-hover.png"); width: 373px; height: 82px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
 #button1 { background-image:url("resources/img/ffx_ec_button.png"); width: 373px; height: 83px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
@@ -29,8 +29,10 @@ ul { padding: 0; margin: 0; list-style-type: none;}
 #button4[gamepad="selected"], #button4:hover { background-image:url("resources/img/credits_button-hover.png"); width: 373px; height: 73px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
 #button5 { background-image:url("resources/img/exit_button.png"); width: 373px; height: 73px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; margin-top: 9px;}
 #button5[gamepad="selected"], #button5:hover { background-image:url("resources/img/exit_button-hover.png"); width: 373px; height: 73px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; margin-top: 9px;}
-#button6 { background-image:url("resources/img/setting_button.png"); width: 373px; height: 56px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
-#button6[gamepad="selected"], #button6:hover { background-image:url("resources/img/setting_button-hover.png"); width: 373px; height: 56px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button6 { background-image:url("resources/img/launcher_setting.png"); width: 373px; height: 41px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button6[gamepad="selected"], #button6:hover { background-image:url("resources/img/launcher_setting-hover.png"); width: 373px; height: 41px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button7 { background-image:url("resources/img/setting_button.png"); width: 373px; height: 56px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#button7[gamepad="selected"], #button7:hover { background-image:url("resources/img/setting_button-hover.png"); width: 373px; height: 56px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; }
 
 
 .btn {
@@ -80,18 +82,45 @@ ul { padding: 0; margin: 0; list-style-type: none;}
 
 #settings { position: absolute; z-index: 2; top: 0; right: 0; width: 805px; height: 703px; background-color: white; display: none; font-family: FFXSIMTH; font-size: 24px; color: black; cursor: default;}
 #settings li { margin-top: 5px; margin-bottom: 5px; }
-#container { position: static; margin: 5px 10px 5px 10px; }
+.container { position: static; margin: 5px 10px 5px 10px; }
 h1 {   text-decoration: underline; font-size: 24px; font-size: 28px; margin-top: 5px; margin-bottom: 10px; margin-left: 58px; color: #3498DB;}
+.container p { padding:0; margin:0; margin-left: 58px; }  
 #page_indicator { float: right; }
 #page_indicator:after { clear:both; }
 #page2 { display: none; }
+#launcher_settings { display: none; }
 
 .description { float: right; line-height: 43px; }
 .valign_m { vertical-align: middle; }
 
-#left { position: fixed; bottom:6px; left: 483px;}
-#right{ position: fixed; bottom:6px; right: 10px; }
-#right input { margin-left: 2px; margin-right: 2px; }
+.left { position: fixed; bottom:6px; left: 483px;}
+.right{ position: fixed; bottom:6px; right: 10px; }
+.right input { margin-left: 2px; margin-right: 2px; }
+
+#select-gamepad-button, #error-cfg-not-found { display: none; } 
+
+#select-gamepad-button ul { list-style-type: none; }
+#select-gamepad-button ul, #select-gamepad-button li { padding: 0px; margin: 0px;}
+#select-gamepad-button > ul > li:first-child{ margin-left: 12px; }
+#select-gamepad-button > ul > li:last-child{ margin-left: 5px; }
+#select-gamepad-button .buttonx { display: inline-block; margin: 7px; padding: 10px;}
+#select-gamepad-button .buttonx:hover { border-style: solid; border-width: 2px; border-color: black; margin: 5px;}
+#select-gamepad-button #LT {  background-image:url("resources/img/button_select/LT.png"); width: 49px; height: 63px; background-repeat: no-repeat; background-position: center; -webkit-user-select: none; -webkit-app-region: no-drag; }
+#select-gamepad-button #RT {  background-image:url("resources/img/button_select/RT.png"); width: 45px; height: 61px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #LB {  background-image:url("resources/img/button_select/LB.png"); width: 64px; height: 45px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #RB {  background-image:url("resources/img/button_select/RB.png"); width: 65px; height: 45px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #xleft {  background-image:url("resources/img/button_select/left.png"); width: 64px; height: 64px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #xup {  background-image:url("resources/img/button_select/up.png"); width: 64px; height: 64px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #xdown {  background-image:url("resources/img/button_select/down.png"); width: 64px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #xright {  background-image:url("resources/img/button_select/right.png"); width: 64px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #a {  background-image:url("resources/img/button_select/a.png"); width: 63px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #b {  background-image:url("resources/img/button_select/b.png"); width: 61px; height: 60px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #y {  background-image:url("resources/img/button_select/y.png"); width: 64px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #x {  background-image:url("resources/img/button_select/x.png"); width: 61px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #L {  background-image:url("resources/img/button_select/JoyLeft.png"); width: 62px; height: 60px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #select {  background-image:url("resources/img/button_select/select.png"); width: 60px; height: 52px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #start {  background-image:url("resources/img/button_select/start.png"); width: 61px; height: 52px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
+#select-gamepad-button #R {  background-image:url("resources/img/button_select/JoyRight.png"); width: 61px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
 
 #popup {  
   font-family: 'Open Sans';
@@ -110,29 +139,6 @@ h1 {   text-decoration: underline; font-size: 24px; font-size: 28px; margin-top:
   display: block;
   visibility: hidden;
 }
-
-#popup ul { list-style-type: none; }
-#popup ul, #popup li { padding: 0px; margin: 0px;}
-#popup > ul > li:first-child{ margin-left: 12px; }
-#popup > ul > li:last-child{ margin-left: 5px; }
-#popup .buttonx { display: inline-block; margin: 7px; padding: 10px;}
-#popup .buttonx:hover { border-style: solid; border-width: 2px; border-color: black; margin: 5px;}
-#popup #LT {  background-image:url("resources/img/button_select/LT.png"); width: 49px; height: 63px; background-repeat: no-repeat; background-position: center; -webkit-user-select: none; -webkit-app-region: no-drag; }
-#popup #RT {  background-image:url("resources/img/button_select/RT.png"); width: 45px; height: 61px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #LB {  background-image:url("resources/img/button_select/LB.png"); width: 64px; height: 45px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #RB {  background-image:url("resources/img/button_select/RB.png"); width: 65px; height: 45px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #xleft {  background-image:url("resources/img/button_select/left.png"); width: 64px; height: 64px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #xup {  background-image:url("resources/img/button_select/up.png"); width: 64px; height: 64px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #xdown {  background-image:url("resources/img/button_select/down.png"); width: 64px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #xright {  background-image:url("resources/img/button_select/right.png"); width: 64px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #a {  background-image:url("resources/img/button_select/a.png"); width: 63px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #b {  background-image:url("resources/img/button_select/b.png"); width: 61px; height: 60px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #y {  background-image:url("resources/img/button_select/y.png"); width: 64px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #x {  background-image:url("resources/img/button_select/x.png"); width: 61px; height: 62px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #L {  background-image:url("resources/img/button_select/JoyLeft.png"); width: 62px; height: 60px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #select {  background-image:url("resources/img/button_select/select.png"); width: 60px; height: 52px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #start {  background-image:url("resources/img/button_select/start.png"); width: 61px; height: 52px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
-#popup #R {  background-image:url("resources/img/button_select/JoyRight.png"); width: 61px; height: 63px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }
 .btn.configurable{ vertical-align: bottom; height: 23px; }
 .btn.configurable[xbutton="LT"] {  background-image:url("resources/img/button_select/LT_20.png"); width: 16px; background-repeat: no-repeat; background-position: center; -webkit-user-select: none; -webkit-app-region: no-drag; }
 .btn.configurable[xbutton="RT"] {  background-image:url("resources/img/button_select/RT_20.png"); width: 15px; background-repeat: no-repeat; -webkit-user-select: none; -webkit-app-region: no-drag; background-position: center; }

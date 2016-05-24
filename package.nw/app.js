@@ -6,11 +6,18 @@ var nwPath = process.execPath;
 var nwDir = path.dirname(nwPath);
 var ini = require(nwDir+'\\package.nw\\lib\\ini.js');
 
+  var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
+  var unx_ini = nwDir+'\\UnX.ini';
+  var gamepad_ini = nwDir+'\\unx_gamepad.ini';
+  var unx_lang = nwDir+'\\UnX_Language.ini';
+  var launcher_ini = nwDir+'\\launcher.ini';
+  
 var isGamepadConnected = false;
 var gamepad = undefined;
 var LastFrameButtonStatus=[];
 var AFirstPressed = false;
 var insideSettings = false;
+var insideLauncherSettings = false;
 var unxIsPresent = false;
 var curPosition = 0;
 var curPosition_setting = 1;
@@ -44,12 +51,24 @@ var volumeBGM = 0.3;
  {
   volumeBGM = parseFloat(localStorage.volumeBGM);
  }
-  
-  $(document).ready(function() {
+
+  $(document).ready(function() { 
   
   updateVolumeBGM(0);
-  mouse_fallback();
+  mouse_control();
   $('#popup').popup();
+
+
+        if (localStorage.menuButton1Display == "false") { $('#button0').parent().detach() }
+        if (localStorage.menuButton2Display == "false") { $('#button2').parent().detach() }
+        if (localStorage.menuButton3Display == "false") { $('#button1').parent().detach() }
+        if (localStorage.menuButton4Display == "false") { $('#button3').parent().detach() }
+        if (localStorage.menuButton5Display == "false") { $('#button4').parent().detach() }
+
+
+
+  //win.enterKioskMode(); //fullscreen
+  
   
   if(!!navigator.getGamepads){
 
@@ -58,10 +77,14 @@ var volumeBGM = 0.3;
                     $("#prompt").css("visibility","hidden")
                     $(".button").attr("gamepad","");
                     $("#button0").attr("gamepad","selected");
-                    curPosition = 0;
+                    curPosition = 1;
                     PlaySound(0);
                     if (insideSettings){
-                     if (page == 1){ 
+                      if (insideLauncherSettings){ 
+                        $("#setting31").find(".cursor").css("visibility","visible")
+                        curPosition_setting = 31;
+                      }
+                     else if (page == 1){ 
                         $("#setting1").find(".cursor").css("visibility","visible")
                         curPosition_setting = 1;
                       }
@@ -87,13 +110,15 @@ var volumeBGM = 0.3;
   
 });
 
-
 function settings_write_ini(){
 
-  var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
-  var unx_ini = nwDir+'\\UnX.ini';
-  var gamepad_ini = nwDir+'\\unx_gamepad.ini';
-  
+
+         if ($('#menuButton1DisplayOFF').is("[selected='selected']")) { localStorage.menuButton1Display = "false"; }else{ localStorage.menuButton1Display = "true"; }
+         if ($('#menuButton2DisplayOFF').is("[selected='selected']")) { localStorage.menuButton2Display = "false"; }else{ localStorage.menuButton2Display = "true"; }
+         if ($('#menuButton3DisplayOFF').is("[selected='selected']")) { localStorage.menuButton3Display = "false"; }else{ localStorage.menuButton3Display = "true";}
+         if ($('#menuButton4DisplayOFF').is("[selected='selected']")) { localStorage.menuButton4Display = "false"; }else{ localStorage.menuButton4Display = "true"; } 
+         if ($('#menuButton5DisplayOFF').is("[selected='selected']")) { localStorage.menuButton5Display = "false"; }else{ localStorage.menuButton5Display = "true"; }
+
   fs.stat(ff_ini, function(err, stat) {
       if(err == null) {
 
@@ -141,10 +166,6 @@ function settings_write_ini(){
       else if ($('#show_on_kinput').is("[selected='selected']")) { config.UnX.Input.KeysActivateCursor = true; }
       else { config.UnX.Input.KeysActivateCursor = false; }
 
-      if ($('#audio_en').is("[selected='selected']")) { config.UnX.Language.Voice = "us"; }
-      else if ($('#audio_jp').is("[selected='selected']")) { config.UnX.Language.Voice = "jp"; }
-      else { config.UnX.Language.Voice = "jp"; }
-      
       config.UnX.Input.CursorTimeout = cursorTimeout;
       
       if ($('#screen_exclu').is("[selected='selected']")) { config.UnX.Display.EnableFullscreen = true; }
@@ -161,6 +182,14 @@ function settings_write_ini(){
       if ($('#saluteON').is("[selected='selected']")) { config.UnX.Input.FourFingerSalute = true; }
       else if ($('#saluteOFF').is("[selected='selected']")) { config.UnX.Input.FourFingerSalute = false; }
       else { config.UnX.Input.FourFingerSalute = true; }
+      
+      if ($('#bgMuteON').is("[selected='selected']")) { config.UnX.Audio.BackgroundMute = true; }
+      else if ($('#bgMuteOFF').is("[selected='selected']")) { config.UnX.Audio.BackgroundMute = false; }
+      else { config.UnX.Audio.BackgroundMute = true; }      
+      
+      if ($('#reducerON').is("[selected='selected']")) { config.UnX.Stutter.Reduce = true; }
+      else if ($('#reducerOFF').is("[selected='selected']")) { config.UnX.Stutter.Reduce = false; }
+      else { config.UnX.Stutter.Reduce = true; }       
 
       fs.writeFileSync(unx_ini, '\ufeff'+ini.stringify(config), 'utf16le');
       
@@ -169,9 +198,11 @@ function settings_write_ini(){
               config = ini.parse(fs.readFileSync(gamepad_ini, 'utf16le').slice(1));     
          }
          else{
-              Type = { TextureSet:"", UseXInput:true } 
+              Type = { TextureSet:"", UsesXInput:true } 
               PC = { F1:"", F2:"", F3:"", F4:"", F5:"" }
-              Gamepad = { Type, PC }
+              Remap = { XInput_A:"2", XInput_B:"3", XInput_X:"1", XInput_Y:"4", XInput_Start:"10", XInput_Back:"9", XInput_LB:"5", XInput_RB:"6", XInput_LT:"7", XInput_RT:"8", XInput_LS:"11", XInput_RS:"12" }
+              Steam = { Screenshot:"Select+R3" }
+              Gamepad = { Type, PC, Remap, Steam }
               config = { Gamepad }
          }
              
@@ -183,7 +214,7 @@ function settings_write_ini(){
               else if ($('#skin_xone').is("[selected='selected']")) { config.Gamepad.Type.TextureSet = 'XboxOne'; }
               else { config.Gamepad.Type.TextureSet = ''; }
               
-            var combo = [ ["","",""] , ["","",""] , ["","",""] , ["","",""] , ["","",""] ];
+            var combo = [ ["","",""] , ["","",""] , ["","",""] , ["","",""] , ["","",""], ["","",""] ];
                
             for(var i=0;i<combo.length;i++) {
                 for(var y=0;y<combo[i].length;y++) {
@@ -224,8 +255,33 @@ function settings_write_ini(){
             config.Gamepad.PC.F3 = combo[2][0]+combo[2][1]+combo[2][2];
             config.Gamepad.PC.F4 = combo[3][0]+combo[3][1]+combo[3][2];
             config.Gamepad.PC.F5 = combo[4][0]+combo[4][1]+combo[4][2];
+            config.Gamepad.Steam.Screenshot = combo[5][0]+combo[5][1]+combo[5][2];
               
             fs.writeFileSync(gamepad_ini, '\ufeff'+ini.stringify(config), 'utf16le');        
+         });
+
+         fs.stat(unx_lang, function(err, stat) {
+         if(err == null) {
+              config = ini.parse(fs.readFileSync(unx_lang, 'utf16le').slice(1));     
+         }
+         else{ 
+              Master = { SoundEffects:"us", Voice:"us", Video:"us" }
+              Language = { Master }
+              config = { Language }
+         }
+             
+              if ($('#audio_en').is("[selected='selected']")) { config.Language.Master.Voice = "us"; 
+                                                                config.Language.Master.SoundEffects = "us"; 
+                                                                config.Language.Master.Video = "us"; }
+              else if ($('#audio_jp').is("[selected='selected']")) { config.Language.Master.Voice = "jp"; 
+                                                                      config.Language.Master.SoundEffects = "jp"; 
+                                                                      config.Language.Master.Video = "jp"; }
+              else { config.Language.Master.Voice = "us";                                                              
+                      config.Language.Master.SoundEffects = "us"; 
+                      config.Language.Master.Video = "us"; }
+              
+              
+            fs.writeFileSync(unx_lang, '\ufeff'+ini.stringify(config), 'utf16le');        
          });
 
    }
@@ -239,12 +295,14 @@ function settings_read_ini(){
 
   $('.btn').removeAttr( "selected" );
   $('.btn.configurable').removeAttr( "xbutton" );
-
-  var ff_ini = homedir()+"\\Documents\\SQUARE ENIX\\FINAL FANTASY X&X-2 HD Remaster\\GameSetting.ini"; 
-  var unx_ini = nwDir+'\\UnX.ini';
-  var gamepad_ini = nwDir+'\\unx_gamepad.ini';
-
   
+        if (localStorage.menuButton1Display == "false") { $('#menuButton1DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton1DisplayON').attr('selected', 'selected' );}
+        if (localStorage.menuButton2Display == "false") { $('#menuButton2DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton2DisplayON').attr('selected', 'selected' );}
+        if (localStorage.menuButton3Display == "false") { $('#menuButton3DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton3DisplayON').attr('selected', 'selected' );}
+        if (localStorage.menuButton4Display == "false") { $('#menuButton4DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton4DisplayON').attr('selected', 'selected' );}
+        if (localStorage.menuButton5Display == "false") { $('#menuButton5DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton5DisplayON').attr('selected', 'selected' );}
+  
+
   fs.stat(ff_ini, function(err, stat) {
       if(err == null) {
   
@@ -315,6 +373,7 @@ function settings_read_ini(){
                     $('#quality_medium').attr('selected', 'selected' ); 
             break; 
         }
+        
       }
       });
       
@@ -370,6 +429,30 @@ function settings_read_ini(){
               break;
           }
           
+           switch (config.UnX.Audio.BackgroundMute) {
+              case true:
+                      $('#bgMuteON').attr('selected', 'selected' ); 
+              break;
+              case false:
+                      $('#bgMuteOFF').attr('selected', 'selected' ); 
+              break;
+              default:
+                      $('#bgMuteON').attr('selected', 'selected' );
+              break;
+          }
+             
+           switch (config.UnX.Stutter.Reduce) {
+              case true:
+                      $('#reducerON').attr('selected', 'selected' ); 
+              break;
+              case false:
+                      $('#reducerOFF').attr('selected', 'selected' ); 
+              break;
+              default:
+                      $('#reducerON').attr('selected', 'selected' );
+              break;
+          }
+          
           switch (config.UnX.Input.ManageCursor) {
               case true:
                       $('#hide_cursor').attr('selected', 'selected' ); 
@@ -405,19 +488,7 @@ function settings_read_ini(){
                       $('#saluteON').attr('selected', 'selected' ); 
               break;
           }
-          
-          switch (config.UnX.Language.Voice) {
-              case 'jp':
-                      $('#audio_jp').attr('selected', 'selected' ); 
-              break;
-              case 'us':
-                      $('#audio_en').attr('selected', 'selected' ); 
-              break;
-              default:
-                      $('#audio_jp').attr('selected', 'selected' );
-              break;
-          }
-          
+ 
           cursorTimeout = parseFloat(config.UnX.Input.CursorTimeout);
           $('#cursortimeout').text(cursorTimeout+"s")
 
@@ -448,10 +519,10 @@ function settings_read_ini(){
                 default:
                       $('#skin_none').attr('selected', 'selected' );   
                 break;
-              }
+                }
                     
                
-               var combo = [ config.Gamepad.PC.F1.split("+"), config.Gamepad.PC.F2.split("+"), config.Gamepad.PC.F3.split("+"), config.Gamepad.PC.F4.split("+"), config.Gamepad.PC.F5.split("+")   ] 
+               var combo = [ config.Gamepad.PC.F1.split("+"), config.Gamepad.PC.F2.split("+"), config.Gamepad.PC.F3.split("+"), config.Gamepad.PC.F4.split("+"), config.Gamepad.PC.F5.split("+"), Config.Gamepad.Steam.Screenshot.split("+")  ] 
                
                for(var i=0;i<combo.length;i++) {
                     for(var y=0;y<combo[i].length;y++) {
@@ -519,7 +590,37 @@ function settings_read_ini(){
                     
                       }
                     }
-              }}); 
+              }else{
+                  $('#skin_none').attr('selected', 'selected' );
+              }
+              }); 
+              
+              
+              fs.stat(unx_lang, function(err, stat) {
+              if(err == null) {
+          
+                config = ini.parse(fs.readFileSync(unx_lang, 'utf16le').slice(1));
+
+                switch (config.Language.Master.Voice) {
+                  case 'jp':
+                          $('#audio_jp').attr('selected', 'selected' ); 
+                  break;
+                  case 'us':
+                          $('#audio_en').attr('selected', 'selected' ); 
+                  break;
+                  default:
+                          $('#audio_en').attr('selected', 'selected' ); 
+                  break;
+                }
+
+              }else{
+                  $('#audio_en').attr('selected', 'selected' );          
+              }
+              
+              }); 
+              
+              
+              
           } else {
           
           $('#input').hide();
@@ -584,14 +685,18 @@ function PlaySound(i){
 function menuSelect(i){
   if (!isRunning) {
     isRunning = true;
-    $("#button"+curPosition).attr("gamepad","");
+    
+    var max = $('#menu').find("li").filter(':visible').length;
+
+    $("#menu li:nth-child("+curPosition+")").children(".button").removeAttr("gamepad");
     curPosition += i;
 
-    if ( curPosition == 7 ) { curPosition = 0; }
-    else if ( curPosition == -1 ) { curPosition = 6; }
-
-
-    $("#button"+curPosition).attr("gamepad","selected");
+    if ( curPosition == max+1 ) { curPosition = 1; }
+    else if ( curPosition == 0 ) { curPosition = max; }
+    
+    $("#menu li:nth-child("+curPosition+")").children(".button").attr("gamepad","selected");
+    
+    
     PlaySound(0);
     
     setTimeout(function() {
@@ -600,6 +705,7 @@ function menuSelect(i){
 
   }
 }
+
 
 function settingSelect(i){
 
@@ -617,7 +723,13 @@ function settingSelect(i){
     }
     
       
-     if (page == 1) {  
+     if (insideLauncherSettings) {
+     
+              var nbr_element = ($('#launcher_settings').find( "li" ).length);
+              if ( curPosition_setting == nbr_element+1+30 ) { curPosition_setting = 31; }
+              else if ( curPosition_setting == 30 ) { curPosition_setting = nbr_element+30; }
+     }
+     else if (page == 1) {  
               var nbr_element = ($('#page1').find( "li" ).length);
               if ( curPosition_setting == nbr_element+1 ) { curPosition_setting = 1; }
               else if ( curPosition_setting == 0 ) { curPosition_setting = nbr_element; }
@@ -629,6 +741,9 @@ function settingSelect(i){
      }
 
     $("#setting"+curPosition_setting).find(".cursor").css("visibility","visible")
+    
+    
+    
     PlaySound(0);
     
     setTimeout(function() {
@@ -647,8 +762,22 @@ function updateSetting(i){
     
     if (i == 1) {
     
-        $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").removeAttr( "selected" ).next().attr("selected","selected");
-        if ( $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").length===0 ) { $("#setting"+curPosition_setting).find(" .btn ").last().attr("selected","selected"); }
+    
+        if( curPosition_setting == 11 || curPosition_setting == 12 || curPosition_setting == 13 || curPosition_setting == 14 || curPosition_setting == 15) {
+        
+                   if ( $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").length===0 ){ 
+                    
+                         $("#setting"+curPosition_setting).find(" .gp_select_first").attr("selected","selected");  
+                   }
+                   else{
+                        $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").removeAttr( "selected" ).next().attr("selected","selected");
+                        if ( $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").length===0 ) { $("#setting"+curPosition_setting).find(" .btn ").last().attr("selected","selected"); }
+                   }
+        }
+        else{
+          $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").removeAttr( "selected" ).next().attr("selected","selected");
+          if ( $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").length===0 ) { $("#setting"+curPosition_setting).find(" .btn ").last().attr("selected","selected"); }
+        }
         
         
         if ( $("#setting"+curPosition_setting).find(" #resolution_setting ").length>0 ) {
@@ -695,6 +824,43 @@ function updateSetting(i){
 }
 
 
+function convert(){
+
+if ( $("#menu li:nth-child("+curPosition+")").children('#button0[gamepad="selected"]').length>0 )
+{
+  launch(0);
+}
+else if ( $("#menu li:nth-child("+curPosition+")").children('#button1[gamepad="selected"]').length>0 )
+{
+  launch(1);
+}
+else if ( $("#menu li:nth-child("+curPosition+")").children('#button2[gamepad="selected"]').length>0 )
+{
+  launch(2);
+}
+else if ( $("#menu li:nth-child("+curPosition+")").children('#button3[gamepad="selected"]').length>0 )
+{
+  launch(3);
+}
+else if ( $("#menu li:nth-child("+curPosition+")").children('#button4[gamepad="selected"]').length>0 )
+{
+  launch(4);
+}
+else if ( $("#menu li:nth-child("+curPosition+")").children('#button5[gamepad="selected"]').length>0 )
+{
+  launch(5);
+}
+else if ( $("#menu li:nth-child("+curPosition+")").children('#button6[gamepad="selected"]').length>0 )
+{
+  launch(6);
+}
+else if ( $("#menu li:nth-child("+curPosition+")").children('#button7[gamepad="selected"]').length>0 )
+{
+  launch(7);
+}
+
+}
+
 
 function launch(button_id){
 
@@ -715,13 +881,13 @@ var spawn = require("child_process").spawn
                 win.close(); 
         break;
         case 2:
-                file = nwDir+'\\FFX2.exe';
+                file = nwDir+'\\FFX-2.exe';
                 var exec = spawn(file,{stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
                 exec.unref(); 
                 win.close(); 
         break;
         case 3:
-                file = nwDir+'\\FFX2.exe';
+                file = nwDir+'\\FFX-2.exe';
                 var exec = spawn(file,['FFX2_LASTMISSION'],{stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
                 exec.unref(); 
                 win.close(); 
@@ -736,24 +902,61 @@ var spawn = require("child_process").spawn
                 win.close(); 
         break;
         case 6:
-                settings_read_ini();
-                setTimeout(function() {
-                  enter_settings();
-                }, 100);
+                      settings_read_ini();       
+                      setTimeout(function() {
+                      enter_launcher_settings();
+                      }, 100); 
+                      
+                      
+        break;
+        case 7:
+                      settings_read_ini();       
+                      setTimeout(function() {
+                      enter_settings();
+                      }, 100); 
         break;
       }             
 }
 
 
-function enter_settings(){
+function enter_launcher_settings(){
 
        insideSettings = true;
+       insideLauncherSettings = true;
        PlaySound(2);
-       $("#container").find(".cursor").css("visibility","hidden")
+       //$("#settings .container").find(".cursor").css("visibility","hidden")
+
+       //if (isGamepadConnected){
+         // $("#setting1").find(".cursor").css("visibility","visible")
+         // curPosition_setting = 1;
+      // }
+      
+      if (isGamepadConnected){
+          $("#setting31").find(".cursor").css("visibility","visible")
+          curPosition_setting = 31;
+       }
+      
+
+    $('.page').hide();
+    $('#launcher_settings').show();
+    $('.next_page').hide(); 
+    $('#page_indicator').hide();
+    $('#settings').fadeIn("slow"); 
+
+}
+
+function enter_settings(){
+ 
+       if (insideLauncherSettings){ $('#launcher_settings').hide(); insideLauncherSettings = false;}
+       insideSettings = true;
+       PlaySound(2);
+       $("#settings .container").find(".cursor").css("visibility","hidden")
+
        if (isGamepadConnected){
           $("#setting1").find(".cursor").css("visibility","visible")
           curPosition_setting = 1;
        }
+
        page = 1;
        $('.page').hide();
        $('#page'+page).show();
@@ -762,16 +965,23 @@ function enter_settings(){
           $('.next_page').hide();
        }
        else{
+          $('.next_page').show();
+          $('#page_indicator').show();
           $('#page_indicator').text(page+'/'+nbr_page);
-       }
-       $('#settings').fadeIn("slow");          
+       }    
+  
+  $('#settings').fadeIn("slow"); 
+  
+    
 }
 
 function exit_settings(){
 
       insideSettings = false;
+      insideLauncherSettings = false;
       PlaySound(1);
       $('#settings').fadeOut("slow");
+      $('#launcher_settings').hide();
       
 }
 
@@ -836,8 +1046,23 @@ function change_page(){
     PlaySound(4);
 }
 
+function configure_button(){
 
-function mouse_fallback() {
+ if ( curPosition_setting == 11 || curPosition_setting == 12 || curPosition_setting == 13 || curPosition_setting == 14 || curPosition_setting == 15) {
+ 
+  var id = $("#setting"+curPosition_setting).find(" .btn[selected='selected'] ").attr('id');
+
+  $("#"+id).trigger("click", [false]);
+ 
+ }
+
+
+
+}
+
+
+
+function mouse_control() {
   $(".button").on("mouseenter", function(e){
     $(".button").attr("gamepad","");
     PlaySound(0);
@@ -856,9 +1081,10 @@ function mouse_fallback() {
    $("#button3").click(function() { launch(3); });  
    $("#button4").click(function() { launch(4); });  
    $("#button5").click(function() { launch(5); });  
-   $("#button6").click(function() { launch(6); });  
+   $("#button6").click(function() { launch(6); }); 
+   $("#button7").click(function() { launch(7); }); 
    
-   $("#cancel_button").click(function() { 
+   $(".cancel_button").click(function() { 
               if (insideSettings){  exit_settings(); }
    });
    
@@ -872,28 +1098,29 @@ function mouse_fallback() {
    
    
    var xbutton = undefined;
-   $(".configurable").click(function() {  
+   $(".configurable").click(function(event, noPulse) {  
          $('#popup').popup('show');
+         $('#select-gamepad-button').show();
          xbutton = $(this);
-         setTimeout(function(){xbutton.removeAttr( "selected" );}, 200);
+         if (noPulse === undefined) { setTimeout(function(){xbutton.removeAttr( "selected" );}, 200); }
    });
    
-         $("#LT").click(function(){xbutton.attr("xbutton","LT" ); $('#popup').popup('hide');});
-         $("#RT").click(function(){xbutton.attr("xbutton","RT" ); $('#popup').popup('hide');});
-         $("#LB").click(function(){xbutton.attr("xbutton","LB" ); $('#popup').popup('hide');});
-         $("#RB").click(function(){xbutton.attr("xbutton","RB" ); $('#popup').popup('hide');});
-         $("#xleft").click(function(){xbutton.attr("xbutton","left" ); $('#popup').popup('hide');});
-         $("#xup").click(function(){xbutton.attr("xbutton","up" ); $('#popup').popup('hide');});
-         $("#xdown").click(function(){xbutton.attr("xbutton","down" ); $('#popup').popup('hide');});
-         $("#xright").click(function(){xbutton.attr("xbutton","right" ); $('#popup').popup('hide');});
-         $("#a").click(function(){xbutton.attr("xbutton","a" ); $('#popup').popup('hide');});
-         $("#b").click(function(){xbutton.attr("xbutton","b" ); $('#popup').popup('hide');});
-         $("#y").click(function(){xbutton.attr("xbutton","y" ); $('#popup').popup('hide');});
-         $("#x").click(function(){xbutton.attr("xbutton","x" ); $('#popup').popup('hide');});
-         $("#L").click(function(){xbutton.attr("xbutton","L" ); $('#popup').popup('hide');});
-         $("#select").click(function(){xbutton.attr("xbutton","select" ); $('#popup').popup('hide');});
-         $("#start").click(function(){xbutton.attr("xbutton","start" ); $('#popup').popup('hide');});
-         $("#R").click(function(){xbutton.attr("xbutton","R" ); $('#popup').popup('hide');});
+         $("#LT").click(function(){xbutton.attr("xbutton","LT" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#RT").click(function(){xbutton.attr("xbutton","RT" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#LB").click(function(){xbutton.attr("xbutton","LB" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#RB").click(function(){xbutton.attr("xbutton","RB" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#xleft").click(function(){xbutton.attr("xbutton","left" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#xup").click(function(){xbutton.attr("xbutton","up" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#xdown").click(function(){xbutton.attr("xbutton","down" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#xright").click(function(){xbutton.attr("xbutton","right" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#a").click(function(){xbutton.attr("xbutton","a" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#b").click(function(){xbutton.attr("xbutton","b" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#y").click(function(){xbutton.attr("xbutton","y" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#x").click(function(){xbutton.attr("xbutton","x" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#L").click(function(){xbutton.attr("xbutton","L" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#select").click(function(){xbutton.attr("xbutton","select" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#start").click(function(){xbutton.attr("xbutton","start" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
+         $("#R").click(function(){xbutton.attr("xbutton","R" ); $('#popup').popup('hide');$('#select-gamepad-button').hide();});
   
    $(".btn").click(function() { 
    
@@ -947,7 +1174,7 @@ function mouse_fallback() {
 // Button Pressed (No 'Auto Fire')
             if (gamepad.buttons[0].pressed) { LastFrameButtonStatus[0] = true; }                                                                           
             else if (!gamepad.buttons[0].pressed && LastFrameButtonStatus[0] && AFirstPressed) { 
-                    if (!insideSettings) { launch(curPosition); }else if(insideSettings){ save_settings(); }
+                    if (!insideSettings) { launch(convert()); }else if(insideSettings){ save_settings(); }
                     LastFrameButtonStatus[0] = false;  
             } // A
 
@@ -958,7 +1185,7 @@ function mouse_fallback() {
             else if (!gamepad.buttons[1].pressed && LastFrameButtonStatus[1] ) { if (insideSettings){ exit_settings(); } LastFrameButtonStatus[1] = false; } // B
             
             else if (gamepad.buttons[2].pressed) { LastFrameButtonStatus[2] = true;}
-            else if (!gamepad.buttons[2].pressed && LastFrameButtonStatus[2] ) { LastFrameButtonStatus[2] = false; } // X
+            else if (!gamepad.buttons[2].pressed && LastFrameButtonStatus[2] ) { if(insideSettings && unxIsPresent){ configure_button(); } LastFrameButtonStatus[2] = false; } // X
                        
             else if (gamepad.buttons[3].pressed) { LastFrameButtonStatus[3] = true;}
             else if (!gamepad.buttons[3].pressed && LastFrameButtonStatus[3] ) { if (insideSettings && unxIsPresent){ change_page(); } LastFrameButtonStatus[3] = false; } // Y
