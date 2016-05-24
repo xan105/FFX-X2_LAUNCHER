@@ -522,7 +522,10 @@ function settings_read_ini(){
                 }
                     
                
-               var combo = [ config.Gamepad.PC.F1.split("+"), config.Gamepad.PC.F2.split("+"), config.Gamepad.PC.F3.split("+"), config.Gamepad.PC.F4.split("+"), config.Gamepad.PC.F5.split("+"), Config.Gamepad.Steam.Screenshot.split("+")  ] 
+               var combo = [ config.Gamepad.PC.F1.split("+"), config.Gamepad.PC.F2.split("+"), config.Gamepad.PC.F3.split("+"), config.Gamepad.PC.F4.split("+"), config.Gamepad.PC.F5.split("+"), config.Gamepad.Steam.Screenshot.split("+")  ] 
+               
+               console.log("hello world");
+               console.log(combo);
                
                for(var i=0;i<combo.length;i++) {
                     for(var y=0;y<combo[i].length;y++) {
