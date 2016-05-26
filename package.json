@@ -1,7 +1,7 @@
 {
-  "name": "FINAL FANTASY X/X-2 LAUNCHER+",
-  "description": "FINAL FANTASY X/X-2 LAUNCHER+",
-  "version": "1.0.4",
+  "name": "FINAL FANTASY X-X2 LAUNCHER+",
+  "description": "FINAL FANTASY X-X2 LAUNCHER+",
+  "version": "1.0.5",
   "main": "package.nw/index.html",
   "window": {
     "title": "FINAL FANTASY X/X-2 LAUNCHER+",
@@ -9,6 +9,8 @@
     "frame": true,
     "width": 1252,
     "height": 685,
+    //"width": 1278,
+    //"height": 703,
     "position": "center",
     "transparent": false,
     "resizable": false,

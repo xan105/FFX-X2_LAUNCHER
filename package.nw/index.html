@@ -6,8 +6,10 @@
         <link rel="stylesheet" href="style.css" />
         <script src="lib/jquery-2.1.3.min.js" type="text/javascript"></script>
         <script src="lib/jquery.popupoverlay.js" type="text/javascript"></script>
-        <script src="lib/os-homedir.js" type="text/javascript"></script>
         <script src="app.js" type="text/javascript"></script>
+        <script src="settings.js" type="text/javascript"></script>
+        <script src="navigation.js" type="text/javascript"></script>
+        <script src="mouse-gamepad-controls.js" type="text/javascript"></script>
     </head>
     <body>  
 <audio id="bgm" autoplay="On" loop="loop"><source src="resources/sound/bgm.ogg" type="audio/ogg"></audio>
@@ -39,18 +41,19 @@
 
   <ul id="video">
   <h1>Video</h1>
-    <li id="setting3"><div class="cursor"></div><div class="setting-title">Screen mode:</div><div class="btn" id="screen_exclu">Exclusive</div><div class="btn" id="screen_full">Fullscreen</div><div class="btn" id="screen_border">Borderless</div><div class="btn" id="screen_win">Window</div></li>
+    <li id="setting3"><div class="cursor"></div><div class="setting-title">Screen mode:</div><div class="btn" id="screen_full">Fullscreen</div><div class="btn" id="screen_border">Borderless</div><div class="btn" id="screen_win">Window</div></li>
     <li id="setting4"><div class="cursor"></div><div class="setting-title" id="resolution_setting">Resolution :</div><div class="btn">-</div><div class="btn">+</div>  <span id="resolution"></span></li>
     <li id="setting5"><div class="cursor"></div><div class="setting-title">Video Quality Setting:</div><div class="btn" id="quality_low">Low</div><div class="btn" id="quality_medium">Medium</div><div class="btn" id="quality_high">High</div></li>
     <li id="setting6"><div class="cursor"></div><div class="setting-title">Force Dedicated GPU:</div><div class="btn" id="BypassON">On</div><div class="btn" id="BypassOFF">Off</div></li>
     <li id="setting7"><div class="cursor"></div><div class="setting-title">DPI Scaling Fix:</div><div class="btn" id="dpiFix_Enabled">On</div><div class="btn" id="dpiFix_Disabled">Off</div> <span class="description">Fixes DPI scaling problems in Win8/10</span></li>
-    <li id="setting8"><div class="cursor"></div><div class="setting-title">Flip Mode:</div><div class="btn" id="flipON">On</div><div class="btn" id="flipOFF">Off</div> <span class="description">Improve performance (Not on Exclusive)</span></li>
-    <li id="setting9"><div class="cursor"></div><div class="setting-title">Reduce Stutter:</div><div class="btn" id="reducerON">On</div><div class="btn" id="reducerOFF">Off</div> <span class="description">Better frametimes, shorter load screens</span></li>
+    <li id="setting8"><div class="cursor"></div><div class="setting-title">Flip Mode:</div><div class="btn" id="flipON">On</div><div class="btn" id="flipOFF">Off</div> <span class="description">Improve performance</span></li>
+    <li id="setting9"><div class="cursor"></div><div class="setting-title">Reduce Stutter:</div><div class="btn" id="reducerON">On</div><div class="btn" id="reducerOFF">Off</div> <span class="description">Better frametimes shorter load screens</span></li>
+    <li id="setting10"><div class="cursor"></div><div class="setting-title">Window Centering:</div><div class="btn" id="centerON">On</div><div class="btn" id="centerOFF">Off</div> <span class="description">Centered window in Window mode</span></li>
     </ul>
 
  <ul id="audio">
   <h1>Audio</h1>
-    <li id="setting10"><div class="cursor"></div><div class="setting-title">Background Audio Mute:</div><div class="btn" id="bgMuteON">On</div><div class="btn" id="bgMuteOFF">Off</div> <span class="description">Mute game while in background</span></li>
+    <li id="setting11"><div class="cursor"></div><div class="setting-title">Background Audio Mute:</div><div class="btn" id="bgMuteON">On</div><div class="btn" id="bgMuteOFF">Off</div> <span class="description">Mute game while in background</span></li>
 
 
 
@@ -60,27 +63,38 @@
 
   <ul id="gamepad_key">
   <h1>Gamepad Special Keys</h1> 
-    <li id="setting11"><div class="cursor"></div><div class="setting-title">F1:</div><div class="btn configurable gp_select_first" id="f0_0"></div> + <div class="btn configurable" id="f0_1"></div> + <div class="btn configurable" id="f0_2"></div> <span class="description">Speed Hack</span></li>
-    <li id="setting12"><div class="cursor"></div><div class="setting-title">F2:</div><div class="btn configurable gp_select_first" id="f1_0"></div> + <div class="btn configurable" id="f1_1"></div> + <div class="btn configurable" id="f1_2"></div> <span class="description">Supercharge</span></li>
-    <li id="setting13"><div class="cursor"></div><div class="setting-title">F3:</div><div class="btn configurable gp_select_first" id="f2_0"></div> + <div class="btn configurable" id="f2_1"></div> + <div class="btn configurable" id="f2_2"></div> <span class="description">Encounter Rate</span></li>
-    <li id="setting14"><div class="cursor"></div><div class="setting-title">F4:</div><div class="btn configurable gp_select_first" id="f3_0"></div> + <div class="btn configurable" id="f3_1"></div> + <div class="btn configurable" id="f3_2"></div> <span class="description">Auto Battle</span></li>
-    <li id="setting15"><div class="cursor"></div><div class="setting-title">F5:</div><div class="btn configurable gp_select_first" id="f4_0"></div> + <div class="btn configurable" id="f4_1"></div> + <div class="btn configurable" id="f4_2"></div> <span class="description">Toggle HUD</span></li>
-    <li id="setting16"><div class="cursor"></div><div class="setting-title">Screenshot:</div><div class="btn configurable gp_select_first" id="f5_0"></div> + <div class="btn configurable" id="f5_1"></div> + <div class="btn configurable" id="f5_2"></div> <span class="description">Triggers a Steam managed screenshot</span></li>
-    <li id="setting17"><div class="cursor"></div><div class="setting-title">ESC:</div><div class="btn" id="saluteON">On</div><div class="btn" id="saluteOFF">Off</div> 
-   <img src="resources/img/button_select/LT_20.png" class="valign_m" draggable="false"> + <img src="resources/img/button_select/RT_20.png" class="valign_m" draggable="false"> + <img src="resources/img/button_select/Select_20.png" class="valign_m" draggable="false"> + <img src="resources/img/button_select/Start_20.png" class="valign_m" draggable="false">
-    <span class="description">PC Menu</span></li>
+    <li id="setting12"><div class="cursor"></div><div class="setting-title">F1:</div><div class="btn configurable gp_select_first" id="f0_0"></div> + <div class="btn configurable" id="f0_1"></div> + <div class="btn configurable" id="f0_2"></div> <span class="description">Speed Hack</span></li>
+    <li id="setting13"><div class="cursor"></div><div class="setting-title">F2:</div><div class="btn configurable gp_select_first" id="f1_0"></div> + <div class="btn configurable" id="f1_1"></div> + <div class="btn configurable" id="f1_2"></div> <span class="description">Supercharge</span></li>
+    <li id="setting14"><div class="cursor"></div><div class="setting-title">F3:</div><div class="btn configurable gp_select_first" id="f2_0"></div> + <div class="btn configurable" id="f2_1"></div> + <div class="btn configurable" id="f2_2"></div> <span class="description">Encounter Rate</span></li>
+    <li id="setting15"><div class="cursor"></div><div class="setting-title">F4:</div><div class="btn configurable gp_select_first" id="f3_0"></div> + <div class="btn configurable" id="f3_1"></div> + <div class="btn configurable" id="f3_2"></div> <span class="description">Auto Battle</span></li>
+    <li id="setting16"><div class="cursor"></div><div class="setting-title">F5:</div><div class="btn configurable gp_select_first" id="f4_0"></div> + <div class="btn configurable" id="f4_1"></div> + <div class="btn configurable" id="f4_2"></div> <span class="description">Toggle HUD</span></li>
+    <li id="setting17"><div class="cursor"></div><div class="setting-title">ESC:</div><div class="btn configurable gp_select_first" id="f5_0"></div> + <div class="btn configurable" id="f5_1"></div> + <div class="btn configurable" id="f5_2"></div> <span class="description">PC Menu</span></li>
+    <li id="setting18"><div class="cursor"></div><div class="setting-title">Screenshot:</div><div class="btn configurable gp_select_first" id="f6_0"></div> + <div class="btn configurable" id="f6_1"></div> + <div class="btn configurable" id="f6_2"></div> <span class="description">Steam managed screenshot</span></li>
+        <li id="setting19"><div class="cursor"></div><div class="setting-title">Real Fullscreen:</div><div class="btn configurable gp_select_first" id="f7_0"></div> + <div class="btn configurable" id="f7_1"></div> + <div class="btn configurable" id="f7_2"></div><div class="btn" id="screen_exclu_ON">On</div><div class="btn" id="screen_exclu_OFF">Off</div> <span class="description">ALT+ENTER</span></li>
+    
+    
+    <li id="setting20"><div class="cursor"></div><div class="setting-title">EXIT:</div><div class="btn" id="saluteON">On</div><div class="btn" id="saluteOFF">Off</div> 
+    <img src="resources/img/button_select/LT_20.png" class="valign_m" draggable="false"> + <img src="resources/img/button_select/RT_20.png" class="valign_m" draggable="false"> +  <img src="resources/img/button_select/LB_20.png" class="valign_m" draggable="false"> + <img src="resources/img/button_select/RB_20.png" class="valign_m" draggable="false"> + <img src="resources/img/button_select/Select_20.png" class="valign_m" draggable="false"> + <img src="resources/img/button_select/Start_20.png" class="valign_m" draggable="false">
+      <span class="description">ALT+F4</span>
+    </li>
   </ul>
 
   <ul id="gamepad_button_skin">
   <h1>Gamepad button skin in-game</h1>
-    <li id="setting18"><div class="cursor"></div><div class="setting-title">Pack:</div><div class="btn" id="skin_none">None</div><div class="btn" id="skin_glossy">PS Glossy</div><div class="btn" id="skin_ps3">PS3</div><div class="btn" id="skin_ps4">PS4</div><div class="btn" id="skin_x360">X360</div><div class="btn" id="skin_xone">XONE</div></li> 
+    <li id="setting21"><div class="cursor"></div><div class="setting-title">Pack:</div><div class="btn" id="skin_none">None</div><div class="btn" id="skin_glossy">PS Glossy</div><div class="btn" id="skin_ps3">PS3</div><div class="btn" id="skin_ps4">PS4</div><div class="btn" id="skin_x360">X360</div><div class="btn" id="skin_xone">XONE</div></li> 
     </ul>
+
+</div>
+
+    
+<div id="page3" class="page">    
 
   <ul id="input">
   <h1>Input</h1>
-    <li id="setting19"><div class="cursor"></div><div class="setting-title">Hide Cursor:</div><div class="btn" id="hide_cursor">On</div><div class="btn" id="show_cursor">Off</div></li>
-    <li id="setting20"><div class="cursor"></div><div class="setting-title" id="timeout_setting">Hide after:</div><div class="btn">-</div><div class="btn">+</div> <span id="cursortimeout"></span></li>
-    <li id="setting21"><div class="cursor"></div><div class="setting-title">Unhide on keyboard input:</div><div class="btn" id="show_on_kinput">On</div><div class="btn" id="donothing_on_kinput">Off</div></li>
+    <li id="setting22"><div class="cursor"></div><div class="setting-title">Hide Cursor:</div><div class="btn" id="hide_cursor">On</div><div class="btn" id="show_cursor">Off</div></li>
+    <li id="setting23"><div class="cursor"></div><div class="setting-title" id="timeout_setting">Hide after:</div><div class="btn">-</div><div class="btn">+</div> <span id="cursortimeout"></span></li>
+    <li id="setting24"><div class="cursor"></div><div class="setting-title">Unhide on keyboard input:</div><div class="btn" id="show_on_kinput">On</div><div class="btn" id="donothing_on_kinput">Off</div></li>
+    <li id="setting25"><div class="cursor"></div><div class="setting-title">Fast Exit:</div><div class="btn" id="fastexitON">On</div><div class="btn" id="fastexitOFF">Off</div> <span class="description">No popup confirmation dialog (ALT+F4)</span></li>
   </ul>
 
 </div>
