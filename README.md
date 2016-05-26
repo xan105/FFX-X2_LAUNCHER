@@ -3,7 +3,7 @@
 --------------------------------
 
 Gamepad and mouse support.<br />
-Build with NW.js (http://nwjs.io/)<br />
+Build mostly with NW.js (http://nwjs.io/)<br />
 
 Download: https://github.com/xan105/FFX-X2_LAUNCHER/releases/ <br/>
 Mirror Download link: http://download.xan105.com/apps/FFX&X-2_LAUNCHER.zip
@@ -15,7 +15,7 @@ If you have UnX installed it will display more configuration option in the setti
 UnX:<br/>
 - Launcher needs admin right to save settings in UnX.ini if UnX.ini is in a protected folder (eg: C:\Program Files\Steam\FFX-X2)
 - Custom Gamepad special key can only be configured with the mouse for now.
-- Last tested with UnX v0.2.1
+- Last tested with UnX v0.4.0
 
 Install
 -------
