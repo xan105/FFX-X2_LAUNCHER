@@ -88,7 +88,7 @@ function settingSelect(i){
 
     if (!unxIsPresent) { 
     
-         if ( previousPosition < curPosition_setting && curPosition_setting == 6 ) { curPosition_setting += 6; console.log("up");}
+         if ( previousPosition < curPosition_setting && curPosition_setting == 6 ) { curPosition_setting += 6;}
          else if ( previousPosition < curPosition_setting && curPosition_setting == 2 ) { curPosition_setting += 1; }
          else if ( previousPosition > curPosition_setting && curPosition_setting == 2 ) { curPosition_setting -= 1; }    
              
