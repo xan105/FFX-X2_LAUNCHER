@@ -87,11 +87,13 @@ function settingSelect(i){
     curPosition_setting += i;
 
     if (!unxIsPresent) { 
-         if ( previousPosition < curPosition_setting && curPosition_setting == 6 ) { curPosition_setting += 3; }
-         else if ( previousPosition > curPosition_setting && curPosition_setting == 8 ) { curPosition_setting -= 3; }
+    
+         if ( previousPosition < curPosition_setting && curPosition_setting == 6 ) { curPosition_setting += 6; console.log("up");}
          else if ( previousPosition < curPosition_setting && curPosition_setting == 2 ) { curPosition_setting += 1; }
          else if ( previousPosition > curPosition_setting && curPosition_setting == 2 ) { curPosition_setting -= 1; }    
+             
     }
+    
     
       
      if (insideLauncherSettings) {
@@ -114,6 +116,10 @@ function settingSelect(i){
               var nbr_element = ($('#page3').find( "li" ).length);
               if ( curPosition_setting == nbr_element+1+21 ) { curPosition_setting = 22; }
               else if ( curPosition_setting == 21 ) { curPosition_setting = nbr_element+21; }
+     }
+     
+     if (!unxIsPresent) { 
+        if ( curPosition_setting == 11 ) { curPosition_setting -= 6; }
      }
 
     $("#setting"+curPosition_setting).find(".cursor").css("visibility","visible")
