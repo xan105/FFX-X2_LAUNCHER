@@ -53,11 +53,6 @@ var volumeBGM = 0.3;
         if (localStorage.menuButton3Display == "false") { $('#button1').parent().detach() }
         if (localStorage.menuButton4Display == "false") { $('#button3').parent().detach() }
         if (localStorage.menuButton5Display == "false") { $('#button4').parent().detach() }
-
-
-
-  //win.enterKioskMode(); //fullscreen
-  
   
   if(!!navigator.getGamepads){
 
@@ -84,7 +79,7 @@ var volumeBGM = 0.3;
 
 function GetResolutionList(){
 
-  var n = 50;
+  var n = 1000;
 
   var width = ref.types.int
   var height = ref.types.int
