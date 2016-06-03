@@ -58,6 +58,11 @@ if (localStorage.exitAfterLaunchGame == "false"){
         if (localStorage.menuButton3Display == "false") { $('#button1').parent().detach() }
         if (localStorage.menuButton4Display == "false") { $('#button3').parent().detach() }
         if (localStorage.menuButton5Display == "false") { $('#button4').parent().detach() }
+
+
+
+  //win.enterKioskMode(); //fullscreen
+  
   
   if(!!navigator.getGamepads){
 

@@ -88,7 +88,14 @@ function settings_write_ini(){
 
       if ($('#fastexitON').is("[selected='selected']")) { config.UnX.Input.FastExit = true; }
       else if ($('#fastexitOFF').is("[selected='selected']")) { config.UnX.Input.FastExit = false; }
-      else { config.UnX.Input.FastExit = true; }       
+      else { config.UnX.Input.FastExit = true; }      
+      
+      if ($('#pad_slot_auto').is("[selected='selected']")) { config.UnX.Input.GamepadSlot = -1; }
+      else if ($('#pad_slot_0').is("[selected='selected']")) { config.UnX.Input.GamepadSlot = 0; }
+      else if ($('#pad_slot_1').is("[selected='selected']")) { config.UnX.Input.GamepadSlot = 1; }
+      else if ($('#pad_slot_2').is("[selected='selected']")) { config.UnX.Input.GamepadSlot = 2; }
+      else if ($('#pad_slot_3').is("[selected='selected']")) { config.UnX.Input.GamepadSlot = 3; }
+      else { config.UnX.Input.GamepadSlot = -1; }  
 
       fs.writeFileSync(unx_ini, '\ufeff'+ini.stringify(config), 'utf16le');
       
@@ -185,7 +192,6 @@ function settings_write_ini(){
             fs.writeFileSync(unx_lang, '\ufeff'+ini.stringify(config), 'utf16le');        
          });
          
-         console.log(booster_ini);
          fs.stat(booster_ini, function(err, stat) {
          if(err == null) {
               config = ini.parse(fs.readFileSync(booster_ini, 'utf16le').slice(1));    
@@ -433,6 +439,27 @@ function settings_read_ini(){
               break;
               default:
                       $('#fastexitON').attr('selected', 'selected' ); 
+              break;
+          }
+          
+          switch (parseInt(config.UnX.Input.GamepadSlot)) {
+              case -1:
+                      $('#pad_slot_auto').attr('selected', 'selected' ); 
+              break;
+              case 0:
+                      $('#pad_slot_0').attr('selected', 'selected' ); 
+              break;
+              case 1:
+                      $('#pad_slot_1').attr('selected', 'selected' ); 
+              break;
+              case 2:
+                      $('#pad_slot_2').attr('selected', 'selected' ); 
+              break;
+              case 3:
+                      $('#pad_slot_3').attr('selected', 'selected' ); 
+              break;
+              default:
+                      $('#pad_slot_auto').attr('selected', 'selected' );  
               break;
           }
  
