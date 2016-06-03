@@ -17,6 +17,7 @@ var ArrayType = require(nwDir+'\\package.nw\\lib\\node_modules\\ref-array');
   var gamepad_ini = nwDir+'\\unx_gamepad.ini';
   var unx_lang = nwDir+'\\UnX_Language.ini';
   var launcher_ini = nwDir+'\\launcher.ini';
+  var booster_ini = nwDir+'\\UnX_Booster.ini';
   
 var isGamepadConnected = false;
 var gamepad = undefined;
@@ -39,6 +40,10 @@ var volumeBGM = 0.3;
  {
   volumeBGM = parseFloat(localStorage.volumeBGM);
  }
+var exitAfterLaunchGame = true;
+if (localStorage.exitAfterLaunchGame == "false"){
+  exitAfterLaunchGame = false;
+}
 
   $(document).ready(function() { 
   
@@ -105,12 +110,24 @@ function GetResolutionList(){
 
   rez = resolutionListing[i].width+'*'+resolutionListing[i].height
 
-  if ( rez == prev ) {  }else { resolutionList.push(rez);}
+  if ( rez == prev || rez == "0*0") {  }else { resolutionList.push(rez);}
 
   prev = rez
   }
 }
 
+/*function resolutionList_fallback(resolution){
+
+var marker = false;
+
+  for(var i=0;i<resolutionList.length;i++) {
+
+    if ( resolutionList[i] == resolution ) { marker = false; break; } else { marker = true; }
+    
+  }
+
+  if ( marker ) { resolutionList.push(resolution); }
+}*/
 
 function updateVolumeBGM(i){
 
@@ -155,6 +172,11 @@ function PlaySound(i){
                 audio.play();
 }
 
+function ToggleMute(){
+
+$("#bgm").prop('muted', !$("#bgm").prop('muted'))
+
+}
 
 function convert(){
 
@@ -197,57 +219,61 @@ else if ( $("#menu li:nth-child("+curPosition+")").children('#button7[gamepad="s
 function launch(button_id){
 
 var spawn = require("child_process").spawn
+var args = [''];
 
-      switch(button_id) {
+  if (button_id == 0 ) {
+                  file = nwDir+'\\FFX.exe';               
+  }
+  else if (button_id == 1 ) {
+                  file = nwDir+'\\FFX.exe';
+                  args[0] = '_ECalm';
+  }
+  else if (button_id == 2 ) {
+                  file = nwDir+'\\FFX-2.exe';
+  }
+  else if (button_id == 3 ) {
+                  file = nwDir+'\\FFX-2.exe';
+                  args[0] = 'FFX2_LASTMISSION';
+  }
+  else if (button_id == 4 ) {
+                  file = nwDir+'\\FFX&X-2_Will.exe';
+  }
+  else if (button_id == 5 ) {
+                  win.close();
+  }
+  else if (button_id == 6 ) {
+                   settings_read_ini();       
+                   setTimeout(function() {
+                   enter_launcher_settings();
+                   }, 100); 
+  }
+  else if (button_id == 7 ) {
+                   settings_read_ini();       
+                   setTimeout(function() {
+                   enter_settings();
+                   }, 100); 
+  }
 
-        case 0:
-                file = nwDir+'\\FFX.exe';
-                var exec = spawn(file,{stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
-                exec.unref(); 
-                win.close(); 
-        break;
-        case 1:
-                file = nwDir+'\\FFX.exe';
-                var exec = spawn(file,['_ECalm'],{stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
-                exec.unref();
-                win.close(); 
-        break;
-        case 2:
-                file = nwDir+'\\FFX-2.exe';
-                var exec = spawn(file,{stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
-                exec.unref(); 
-                win.close(); 
-        break;
-        case 3:
-                file = nwDir+'\\FFX-2.exe';
-                var exec = spawn(file,['FFX2_LASTMISSION'],{stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
-                exec.unref(); 
-                win.close(); 
-        break;
-        case 4:
-                file = nwDir+'\\FFX&X-2_Will.exe';
-                var exec = spawn(file,{stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
-                exec.unref(); 
-                win.close(); 
-        break;
-        case 5:
-                win.close(); 
-        break;
-        case 6:
-                      settings_read_ini();       
-                      setTimeout(function() {
-                      enter_launcher_settings();
-                      }, 100); 
-                      
-                      
-        break;
-        case 7:
-                      settings_read_ini();       
-                      setTimeout(function() {
-                      enter_settings();
-                      }, 100); 
-        break;
-      }             
+
+  if ( button_id == 0 || button_id == 1 || button_id == 2 || button_id == 3 || button_id == 4 ) {
+  
+          var exec = spawn(file, args, {stdio:[ 'ignore', 'ignore', 'ignore' ], detached: true});
+  
+                  if (!exitAfterLaunchGame)
+                  {
+                      win.minimize();
+                      ToggleMute();
+                      exec.on('exit', (code) => {
+                          win.restore();
+                          ToggleMute();
+                      });
+                  }
+                  else
+                  {
+                      exec.unref(); 
+                      win.close();
+                  }
+  }           
 }
 
 
@@ -257,6 +283,7 @@ function enter_launcher_settings(){
        insideLauncherSettings = true;
        PlaySound(2);
       
+      $("#settings .container").find(".cursor").css("visibility","hidden")
       if (isGamepadConnected){
           $("#setting31").find(".cursor").css("visibility","visible")
           curPosition_setting = 31;

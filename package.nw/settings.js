@@ -6,6 +6,8 @@ function settings_write_ini(){
          if ($('#menuButton3DisplayOFF').is("[selected='selected']")) { localStorage.menuButton3Display = "false"; }else{ localStorage.menuButton3Display = "true";}
          if ($('#menuButton4DisplayOFF').is("[selected='selected']")) { localStorage.menuButton4Display = "false"; }else{ localStorage.menuButton4Display = "true"; } 
          if ($('#menuButton5DisplayOFF').is("[selected='selected']")) { localStorage.menuButton5Display = "false"; }else{ localStorage.menuButton5Display = "true"; }
+         
+         if ($('#exitLauncherOFF').is("[selected='selected']")) { localStorage.exitAfterLaunchGame = "false"; exitAfterLaunchGame = false; } else { localStorage.exitAfterLaunchGame = "true"; exitAfterLaunchGame = true; }
 
   fs.stat(ff_ini, function(err, stat) {
       if(err == null) {
@@ -182,6 +184,24 @@ function settings_write_ini(){
               
             fs.writeFileSync(unx_lang, '\ufeff'+ini.stringify(config), 'utf16le');        
          });
+         
+         console.log(booster_ini);
+         fs.stat(booster_ini, function(err, stat) {
+         if(err == null) {
+              config = ini.parse(fs.readFileSync(booster_ini, 'utf16le').slice(1));    
+         }
+         else{ 
+              FFX = { EntirePartyEarnsAP: false }
+              Boost = { FFX }
+              config = { Boost }
+         }
+             
+              if ($('#booster_ap_on').is("[selected='selected']")) {  config.Boost.FFX.EntirePartyEarnsAP = true;}
+              else if ($('#booster_ap_off').is("[selected='selected']")) { config.Boost.FFX.EntirePartyEarnsAP = false; }
+              else { config.Boost.FFX.EntirePartyEarnsAP = false; }
+              
+            fs.writeFileSync(booster_ini, '\ufeff'+ini.stringify(config), 'utf16le');        
+         });
 
    }
 
@@ -200,7 +220,8 @@ function settings_read_ini(){
         if (localStorage.menuButton3Display == "false") { $('#menuButton3DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton3DisplayON').attr('selected', 'selected' );}
         if (localStorage.menuButton4Display == "false") { $('#menuButton4DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton4DisplayON').attr('selected', 'selected' );}
         if (localStorage.menuButton5Display == "false") { $('#menuButton5DisplayOFF').attr('selected', 'selected' ); }else{ $('#menuButton5DisplayON').attr('selected', 'selected' );}
-  
+        
+        if (exitAfterLaunchGame == false) { $('#exitLauncherOFF').attr('selected', 'selected' ); }else{ $('#exitLauncherON').attr('selected', 'selected' ); }
 
   fs.stat(ff_ini, function(err, stat) {
       if(err == null) {
@@ -240,7 +261,6 @@ function settings_read_ini(){
         for (i = 0; i < resolutionList.length; i++) {  
           if (config.Resolution == resolutionList[i]) { currrentResolution = i; break; }
           else if ( i == resolutionList.length-1) { currrentResolution = 1; }
-                  console.log(resolutionList[i]);
         } 
         $("#resolution").text(resolutionList[currrentResolution]);
 
@@ -545,6 +565,29 @@ function settings_read_ini(){
               }
               
               }); 
+              
+              fs.stat(booster_ini, function(err, stat) {
+              if(err == null) {
+          
+                config = ini.parse(fs.readFileSync(booster_ini, 'utf16le').slice(1));
+
+                switch (config.Boost.FFX.EntirePartyEarnsAP) {
+                  case true:
+                          $('#booster_ap_on').attr('selected', 'selected' ); 
+                  break;
+                  case false:
+                          $('#booster_ap_off').attr('selected', 'selected' ); 
+                  break;
+                  default:
+                          $('#booster_ap_off').attr('selected', 'selected' ); 
+                  break;
+                }
+
+              }else{
+                  $('#booster_ap_off').attr('selected', 'selected' );          
+              }
+              
+              });
               
               
               
