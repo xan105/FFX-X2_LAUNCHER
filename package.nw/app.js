@@ -224,7 +224,7 @@ else if ( $("#menu li:nth-child("+curPosition+")").children('#button7[gamepad="s
 function launch(button_id){
 
 var spawn = require("child_process").spawn
-var args = [''];
+var args = [null];
 
   if (button_id == 0 ) {
                   file = nwDir+'\\FFX.exe';               
