@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Anthony Beaumont">  
+    <meta http-equiv="Content-Security-Policy" content=" default-src 'none'; script-src 'self' 'sha256-qKHJ8E4JMKeFToeokSLY4reuCtvCuis+608hHiraTsE='; style-src 'self' 'unsafe-inline';  font-src 'self'; media-src 'self'; img-src 'self'; connect-src 'self' ">
+    <link rel="stylesheet" href="./resources/style/vendor/normalize.css" type="text/css" integrity="sha384-M86HUGbBFILBBZ9ykMAbT3nVb0+2C7yZlF8X2CiKNpDOQjKroMJqIeGZ/Le8N2Qp"/>
+    <link rel="stylesheet" href="./resources/style/vendor/fontawesome.css" type="text/css" integrity=""/>
+    <link rel="stylesheet" href="./resources/style/style.css" type="text/css" />
+  </head>
+  <body>
+  
+  <section id="main" class="background">
+    <aside id="mainMenuSelection">
+      <ul class="menu">
+      <li><div class="button launch_ffx" data-name="ffx"></div></li>
+      <li><div class="button launch_ffx_ec" data-name="ffx_ec"></div></li>
+      <li><div class="button launch_ffx2" data-name="ffx2"></div></li>
+      <li><div class="button launch_ffx2_lm" data-name="ffx2_lm"></div></li>
+      <li><div class="button launch_credits" data-name="credits"></div></li>
+      <li><div class="button exit" data-name="exit"></div></li>
+      <li><div class="button settings" data-name="settings"></div></li>
+      </ul>
+    </aside>
+  </section>
+  
+  <!-- 
+  You fail me again Chrome...
+  <script src="./importmap.json" type="importmap"></script>
+  -->
+  <script type="importmap">
+  {
+    "imports": {
+      "@xan105/vanilla-query": "../../node_modules/@xan105/vanilla-query/dist/vq.min.js"
+    }
+  }
+  </script>
+  <script src="./components/register.js" type="module"></script>
+  <script src="./index.js" type="module"></script>
+  </body>
+</html>

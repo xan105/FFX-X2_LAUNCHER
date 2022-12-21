@@ -1,0 +1,124 @@
+@font-face {
+  font-family: 'Open-Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), url('../font/opensans/opensans-regular-webfont.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Open-Sans-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), url('../font/opensans/opensans-bold-webfont.woff2') format('woff2');
+}
+
+*:focus{ outline: none; }
+ul, ol, li, p { margin: 0; padding: 0; }
+img { -webkit-user-drag: none; user-drag: none; }
+li { list-style: none; }
+
+html, body { 
+  margin: 0; padding: 0; 
+}
+
+html {
+  user-select: none; 
+}
+
+body { 
+  width: 100vw; 
+  height: 100vh; 
+  overflow: hidden; 
+  border: 1px solid #3f4046;
+  box-sizing: border-box; 
+  background: transparent;
+}
+
+.background {
+	background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#main{
+  background-image:url("../img/background.png"); 
+}
+#mainMenuSelection { 
+	margin-left: 81px; 
+	width: 373px; 
+	height: 703px;
+}
+#mainMenuSelection .menu { 
+	padding-top: 90px; 
+}
+#mainMenuSelection .menu .button { 
+	width: 373px; 
+	height: 82px; 
+	background-repeat: no-repeat; 
+}
+#mainMenuSelection .menu .launch_ffx { 
+	background-image:url("../img/button/default/ffx_button.png");
+}
+
+#mainMenuSelection .menu li.active .launch_ffx { 
+	background-image:url("../img/button/hover/ffx_button.png");
+}
+
+#mainMenuSelection .menu .launch_ffx_ec { 
+	background-image:url("../img/button/default/ffx_ec_button.png");
+	height: 83px; 
+}
+
+#mainMenuSelection .menu li.active .launch_ffx_ec { 
+	background-image:url("../img/button/hover/ffx_ec_button.png");
+}
+
+#mainMenuSelection .menu .launch_ffx2 { 
+	background-image:url("../img/button/default/ffx2_button.png");
+}
+
+#mainMenuSelection .menu li.active .launch_ffx2 { 
+	background-image:url("../img/button/hover/ffx2_button.png");
+}
+
+#mainMenuSelection .menu .launch_ffx2_lm { 
+	background-image:url("../img/button/default/ffx2_lm_button.png");
+}
+
+#mainMenuSelection .menu li.active .launch_ffx2_lm { 
+	background-image:url("../img/button/hover/ffx2_lm_button.png");
+}
+
+#mainMenuSelection .menu .launch_credits { 
+	background-image:url("../img/button/default/credits_button.png"); 
+	height: 73px; 
+	padding-bottom: 9px;
+}
+
+#mainMenuSelection .menu li.active .launch_credits { 
+	background-image:url("../img/button/hover/credits_button.png"); 
+	height: 73px; 
+	padding-bottom: 9px;
+}
+
+#mainMenuSelection .menu .exit { 
+	background-image:url("../img/button/default/exit_button.png"); 
+	height: 73px;
+}
+
+#mainMenuSelection .menu li.active .exit { 
+	background-image:url("../img/button/hover/exit_button.png"); 
+	height: 73px;
+}
+
+#mainMenuSelection .menu .settings { 
+	background-image:url("../img/button/default/setting_button.png"); 
+	height: 56px;
+}
+
+#mainMenuSelection .menu li.active .settings { 
+	background-image:url("../img/button/hover/setting_button.png"); 
+	height: 56px;
+}
