@@ -14,7 +14,6 @@
     "start:linux": "export $(cat .env | xargs) && electron .",
     "native-rebuild": "electron-rebuild",
     "clean": "npm prune --production",
-    "prepare": "patch-package",
     "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\""
   },
   "author": "Anthony Beaumont",
@@ -54,6 +53,7 @@
     "@xan105/is": "^2.7.0",
     "@xan105/usershellfolder": "^1.1.1",
     "@xan105/vanilla-query": "^1.2.0",
-    "xinput-ffi": "github:xan105/node-xinput-ffi"
+    "win-screen-resolution": "^2.1.0",
+    "xinput-ffi": "^3.1.0"
   }
 }
