@@ -36,6 +36,10 @@ DOMReady(()=>{
     el.$click(()=>{
       const name = el.$select("div").$attr("data-name");
       console.log(name);
+      
+      window.ipcRenderer.menuAction(name)
+      .catch((err)=>{ console.error(err) });
+      
     });
     
     el.$on("mouseenter", () => {
@@ -51,13 +55,13 @@ DOMReady(()=>{
 
 	window.ipcRenderer.onGamepadInput((event, input) => {
     switch(input){
-      case "XINPUT$GAMEPAD$DPAD$UP":
+      case "XINPUT_GAMEPAD_DPAD_UP":
         move(true);
         break;
-      case "XINPUT$GAMEPAD$DPAD$DOWN":
+      case "XINPUT_GAMEPAD_DPAD_DOWN":
         move(false);
         break;
-      case "XINPUT$GAMEPAD$A":
+      case "XINPUT_GAMEPAD_A":
         enter();
         break;
       default:

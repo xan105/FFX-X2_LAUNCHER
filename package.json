@@ -40,6 +40,15 @@
       "url": "https://www.patreon.com/xan105"
     }
   ],
+  "_nodert": {
+    "runtime": "electron",
+    "modules": [
+      "windows.data.xml.dom",
+      "windows.ui.notifications",
+      "windows.foundation",
+      "windows.foundation.collections"
+    ]
+  },
   "devDependencies": {
     "@electron/rebuild": "^3.2.10",
     "electron": "^22.0.0",
@@ -50,10 +59,11 @@
     "@xan105/error": "^1.4.3",
     "@xan105/fs": "^2.1.0",
     "@xan105/ini": "^2.1.1",
-    "@xan105/is": "^2.7.0",
+    "@xan105/is": "^2.7.1",
+    "@xan105/nodert": "^1.1.7",
     "@xan105/usershellfolder": "^1.1.1",
     "@xan105/vanilla-query": "^1.2.0",
     "win-screen-resolution": "^2.1.0",
-    "xinput-ffi": "^3.1.0"
+    "xinput-ffi": "^3.1.1"
   }
 }
