@@ -1,4 +1,4 @@
-//import titleBar from './titleBar/titleBar.js';
-//customElements.define('title-bar', titleBar);
+import mainMenu from "./menu.js";
+customElements.define("main-menu", mainMenu);
 
 window.ipcRenderer.componentsLoaded().catch(()=>{});

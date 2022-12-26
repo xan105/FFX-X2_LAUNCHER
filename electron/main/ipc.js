@@ -12,9 +12,7 @@ function listen(window){
           console.log("settings");
           break;
         default:
-          await run(name, wait, ()=>{
-            window.minimize();
-          });
+          await run(name, wait, window.minimize);
           if(wait)
             window.restore();
           else
