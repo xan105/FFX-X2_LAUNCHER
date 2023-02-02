@@ -1,15 +1,7 @@
 import { $select } from "@xan105/vanilla-query";
 
-const style =
-`
-
-`;
-
-
 const html = 
 `
-<style>${style}</style>
-
 <aside id="mainMenuSelection">
   <ul class="menu">
     <li><div class="button launch_ffx" data-name="ffx"></div></li>
@@ -70,13 +62,13 @@ export default class WebComponent extends HTMLElement {
   move(climb = false){
     
     const current = this.#menu.$select("li.active") ??
-                    this.#menu.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next
-                          
+                    this.#menu.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
     current.$removeClass("active");
 
     const next = climb ? current.$prev() : current.$next();
-    
     next.$toggleClass("active");
+    
+    window.ipcRenderer.gamepadVibrate().catch(console.error);
   }
 
   enter(){

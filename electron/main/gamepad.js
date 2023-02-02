@@ -2,6 +2,13 @@ import { shouldObj } from "@xan105/is/assert";
 import { asBoolean } from "@xan105/is/opt";
 import { XInputGamepad } from "xinput-ffi/promises";
 
+let gamepad = new XInputGamepad({
+  hz: 30,
+  multitap: true,
+  joystickAsDPAD: true,
+  inputFeedback: false 
+});
+
 function hookGamepad(window, option = {}){
 
   shouldObj(option);
@@ -10,10 +17,6 @@ function hookGamepad(window, option = {}){
     autofocus: asBoolean(option.autofocus) ?? true
   };
 
-  let gamepad = new XInputGamepad({
-    inputFeedback: process.env["NODE_ENV"] === "dev" 
-  });
-  
   if (options.autofocus){
     window.on("blur", () => {
       gamepad?.pause();
@@ -38,11 +41,15 @@ function hookGamepad(window, option = {}){
   
   gamepad.on("input", (buttons) => { 
     setImmediate(() => {
-      window.webContents.send("onGamepadInput", buttons[0]);
+      window.webContents.send("onGamepadInput", buttons[0]); //single input
     });
   });
   
   gamepad.poll();
 }
 
-export { hookGamepad };
+function vibrateGamepad(){
+  return gamepad.vibrate({force: [0, 50], duration: 128});
+}
+
+export { hookGamepad, vibrateGamepad };

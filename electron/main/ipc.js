@@ -1,6 +1,7 @@
 import { ipcMain, dialog } from "electron";
 
 import { run } from "./game/run.js";
+import { vibrateGamepad } from "./gamepad.js";
 
 function listen(window){
 
@@ -36,5 +37,7 @@ function listen(window){
       }
   });
 }
+
+ipcMain.handle("gamepad-vibrate", vibrateGamepad);
 
 export { listen };
