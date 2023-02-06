@@ -1,0 +1,114 @@
+{
+  "game": [
+    {
+      "id": "Language",
+      "values": ["en","fr","it","de","es","jp","kr","ch"],
+      "default": 0,
+      "unx": false
+    },
+    {
+      "id": "Voice",
+      "values": ["en","jp"],
+      "default": 0,
+      "unx": true
+    },
+    {
+      "id": "ScreenMode",
+      "values": [
+        "SM_WINDOW",
+        "SM_BORDERLESS",
+        "SM_FULLSCREEN"
+      ],
+      "default": 1,
+      "unx": false
+    },
+    {
+      "id": "Resolution",
+      "values": [],
+      "default": null,
+      "unx": false
+    },
+    {
+      "id": "Quality",
+      "values": [
+        "VQ_LOW",
+        "VQ_MEDIUM",
+        "VQ_HIGH"
+      ],
+      "default": 2,
+      "unx": false
+    },
+    {
+      "id": "TextureSet",
+      "values": [
+        "PlayStation_Glossy",
+        "PlayStation_Simple",
+        "PS3",
+        "PS4",
+        "Xbox360",
+        "XboxOne"
+      ],
+      "default": 3,
+      "unx": true
+    },
+    {
+      "id": "EntirePartyEarnsAP",
+      "values": ["true","false"],
+      "default": 1,
+      "unx": true
+    },
+    {
+      "id": "GrantPermanentSensor",
+      "values": ["true","false"],
+      "default": 1,
+      "unx": true
+    }
+  ],
+  "launcher": [
+    {
+      "id": "volume",
+      "values": ["0","10","20","30","40","50","60","70","80","90","100"],
+      "default": 6
+    },
+    {
+      "id": "menuEntry-ffx",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-ffx_ec",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-ffx2",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-ffx2_lm",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-credits",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "startFullscreen",
+      "values": ["true","false"],
+      "default": 1
+    },
+    {
+      "id": "detachFromProcess",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "cleanup",
+      "values": ["true","false"],
+      "default": 1
+    }
+  ]
+}

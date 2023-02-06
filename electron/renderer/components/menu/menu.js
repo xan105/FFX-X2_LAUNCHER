@@ -71,10 +71,13 @@ export default class WebComponent extends HTMLElement {
     window.ipcRenderer.gamepadVibrate().catch(console.error);
   }
 
-  enter(){
-    this.#menu.$select("li.active")?.
-    $removeClass("active")?.
-    $click(); 
+  enter(name = null){
+    if(name){
+      this.#menu.$select("li.active")?.$removeClass("active");
+      this.#menu.$select(`li[data-name="${name}"]`)?.$click();
+    } else {
+      this.#menu.$select("li.active")?.$removeClass("active")?.$click();
+    }  
   }
   
   onGamepadInput(input){
@@ -87,6 +90,9 @@ export default class WebComponent extends HTMLElement {
         break;
       case "XINPUT_GAMEPAD_A":
         this.enter();
+        break;
+      case "XINPUT_GAMEPAD_START":
+        this.enter("settings");
         break;
     }
   }
