@@ -53,9 +53,11 @@ export default class WebComponent extends HTMLElement {
   click(el){
     const name = el.$select("div").$attr("data-name");
     
-    if (name === "settings"){} //this.dispatch custom event exit
+    if (name === "settings"){
+      this.dispatchEvent(new CustomEvent("exit"));
+    } 
     else{
-      window.ipcRenderer.menuAction(name).catch(console.error);
+      ipcRenderer.menuAction(name).catch(console.error);
     }
   }
 
@@ -68,7 +70,7 @@ export default class WebComponent extends HTMLElement {
     const next = climb ? current.$prev() : current.$next();
     next.$toggleClass("active");
     
-    window.ipcRenderer.gamepadVibrate().catch(console.error);
+    ipcRenderer.gamepadVibrate().catch(console.error);
   }
 
   enter(name = null){

@@ -53,7 +53,7 @@ export default class WebComponent extends HTMLElement {
     this.innerHTML = html;
     this.#helpHint = $select(".container .help", this);
     this.#options = $select(".container .options", this);
-    
+
     for(const [name, options] of Object.entries(settings)){
       for(const option of options){
         const li = this.#options.$select(`#settings-${name}`).$append(template);
@@ -107,4 +107,22 @@ export default class WebComponent extends HTMLElement {
       el.$off("click");
     });
   }
+  
+  async show(){
+    const list = await ipcRenderer.resolutionList();
+    const current = await ipcRenderer.resolutionCurrent();
+    console.log(list);
+    console.log(current);
+
+    this.$parent("#settings").$fadeIn(600);
+  }
+  
+  onGamepadInput(input){
+    switch(input){
+      case "XINPUT_GAMEPAD_B":
+        this.$parent("#settings").$fadeOut(600);
+        break;
+    }
+  }
+  
 }

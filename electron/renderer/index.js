@@ -1,6 +1,4 @@
 import { DOMReady, $select } from "@xan105/vanilla-query";
-import mainMenu from "./components/menu/menu.js";
-import settingsMenu from "./components/settings/settings.js";
 
 /*
 //seperate file script src="translate.js" ??
@@ -23,9 +21,11 @@ DOMReady(()=>{
     menu.settings.$fadeIn();
     menu.settings.input = true;*/
     
-    
-    //menu.settings.enter();
+    console.log("exit main menu");
+    menu.settings.show();
   });
+  
+  console.log(menu.settings.show);
   
   menu.settings.$on("exit", ()=>{
     
@@ -34,17 +34,14 @@ DOMReady(()=>{
     menu.main.input = true;*/
   });
 
-	window.ipcRenderer.onGamepadInput((event, input) => {
-    /*if (menu.settings.$isHidden() === false){
+	ipcRenderer.onGamepadInput((event, input) => {
+    if (menu.settings.$isHidden() === true){
+      console.log("input on settings");
       menu.settings.onGamepadInput(input);
     } else {
+      console.log("input on menu");
       menu.main.onGamepadInput(input);
-    }*/
-    menu.main.onGamepadInput(input);
+    }
   });
   
 });
-
-customElements.define("main-menu", mainMenu);
-customElements.define("settings-menu", settingsMenu);
-window.ipcRenderer.componentsLoaded().catch(()=>{});

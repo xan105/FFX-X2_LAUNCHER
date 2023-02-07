@@ -118,13 +118,12 @@ try {
       ])
       .then(async() => {
 
-        //load esm
         const ipc = await import("./ipc.js");
+
         const { hookGamepad } = await import("./gamepad.js");
-        
-        //Hook then show
-        ipc.listen(mainWin);
         hookGamepad(mainWin);
+        
+        console.log("showing...");
         mainWin.show();
         mainWin.focus();
 
