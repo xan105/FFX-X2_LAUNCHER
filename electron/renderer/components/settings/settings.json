@@ -71,6 +71,11 @@
       "default": 6
     },
     {
+      "id": "menuEntry-rememberLast",
+      "values": ["true","false"],
+      "default": 1
+    },
+    {
       "id": "menuEntry-ffx",
       "values": ["true","false"],
       "default": 0

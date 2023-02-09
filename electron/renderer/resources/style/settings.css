@@ -89,6 +89,10 @@
 
 #settings .options {
   margin-top: 50px;
+  overflow-y: scroll;
+  height: 555px;
+  padding-bottom: 5px;
+  box-sizing: border-box;
 }
 
 #settings ul { list-style: none; }

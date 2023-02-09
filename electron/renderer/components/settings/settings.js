@@ -108,19 +108,47 @@ export default class WebComponent extends HTMLElement {
     });
   }
   
-  async show(){
-    const list = await ipcRenderer.resolutionList();
-    const current = await ipcRenderer.resolutionCurrent();
-    console.log(list);
-    console.log(current);
+  
+  async populateAvailableDisplayResolution(){
 
-    this.$parent("#settings").$fadeIn(600);
+    const el = this.#options.$select("#settings-game li[data-id=\"Resolution\"]");
+    const select = el.$select(".container .right select");
+    
+    if (select.options.length > 0) return;
+    try{
+
+      const { available, current } = await ipcRenderer.displayResolution();
+        
+      for (const resolution of available){
+        const opt = document.createElement("option");
+        opt.value = opt.text = resolution;
+        opt.defaultSelected = resolution === current;
+        select.add(opt);
+      }
+
+    }catch{
+      el.$hide();
+    }
+  }
+  
+  
+  show(){
+    this.populateAvailableDisplayResolution().catch(console.error);
+
+    this.$parent("#settings").$fadeIn(500);
+  }
+  
+  hide(){
+    this.$parent("#settings").$fadeOut(450);
   }
   
   onGamepadInput(input){
     switch(input){
       case "XINPUT_GAMEPAD_B":
-        this.$parent("#settings").$fadeOut(600);
+        this.hide();
+        break;
+      case "XINPUT_GAMEPAD_START":
+        this.hide();
         break;
     }
   }

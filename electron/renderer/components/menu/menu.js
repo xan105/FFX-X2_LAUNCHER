@@ -76,7 +76,7 @@ export default class WebComponent extends HTMLElement {
   enter(name = null){
     if(name){
       this.#menu.$select("li.active")?.$removeClass("active");
-      this.#menu.$select(`li[data-name="${name}"]`)?.$click();
+      this.#menu.$select(`li div[data-name="${name}"]`)?.$click();
     } else {
       this.#menu.$select("li.active")?.$removeClass("active")?.$click();
     }  

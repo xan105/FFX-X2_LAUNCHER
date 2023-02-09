@@ -39,13 +39,16 @@ ipcMain.handle("menu-action", async (event, name, wait = true) => {
 
 ipcMain.handle("gamepad-vibrate", vibrateGamepad);
 
-ipcMain.handle("resolution-list", ()=>{ 
-  return resolution.list().map(({width, height}) => `${width}x${height}`);
+ipcMain.handle("display-resolution", ()=>{ 
+  
+  const available = resolution.list()
+                    .filter(res => res.height <= 2160) //Above 2160p will break ingame UI
+                    .map(({width, height}) => `${width}x${height}`); //Stringify
+                    
+  const { width, height } = resolution.current();
+  const current = `${width}x${height}`; //Stringify
+
+  return { available, current };
 });
 
-ipcMain.handle("resolution-current", ()=>{
-  const {width, height} = resolution.current();
-  return `${width}x${height}`;
-});
-  
 console.log("ipc done");
