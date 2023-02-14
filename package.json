@@ -61,9 +61,9 @@
     "@xan105/ini": "^2.1.1",
     "@xan105/is": "^2.7.1",
     "@xan105/nodert": "^1.1.7",
-    "@xan105/usershellfolder": "^1.1.1",
+    "@xan105/usershellfolder": "^1.1.2",
     "@xan105/vanilla-query": "^1.3.0",
-    "win-screen-resolution": "^2.1.0",
-    "xinput-ffi": "^3.2.0"
+    "win-screen-resolution": "2.1.0",
+    "xinput-ffi": "^3.3.0"
   }
 }

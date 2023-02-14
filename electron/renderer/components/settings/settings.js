@@ -132,9 +132,12 @@ export default class WebComponent extends HTMLElement {
   }
   
   
-  show(){
+  async show(){
     this.populateAvailableDisplayResolution().catch(console.error);
-
+    
+    const x = await ipcRenderer.settingsRead().catch(console.error);
+    console.log(x);
+    
     this.$parent("#settings").$fadeIn(500);
   }
   

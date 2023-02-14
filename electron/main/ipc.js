@@ -1,7 +1,8 @@
 import { ipcMain, BrowserWindow, dialog } from "electron";
 import * as resolution from "win-screen-resolution";
-import { run } from "./game/run.js";
+import { run } from "./run.js";
 import { vibrateGamepad } from "./gamepad.js";
+import { read } from "./settings.js";
 
 ipcMain.handle("menu-action", async (event, name, wait = true) => {  
     
@@ -50,5 +51,7 @@ ipcMain.handle("display-resolution", ()=>{
 
   return { available, current };
 });
+
+ipcMain.handle("settings-read", read);
 
 console.log("ipc done");

@@ -35,12 +35,13 @@ DOMReady(()=>{
   });
 
 	ipcRenderer.onGamepadInput((event, input) => {
-    if (menu.settings.$isHidden() === true){
-      console.log("input on settings");
-      menu.settings.onGamepadInput(input);
-    } else {
-      console.log("input on menu");
+    console.log(input)
+    if (menu.settings.$isHidden()){
+      console.log(">> menu");
       menu.main.onGamepadInput(input);
+    } else {
+      console.log(">> settings");
+      menu.settings.onGamepadInput(input);
     }
   });
   
