@@ -34,15 +34,30 @@ DOMReady(()=>{
     menu.main.input = true;*/
   });
 
+	/*Input handling*/
+	
 	ipcRenderer.onGamepadInput((event, input) => {
-    console.log(input)
-    if (menu.settings.$isHidden()){
-      console.log(">> menu");
-      menu.main.onGamepadInput(input);
-    } else {
-      console.log(">> settings");
-      menu.settings.onGamepadInput(input);
-    }
+    const component = menu.settings.$isHidden() ? "main" : "settings";
+    menu[component].onGamepadInput(input);
+  });
+  
+  document.addEventListener("keydown", (event) => {
+    if ((event.key === "r" && event.ctrlKey) ||
+        (event.key === "F5" && event.ctrlKey) ||
+         event.key === "F5"
+    ) event.preventDefault();
+   
+    if (event.isComposing) return;
+    
+    const component = menu.settings.$isHidden() ? "main" : "settings";
+    menu[component].onKBMInput(event.key);
+  });
+  
+  document.addEventListener("mouseup", (event) => { 
+    if (event.button <= 2 ) return;
+    
+    const component = menu.settings.$isHidden() ? "main" : "settings";
+    menu[component].onKBMInput("Mouse" + event.button);
   });
   
 });

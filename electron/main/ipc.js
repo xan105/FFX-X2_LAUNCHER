@@ -44,10 +44,10 @@ ipcMain.handle("display-resolution", ()=>{
   
   const available = resolution.list()
                     .filter(res => res.height <= 2160) //Above 2160p will break ingame UI
-                    .map(({width, height}) => `${width}x${height}`); //Stringify
+                    .map(({width, height}) => `${width}*${height}`); //Stringify
                     
   const { width, height } = resolution.current();
-  const current = `${width}x${height}`; //Stringify
+  const current = `${width}*${height}`; //Stringify
 
   return { available, current };
 });

@@ -64,10 +64,13 @@ async function read(){
 
   const result = data[0].value ?? Object.create(null);
   if (includeUnx) {
-    result.unx = data[1].value ?? Object.create(null);
-    result.unx.booster = data[2].value;
-    result.unx.gamepad = data[3].value;
-    result.unx.language = data[4].value;
+    result.unx = Object.assign(
+      Object.create(null),
+      data[1].value,
+      data[2].value,
+      data[3].value,
+      data[4].value
+    );
   } else {
     result.unx = null;
   }

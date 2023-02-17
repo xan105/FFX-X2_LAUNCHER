@@ -3,14 +3,13 @@
     {
       "id": "Language",
       "values": ["en","fr","it","de","es","jp","kr","ch"],
-      "default": 0,
-      "unx": false
+      "default": 0
     },
     {
       "id": "Voice",
       "values": ["en","jp"],
       "default": 0,
-      "unx": true
+      "unx": "Language.Master"
     },
     {
       "id": "ScreenMode",
@@ -19,14 +18,24 @@
         "SM_BORDERLESS",
         "SM_FULLSCREEN"
       ],
-      "default": 1,
-      "unx": false
+      "default": 1
     },
     {
       "id": "Resolution",
       "values": [],
-      "default": null,
-      "unx": false
+      "default": null
+    },
+    {
+      "id": "DisableDPIScaling",
+      "values": ["true","false"],
+      "default": 0,
+      "unx": "UnX.Display"
+    },
+    {
+      "id": "FlipMode",
+      "values": ["true","false"],
+      "default": 1,
+      "unx": "UnX.Render"
     },
     {
       "id": "Quality",
@@ -35,12 +44,12 @@
         "VQ_MEDIUM",
         "VQ_HIGH"
       ],
-      "default": 2,
-      "unx": false
+      "default": 2
     },
     {
       "id": "TextureSet",
       "values": [
+        "",
         "PlayStation_Glossy",
         "PlayStation_Simple",
         "PS3",
@@ -49,19 +58,31 @@
         "XboxOne"
       ],
       "default": 3,
-      "unx": true
+      "unx": "Gamepad.Type"
     },
     {
       "id": "EntirePartyEarnsAP",
       "values": ["true","false"],
       "default": 1,
-      "unx": true
+      "unx": "Boost.FFX"
     },
     {
       "id": "GrantPermanentSensor",
       "values": ["true","false"],
       "default": 1,
-      "unx": true
+      "unx": "Boost.FFX"
+    },
+    {
+      "id": "FastExit",
+      "values": ["true","false"],
+      "default": 0,
+      "unx": "UnX.Input"
+    },
+    {
+      "id": "FourFingerSalute",
+      "values": ["true","false"],
+      "default": 0,
+      "unx": "UnX.Input"
     }
   ],
   "launcher": [

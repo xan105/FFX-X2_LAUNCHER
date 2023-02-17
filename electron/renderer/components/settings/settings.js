@@ -58,6 +58,8 @@ export default class WebComponent extends HTMLElement {
       for(const option of options){
         const li = this.#options.$select(`#settings-${name}`).$append(template);
         li.$attr("data-id", option.id);
+        if(option.unx) li.$attr("data-unx", option.unx);
+        
         const select = li.$select(".container .right select");
         for (const value of option.values){
           const opt = document.createElement("option");
@@ -96,6 +98,7 @@ export default class WebComponent extends HTMLElement {
         select.$trigger("change");  
       });
     });
+
   }
   
   disconnectedCallback() {
@@ -135,8 +138,25 @@ export default class WebComponent extends HTMLElement {
   async show(){
     this.populateAvailableDisplayResolution().catch(console.error);
     
-    const x = await ipcRenderer.settingsRead().catch(console.error);
-    console.log(x);
+    const settings = await ipcRenderer.settingsRead().catch(console.error);
+    console.log(settings);
+
+    const root = this.#options.$select("#settings-game");
+    const list = root.$selectAll("li");
+
+    for (const li of list){
+      try{
+        const id = li.$attr("data-id");
+        const unx =  li.$attr("data-unx");
+        if (unx && !settings.unx) li.$hide();
+        const value = unx ? settings.unx[unx][id] : settings[id];
+        console.log("set: ", id, value);
+        li.$select(`.right select option[value="${value}"`).selected  = true;
+      }catch(err){
+        console.error(err);
+        //continue;
+      }
+    }
     
     this.$parent("#settings").$fadeIn(500);
   }
@@ -151,6 +171,17 @@ export default class WebComponent extends HTMLElement {
         this.hide();
         break;
       case "XINPUT_GAMEPAD_START":
+        this.hide();
+        break;
+    }
+  }
+  
+  onKBMInput(input){
+    switch(input){
+      case "Escape":
+        this.hide();
+        break;
+      case "Mouse3":
         this.hide();
         break;
     }

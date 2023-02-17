@@ -98,4 +98,12 @@ export default class WebComponent extends HTMLElement {
         break;
     }
   }
+  
+  onKBMInput({key}){
+    /*switch(key){
+      case "Escape":
+        //do something
+        break;
+    }*/
+  }
 }
