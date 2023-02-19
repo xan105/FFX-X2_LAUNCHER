@@ -47,6 +47,7 @@ export default class WebComponent extends HTMLElement {
 
   #helpHint;
   #options;
+  #settings;
 
   constructor() {
     super();
@@ -133,13 +134,12 @@ export default class WebComponent extends HTMLElement {
       el.$hide();
     }
   }
-  
-  
+
   async show(){
     this.populateAvailableDisplayResolution().catch(console.error);
     
-    const settings = await ipcRenderer.settingsRead().catch(console.error);
-    console.log(settings);
+    this.#settings = await ipcRenderer.settingsRead().catch(console.error);
+    console.log(this.#settings);
 
     const root = this.#options.$select("#settings-game");
     const list = root.$selectAll("li");
@@ -148,8 +148,8 @@ export default class WebComponent extends HTMLElement {
       try{
         const id = li.$attr("data-id");
         const unx =  li.$attr("data-unx");
-        if (unx && !settings.unx) li.$hide();
-        const value = unx ? settings.unx[unx][id] : settings[id];
+        if (unx && !this.#settings.unx) li.$hide();
+        const value = unx ? this.#settings.unx[unx][id] : this.#settings[id];
         console.log("set: ", id, value);
         li.$select(`.right select option[value="${value}"`).selected  = true;
       }catch(err){
@@ -157,8 +157,47 @@ export default class WebComponent extends HTMLElement {
         //continue;
       }
     }
+
+    this.$parent("#settings").$fadeIn(500).then(()=>{
+      this.#options.scrollTo({top: 0, behavior: "smooth"});
+    });
+  }
+  
+  save(){
+    const root = this.#options.$select("#settings-game");
+    const list = root.$selectAll("li");
     
-    this.$parent("#settings").$fadeIn(500);
+    for (const li of list){
+      try{
+        
+        if (li.$isHidden()) continue;
+        
+        const id = li.$attr("data-id");
+        const unx =  li.$attr("data-unx");
+        
+        let value = li.$select(".right select").value;
+        if(value === "true") value = true;
+        else if(value === "false") value = false;
+
+        if(unx){
+          this.#settings.unx[unx][id] = value;
+          console.log("changed: ", unx, id, value);
+        } else {
+          this.#settings[id] = value;
+          console.log("changed: ", id, value);
+        }
+
+      }catch(err){
+        console.error(err);
+        //continue;
+      }
+    }
+    
+    console.log(this.#settings);
+
+    ipcRenderer.settingsWrite(this.#settings)
+    .catch(console.error)
+    .finally(this.$parent("#settings").$fadeOut(450))
   }
   
   hide(){
@@ -178,6 +217,9 @@ export default class WebComponent extends HTMLElement {
   
   onKBMInput(input){
     switch(input){
+      case "Enter":
+        this.save();
+        break;
       case "Escape":
         this.hide();
         break;
