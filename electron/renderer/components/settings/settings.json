@@ -57,7 +57,7 @@
         "Xbox360",
         "XboxOne"
       ],
-      "default": 3,
+      "default": 4,
       "unx": "Gamepad.Type"
     },
     {

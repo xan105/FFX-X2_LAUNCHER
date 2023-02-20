@@ -8,8 +8,10 @@ const lang = l10n[currentlang] ?? l10n["english"];
 
 DOMReady(()=>{ 
 
+
+
 	const menu = {
-    main: $select("#main main-menu"),
+    main: $select("main-menu"),
     settings: $select("#settings settings-menu")
 	};
 
@@ -47,15 +49,15 @@ DOMReady(()=>{
          event.key === "F5"
     ) event.preventDefault();
    
-    if (event.isComposing) return;
+    if (event.isComposing || event.repeat) return;
     
     const component = menu.settings.$isHidden() ? "main" : "settings";
     menu[component].onKBMInput(event.key);
   });
   
-  document.addEventListener("mouseup", (event) => { 
+  document.addEventListener("mousedown", (event) => { 
     if (event.button <= 2 ) return;
-    
+
     const component = menu.settings.$isHidden() ? "main" : "settings";
     menu[component].onKBMInput("Mouse" + event.button);
   });

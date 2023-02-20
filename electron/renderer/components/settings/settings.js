@@ -57,7 +57,7 @@ export default class WebComponent extends HTMLElement {
 
     for(const [name, options] of Object.entries(settings)){
       for(const option of options){
-        const li = this.#options.$select(`#settings-${name}`).$append(template);
+        const li = this.#options.$select(`#settings-${name} ul`).$append(template);
         li.$attr("data-id", option.id);
         if(option.unx) li.$attr("data-unx", option.unx);
         
@@ -153,8 +153,7 @@ export default class WebComponent extends HTMLElement {
         console.log("set: ", id, value);
         li.$select(`.right select option[value="${value}"`).selected  = true;
       }catch(err){
-        console.error(err);
-        //continue;
+        console.warn(err);
       }
     }
 
@@ -175,11 +174,10 @@ export default class WebComponent extends HTMLElement {
         const id = li.$attr("data-id");
         const unx =  li.$attr("data-unx");
         
-        let value = li.$select(".right select").value;
-        if(value === "true") value = true;
-        else if(value === "false") value = false;
-
+        const value = li.$select(".right select").value;
+        
         if(unx){
+          this.#settings.unx[unx] ??= Object.create(null);
           this.#settings.unx[unx][id] = value;
           console.log("changed: ", unx, id, value);
         } else {
@@ -197,15 +195,56 @@ export default class WebComponent extends HTMLElement {
 
     ipcRenderer.settingsWrite(this.#settings)
     .catch(console.error)
-    .finally(this.$parent("#settings").$fadeOut(450))
+    .finally(() => { this.hide() });
   }
   
   hide(){
+    this.#options.$selectAll("li.active").forEach(el => el.$removeClass("active"));
     this.$parent("#settings").$fadeOut(450);
+  }
+  
+  move(climb = false){
+    
+    const root = this.#options.$select("#settings-game");
+    const current = root.$select("li.active") ??
+                    root.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
+    current.$removeClass("active");
+
+    const next = climb ? current.$prev() : current.$next();
+    next.$toggleClass("active");
+    
+    root.scrollIntoView();
+    ipcRenderer.gamepadVibrate().catch(console.error);
+  }
+  
+  change(next = false){
+    
+    const root = this.#options.$select("#settings-game");
+    const current = root.$select("li.active");
+    if(!current) return;
+    
+    if(next)
+      current.$select("li .next").$click();
+    else
+      current.$select("li .previous").$click();
+
+    ipcRenderer.gamepadVibrate().catch(console.error);
   }
   
   onGamepadInput(input){
     switch(input){
+      case "XINPUT_GAMEPAD_DPAD_UP":
+        this.move(true);
+        break;
+      case "XINPUT_GAMEPAD_DPAD_DOWN":
+        this.move(false);
+        break;
+      case "XINPUT_GAMEPAD_DPAD_LEFT":
+        this.change(false);
+        break;
+      case "XINPUT_GAMEPAD_DPAD_RIGHT":
+        this.change(true);
+        break;
       case "XINPUT_GAMEPAD_B":
         this.hide();
         break;
@@ -217,6 +256,18 @@ export default class WebComponent extends HTMLElement {
   
   onKBMInput(input){
     switch(input){
+      case "ArrowUp":
+        this.move(true);
+        break;
+      case "ArrowDown":
+        this.move(false);
+        break;
+      case "ArrowLeft":
+        this.change(false);
+        break;
+      case "ArrowRight":
+        this.change(true);
+        break;
       case "Enter":
         this.save();
         break;

@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="author" content="Anthony Beaumont">  
-    <meta http-equiv="Content-Security-Policy" content=" default-src 'none'; script-src 'self' 'sha256-qKHJ8E4JMKeFToeokSLY4reuCtvCuis+608hHiraTsE='; style-src 'self' 'unsafe-inline';  font-src 'self'; media-src 'self'; img-src 'self'; connect-src 'self' ">
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self'; 
+      script-src 'self' 'sha256-qKHJ8E4JMKeFToeokSLY4reuCtvCuis+608hHiraTsE='; 
+      style-src 'self' 'unsafe-inline';
+    ">
     <link rel="stylesheet" href="./resources/style/vendor/normalize.css" type="text/css" integrity="sha384-M86HUGbBFILBBZ9ykMAbT3nVb0+2C7yZlF8X2CiKNpDOQjKroMJqIeGZ/Le8N2Qp"/>
     <link rel="stylesheet" href="./resources/style/vendor/fontawesome.css" type="text/css" integrity=""/>
     <link rel="stylesheet" href="./resources/style/style.css" type="text/css" />
@@ -12,18 +16,14 @@
   </head>
   <body>
   
-  <section id="main" class="background">
-    <main-menu></main-menu>
-  </section>
+  
+  <main-menu class="background"></main-menu>
+  
   
   <section id="settings" class="background">
     <settings-menu></settings-menu>
   </section>
 
-  <!-- 
-  You fail me again Chrome...
-  <script src="./importmap.json" type="importmap"></script>
-  -->
   <script type="importmap">
   {
     "imports": {

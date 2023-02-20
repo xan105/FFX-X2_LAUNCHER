@@ -2,17 +2,17 @@ import { $select } from "@xan105/vanilla-query";
 
 const html = 
 `
-<aside id="mainMenuSelection">
-  <ul class="menu">
-    <li><div class="button launch_ffx" data-name="ffx"></div></li>
-    <li><div class="button launch_ffx_ec" data-name="ffx_ec"></div></li>
-    <li><div class="button launch_ffx2" data-name="ffx2"></div></li>
-    <li><div class="button launch_ffx2_lm" data-name="ffx2_lm"></div></li>
-    <li><div class="button launch_credits" data-name="credits"></div></li>
-    <li><div class="button exit" data-name="exit"></div></li>
-    <li><div class="button settings" data-name="settings"></div></li>
+<nav>
+  <ul>
+    <li data-name="ffx"></li>
+    <li data-name="ffx_ec"></li>
+    <li data-name="ffx2"></li>
+    <li data-name="ffx2_lm"></li>
+    <li data-name="credits"></li>
+    <li data-name="exit"></li>
+    <li data-name="settings"></li>
   </ul>
-</aside>
+</nav>
 `;
 
 export default class WebComponent extends HTMLElement {
@@ -22,7 +22,7 @@ export default class WebComponent extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = html;
-    this.#menu = $select("#mainMenuSelection .menu", this);
+    this.#menu = $select("nav ul", this);
   }
 
   connectedCallback() {
@@ -51,7 +51,7 @@ export default class WebComponent extends HTMLElement {
   }
   
   click(el){
-    const name = el.$select("div").$attr("data-name");
+    const name = el.$attr("data-name");
     
     if (name === "settings"){
       this.dispatchEvent(new CustomEvent("exit"));
@@ -76,7 +76,7 @@ export default class WebComponent extends HTMLElement {
   enter(name = null){
     if(name){
       this.#menu.$select("li.active")?.$removeClass("active");
-      this.#menu.$select(`li div[data-name="${name}"]`)?.$click();
+      this.#menu.$select(`li[data-name="${name}"]`)?.$click();
     } else {
       this.#menu.$select("li.active")?.$removeClass("active")?.$click();
     }  
@@ -99,11 +99,17 @@ export default class WebComponent extends HTMLElement {
     }
   }
   
-  onKBMInput({key}){
-    /*switch(key){
-      case "Escape":
-        //do something
+  onKBMInput(input){
+    switch(input){
+      case "ArrowUp":
+        this.move(true);
         break;
-    }*/
+      case "ArrowDown":
+        this.move(false);
+        break;
+      case "Enter":
+        this.enter();
+        break;
+    }
   }
 }

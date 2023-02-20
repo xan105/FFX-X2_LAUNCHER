@@ -8,7 +8,6 @@ const {
   shell,
   ipcMain
 } = require("electron");
-
 const { join } = require("node:path");
 
 function onError(err){
@@ -49,88 +48,84 @@ function openExternalLink(window){
 }
 
 try {
-  if (app.requestSingleInstanceLock() === true) 
-  {
+  if (app.requestSingleInstanceLock() !== true) app.quit();
 
-    let mainWin;
+  let mainWin;
     
-    app.on("second-instance", () => {
-      if (mainWin) {
-        if (mainWin.isMinimized()) mainWin.restore();
-        mainWin.focus();
-      }
+  app.on("second-instance", () => {
+    if (mainWin) {
+      if (mainWin.isMinimized()) mainWin.restore();
+      mainWin.focus();
+    }
+  });
+
+  const debug = process.env["NODE_ENV"] === "dev";
+  const { name } = require("../../package.json");
+  app.setAppUserModelId(name);
+  app.disableHardwareAcceleration();
+
+  app.whenReady()
+  .then(() => {
+
+    const { main } = require("./window.json");
+    const options = main.window;
+    options.show = false;
+    options.webPreferences = {
+      devTools: debug,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      contextIsolation: true,
+      sandbox: true,
+      webviewTag: false,
+      v8CacheOptions: debug ? "none" : "code",
+      preload: join(__dirname, main.preload)
+    };
+    options.icon = join(__dirname, options.icon);
+    if (options.frame === true) options.useContentSize = true;
+
+    mainWin = new BrowserWindow(options);
+    mainWin.setMenuBarVisibility(main.menuBar ?? true);
+      
+    mainWin.on("closed", () => {
+      mainWin = null; //deref
     });
 
-    const debug = process.env["NODE_ENV"] === "dev";
-    const { name } = require("../../package.json");
-    app.setAppUserModelId(name);
-    app.disableHardwareAcceleration();
+    if(debug){
+      console.info((({node,electron,chrome })=>({node,electron,chrome}))(process.versions));
+      addDebugMenu(mainWin);
+    }
 
-    app.whenReady()
-    .then(() => {
+    //User agent
+    mainWin.webContents.userAgent = "Chrome/";
+    session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+      details.requestHeaders["User-Agent"] = "Chrome/";
+      callback({ cancel: false, requestHeaders: details.requestHeaders });
+    });
+    
+    openExternalLink(mainWin);
 
-      const { main } = require("./win.json");
-      
-      let options = main.window;
-      options.show = false;
-      options.webPreferences = {
-          devTools: debug,
-          nodeIntegration: false,
-          nodeIntegrationInWorker: false,
-          contextIsolation: true,
-          sandbox: true,
-          webviewTag: false,
-          v8CacheOptions: debug ? "none" : "code",
-          preload: join(__dirname, main.preload)
-      };
+    Promise.all([
+      new Promise((resolve) => { 
+        mainWin.once("ready-to-show", resolve); //Window is loaded and ready to be drawn
+      }),
+      new Promise((resolve) => {  
+        ipcMain.handleOnce("components-loaded", resolve); //Wait for custom event 
+      })
+    ])
+    .then(async() => {
 
-      options.icon = join(__dirname, options.icon);
-      if (options.frame === true) options.useContentSize = true;
-
-      mainWin = new BrowserWindow(options);
-      mainWin.setMenuBarVisibility(main.menuBar ?? true);
-      
-      mainWin.on("closed", () => {
-        mainWin = null; //deref
-      });
-
-      if(debug){
-        console.info((({node,electron,chrome })=>({node,electron,chrome}))(process.versions));
-        addDebugMenu(mainWin);
-      }
-
-      //User agent
-      mainWin.webContents.userAgent = "Chrome/";
-      session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-        details.requestHeaders["User-Agent"] = "Chrome/";
-        callback({ cancel: false, requestHeaders: details.requestHeaders });
-      });
-
-      openExternalLink(mainWin);
-
-      Promise.all([
-        new Promise((resolve) => { 
-          mainWin.once("ready-to-show", resolve); //Window is loaded and ready to be drawn
-        }),
-        new Promise((resolve) => {  
-          ipcMain.handleOnce("components-loaded", resolve); //Wait for custom event 
-        })
-      ])
-      .then(async() => {
-
-        const ipc = await import("./ipc.js");
-
-        const { hookGamepad } = await import("./gamepad.js");
-        hookGamepad(mainWin);
+      const { listen } = await import("./ipc.js");
+      listen();
         
-        console.log("showing...");
-        mainWin.show();
-        mainWin.focus();
+      const { hookGamepad } = await import("./gamepad.js");
+      hookGamepad(mainWin);
+        
+      mainWin.show();
+      mainWin.focus();
 
-      }).catch(onError);
-      
-      mainWin.loadFile(join(__dirname, main.view));
-      
     }).catch(onError);
-  } else { app.quit() }
+      
+    mainWin.loadFile(join(__dirname, main.view));
+      
+  }).catch(onError);
 }catch(err) { onError(err) }

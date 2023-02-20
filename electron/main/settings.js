@@ -1,9 +1,9 @@
 import { join } from "node:path";
+//import { app } from "electron";
 import { readFile, writeFile, exists } from "@xan105/fs";
 import { parse, stringify } from "@xan105/ini";
 import { isObjNotEmpty } from "@xan105/is";
 import { attempt } from "@xan105/error";
-//import { app } from "electron";
 import folders from "@xan105/usershellfolder";
 
 const cwd = /*app.getAppPath();*/ "G:\\Library\\SteamLibrary\\steamapps\\common\\FINAL FANTASY FFX&FFX-2 HD Remaster";
@@ -20,27 +20,21 @@ async function readSettingFile(filePath, encodings){
   for (const encoding of encodings)
   {
     const file = await readFile(filePath, encoding);
-    const result = parse(file, { 
-      translate: { 
-        number: true 
-      } 
-    });
+    const result = parse(file, { translate: false });
     if (isObjNotEmpty(result)) return result;
   }
 }
 
 async function hasUnx(){
-  if (await exists(join(cwd, "dxgi.dll"))) { 
-    const [ dxgi ] = await attempt(readSettingFile, [
-      join(cwd, "dxgi.ini"),
-      ["utf16le", "utf8"]
-    ]);
-    const unxPath = join(cwd, dxgi?.["Import.UnX"]?.Filename ?? "unx.dll");
-    const has = await exists(unxPath);
-    return has;
-  } else {
-    return false;
-  }
+  if (await exists(join(cwd, "dxgi.dll")) === false) return false; 
+    
+  const [ dxgi ] = await attempt(readSettingFile, [
+    join(cwd, "dxgi.ini"),
+    ["utf16le", "utf8"]
+  ]);
+  const unxPath = join(cwd, dxgi?.["Import.UnX"]?.Filename ?? "unx.dll");
+  const result = await exists(unxPath);
+  return result;
 }
 
 async function read(){ 
@@ -49,9 +43,9 @@ async function read(){
     readSettingFile(files[0], ["utf8"])
   ];
   
-  const includeUnx = await hasUnx();
+  const unx = await hasUnx();
   
-  if (includeUnx) {
+  if (unx) {
     promises = promises.concat([
       readSettingFile(files[1], ["utf16le", "utf8"]),
       readSettingFile(files[2], ["utf16le", "utf8"]),
@@ -61,9 +55,9 @@ async function read(){
   }
 
   const data = await Promise.allSettled(promises);
-
+  
   const result = data[0].value ?? Object.create(null);
-  if (includeUnx) {
+  if (unx) {
     result.unx = Object.assign(
       Object.create(null),
       data[1].value,
@@ -90,26 +84,24 @@ async function write(settings){
   if (unx){
   
     //Forcing some value as per author's instruction (better safe than sorry)
-    if(!unx["UnX.Render"]) unx["UnX.Render"] = Object.create(null);
-    if(!unx["UnX.Stutter"]) unx["UnX.Stutter"] = Object.create(null);
-    if(!unx["UnX.Input"]) unx["UnX.Input"] = Object.create(null);
-    unx["UnX.Render"].BypassIntel = false; //STABILITY_NOTE
-    unx["UnX.Stutter"].Reduce = false; //REMOVAL0
-    unx["UnX.Input"].TrapAltTab = false; //DEPRECATION0
-    unx["UnX.Input"].FixBackgroundInput = false; //DEPRECATION0
+    unx["UnX.Render"] ??= Object.create(null);
+    unx["UnX.Render"].BypassIntel = "false"; //STABILITY_NOTE
+    unx["UnX.Stutter"] ??= Object.create(null);
+    unx["UnX.Stutter"].Reduce = "false"; //REMOVAL0
+    unx["UnX.Input"] ??= Object.create(null);
+    unx["UnX.Input"].TrapAltTab = "false"; //DEPRECATION0
+    unx["UnX.Input"].FixBackgroundInput = "false"; //DEPRECATION0
     
     //Sync audio lang options to "Master Voice" for simplicity sake
-    if(!unx["Language.Master"]) unx["Language.Master"] = Object.create(null);
-    if(!unx["FFX.exe"]) unx["FFX.exe"] = Object.create(null);
-    if(!unx["FFX&X-2_Will.exe"]) unx["FFX&X-2_Will.exe"] = Object.create(null);
-    
+    unx["Language.Master"] ??= Object.create(null);
     unx["Language.Master"].Voice ??= "en";
-    
     unx["Language.Master"].SoundEffects = unx["Language.Master"].Voice;
     unx["Language.Master"].Video = unx["Language.Master"].Voice;
+    unx["FFX.exe"] ??= Object.create(null);
     unx["FFX.exe"].SoundEffects = unx["Language.Master"].Voice;
     unx["FFX.exe"].Video = unx["Language.Master"].Voice;
     unx["FFX.exe"].Voice = unx["Language.Master"].Voice;
+    unx["FFX&X-2_Will.exe"] ??= Object.create(null);
     unx["FFX&X-2_Will.exe"].SoundEffects = unx["Language.Master"].Voice;
     unx["FFX&X-2_Will.exe"].Video = unx["Language.Master"].Voice;
     unx["FFX&X-2_Will.exe"].Voice = unx["Language.Master"].Voice;

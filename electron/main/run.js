@@ -1,6 +1,8 @@
 import { spawn } from "node:child_process";
 import { join } from "node:path";
 import { app } from "electron";
+import games from "./game.json" assert { type: "json" };
+
 import {
   shouldObj,
   shouldObjLike,
@@ -19,29 +21,6 @@ function run(name, wait, callback = ()=>{}){
     shouldBoolean(wait);
     if (typeof callback !== "function") throw new Failure("Expected function", 1);
 
-    const games = {
-      "ffx": {
-        binary: "FFX.exe",
-        args: []
-      },
-      "ffx_ec": {
-        binary: "FFX.exe",
-        args: ["_ECalm"]
-      },
-      "ffx2": {
-        binary: "FFX-2.exe",
-        args: []
-      },
-      "ffx2_lm": {
-        binary: "FFX-2.exe",
-        args: ["FFX2_LASTMISSION"]
-      },
-      "credits": {
-        binary: "FFX&X-2_Will.exe",
-        args: []
-      }
-    };
-    
     const game = games[name];
     shouldObjLike(game,{
       binary: isStringNotEmpty,

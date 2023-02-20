@@ -1,0 +1,22 @@
+{
+  "ffx": {
+    "binary": "FFX.exe",
+    "args": []
+  },
+  "ffx_ec": {
+    "binary": "FFX.exe",
+    "args": ["_ECalm"]
+  },
+  "ffx2": {
+    "binary": "FFX-2.exe",
+    "args": []
+  },
+  "ffx2_lm": {
+    "binary": "FFX-2.exe",
+    "args": ["FFX2_LASTMISSION"]
+  },
+  "credits": {
+    "binary": "FFX&X-2_Will.exe",
+    "args": []
+  }
+}
