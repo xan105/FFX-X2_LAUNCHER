@@ -1,80 +1,68 @@
-#main{
+main-menu{
   background-image:url("../img/background.png"); 
 }
-#mainMenuSelection { 
+main-menu nav { 
 	margin-left: 81px; 
 	width: 373px; 
 	height: 703px;
 }
-#mainMenuSelection .menu { 
+main-menu nav ul { 
 	padding-top: 90px; 
 }
-#mainMenuSelection .menu .button { 
+main-menu nav ul li { 
 	width: 373px; 
 	height: 82px; 
-	background-repeat: no-repeat; 
+	background-repeat: no-repeat;
+	display: block; 
 }
-#mainMenuSelection .menu .launch_ffx { 
+main-menu nav ul li[data-name="ffx"] { 
 	background-image:url("../img/button/default/ffx_button.png");
 }
-
-#mainMenuSelection .menu li.active .launch_ffx { 
+main-menu nav ul li[data-name="ffx"].active { 
 	background-image:url("../img/button/hover/ffx_button.png");
 }
-
-#mainMenuSelection .menu .launch_ffx_ec { 
+main-menu nav ul li[data-name="ffx_ec"] { 
 	background-image:url("../img/button/default/ffx_ec_button.png");
 	height: 83px; 
 }
-
-#mainMenuSelection .menu li.active .launch_ffx_ec { 
+main-menu nav ul li[data-name="ffx_ec"].active { 
 	background-image:url("../img/button/hover/ffx_ec_button.png");
 }
-
-#mainMenuSelection .menu .launch_ffx2 { 
+main-menu nav ul li[data-name="ffx2"] { 
 	background-image:url("../img/button/default/ffx2_button.png");
 }
-
-#mainMenuSelection .menu li.active .launch_ffx2 { 
+main-menu nav ul li[data-name="ffx2"].active {
 	background-image:url("../img/button/hover/ffx2_button.png");
 }
-
-#mainMenuSelection .menu .launch_ffx2_lm { 
+main-menu nav ul li[data-name="ffx2_lm"] {
 	background-image:url("../img/button/default/ffx2_lm_button.png");
 }
-
-#mainMenuSelection .menu li.active .launch_ffx2_lm { 
+main-menu nav ul li[data-name="ffx2_lm"].active { 
 	background-image:url("../img/button/hover/ffx2_lm_button.png");
 }
-
-#mainMenuSelection .menu .launch_credits { 
+main-menu nav ul li[data-name="credits"] {
 	background-image:url("../img/button/default/credits_button.png"); 
 	height: 73px; 
 	padding-bottom: 9px;
 }
-
-#mainMenuSelection .menu li.active .launch_credits { 
+main-menu nav ul li[data-name="credits"].active { 
 	background-image:url("../img/button/hover/credits_button.png"); 
 	height: 73px; 
 	padding-bottom: 9px;
 }
-
-#mainMenuSelection .menu .exit { 
+main-menu nav ul li[data-name="exit"] {
 	background-image:url("../img/button/default/exit_button.png"); 
 	height: 73px;
 }
-
-#mainMenuSelection .menu li.active .exit { 
+main-menu nav ul li[data-name="exit"].active { 
 	background-image:url("../img/button/hover/exit_button.png"); 
 	height: 73px;
 }
-
-#mainMenuSelection .menu .settings { 
+main-menu nav ul li[data-name="settings"] { 
 	background-image:url("../img/button/default/setting_button.png"); 
 	height: 56px;
 }
-
-#mainMenuSelection .menu li.active .settings { 
+main-menu nav ul li[data-name="settings"].active {
 	background-image:url("../img/button/hover/setting_button.png"); 
 	height: 56px;
 }

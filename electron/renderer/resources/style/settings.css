@@ -107,6 +107,8 @@
 	box-sizing: border-box;
 }
 
+#settings li.active { border: 1px solid red; } //debug
+
 #settings li:first-child { margin-top: 0; }
 #settings li:last-child { margin-bottom: 0; }
 
