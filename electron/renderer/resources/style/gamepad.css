@@ -1,0 +1,33 @@
+.gamepad {
+  height: 48px;
+  width: 48px;
+  background-size: contain;
+}
+
+.gamepad.dpad.vertical {
+  background-image: url("../img/gamepad/vertical.svg");
+}
+
+.gamepad.dpad.horizontal {
+  background-image: url("../img/gamepad/horizontal.svg");
+}
+
+.gamepad.A {
+  background-image: url("../img/gamepad/xbox/A.svg");
+  height: 40px;
+  width: 40px;
+}
+
+.gamepad.B {
+  background-image: url("../img/gamepad/xbox/B.svg");
+  height: 40px;
+  width: 40px;
+}
+
+.gamepad.L {
+  background-image: url("../img/gamepad/xbox/RL.png");
+}
+
+.gamepad.R {
+  background-image: url("../img/gamepad/xbox/RB.png");
+}

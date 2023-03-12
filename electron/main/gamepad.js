@@ -41,7 +41,7 @@ function hookGamepad(window, option = {}){
   
   gamepad.on("input", (buttons) => { 
     setImmediate(() => {
-      window.webContents.send("onGamepadInput", buttons[0]); //single input
+      window.webContents.send("onGamepadInput", buttons);
     });
   });
   

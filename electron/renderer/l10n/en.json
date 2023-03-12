@@ -1,0 +1,133 @@
+{
+  "settings" : {
+    "common": {
+      "enabled": "Enable",
+      "disabled": "Disabled"
+    },
+    "language": {
+      "display": "Language",
+      "hint": "",
+      "values": {
+        "en": "English",
+        "fr": "French",
+        "it": "Italian",
+        "de": "German",
+        "es": "Spanish",
+        "jp": "Japanese",
+        "kr": "Korean",
+        "ch": "Chinese"
+      }
+    },
+    "voice": {
+      "display": "Audio",
+      "hint": "",
+      "values": {
+        "en": "English",
+        "jp": "Japanese"
+      }
+    },
+    "screenMode": {
+      "display": "Display mode",
+      "hint": "",
+      "values": {
+        "SM_WINDOW": "Window",
+        "SM_BORDERLESS": "Borderless",
+        "SM_FULLSCREEN": "Fullscreen"
+      }
+    },
+    "resolution": {
+      "display": "Display resolution",
+      "hint": ""
+    },
+    "disableDPIScaling": {
+      "display": "Disable DPI scaling",
+      "hint": "The game claims to be DPI aware but is not, leading to incorrect scaling"
+    },
+    "flipMode": {
+      "display": "Flip Mode",
+      "hint": "High Performance Windowed mode rendering"
+    },
+    "quality": {
+      "display": "Quality preset",
+      "hint": "",
+      "values": {
+        "VQ_LOW": "Low",
+        "VQ_MEDIUM": "Medium",
+        "VQ_HIGH": "High"
+      }
+    },
+    "textureSet": {
+      "display": "Gamepad button style",
+      "hint": "Changes the game's button icons",
+      "values": {
+        "": "Default",
+        "PlayStation_Glossy": "PS Glossy",
+        "PlayStation_Simple": "PS Simple",
+        "PS3": "PS3",
+        "PS4": "PS4",
+        "Xbox360": "Xbox 360",
+        "XboxOne": "Xbox One"
+      }
+    },
+    "entirePartyEarnsAP": {
+      "display": "Entire party earns AP",
+      "hint": "Grant AP to all party members (even the ones not in combat)"
+    },
+    "grantPermanentSensor": {
+      "display": "Grant Permanent Sensor",
+      "hint": "Apply sensor ability without equipment"
+    },
+    "fastExit": {
+      "display": "Fast Exit",
+      "hint": "Remove confirmation on [Alt + F4]"
+    },
+    "fourFingerSalute": {
+      "display": "Four finger salute",
+      "hint": "Bring up the in-game menu by pressing both [Triggers + Start + Select]"
+    },
+    "volume": {
+      "display": "Music volume",
+      "hint": ""
+    },
+    "menuEntry-rememberLast": {
+      "display": "Remember last menu entry",
+      "hint": ""
+    },
+    "menuEntry-ffx": {
+      "display": "Hide FFX in the launcher's menu",
+      "hint": ""
+    },
+    "menuEntry-ffx_ec": {
+      "display": "Hide FFX Eternal Calm in the launcher's menu",
+      "hint": ""
+    },
+    "menuEntry-ffx2": {
+      "display": "Hide FFX-2 in the launcher's menu",
+      "hint": ""
+    },
+    "menuEntry-ffx2_lm": {
+      "display": "Hide FFX-2 Last Mission in the launcher's menu",
+      "hint": ""
+    },
+    "menuEntry-credits": {
+      "display": "Hide credits and bonus in the launcher's menu",
+      "hint": ""
+    },
+    "startFullscreen": {
+      "display": "Start launcher mode",
+      "hint": "Start launcher in fullscreen or windowed mode",
+      "values": {
+        "true": "Fullscreen",
+        "false": "Windowed"
+      }
+    },
+    "detachFromProcess": {
+      "display": "Exit after launch",
+      "hint": ""
+    },
+    "cleanup": {
+      "display": "Clean up",
+      "hint": "Delete log file created by the game and UnX when the game closes"
+    }
+  }
+}

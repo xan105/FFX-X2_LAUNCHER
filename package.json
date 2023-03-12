@@ -8,6 +8,13 @@
   "engines": {
     "node": ">=16.0.0"
   },
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "ia32"
+  ],
   "scripts": {
     "start": "npm run-script start:windows",
     "start:windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && electron .",
@@ -40,15 +47,6 @@
       "url": "https://www.patreon.com/xan105"
     }
   ],
-  "_nodert": {
-    "runtime": "electron",
-    "modules": [
-      "windows.data.xml.dom",
-      "windows.ui.notifications",
-      "windows.foundation",
-      "windows.foundation.collections"
-    ]
-  },
   "devDependencies": {
     "@electron/rebuild": "^3.2.10",
     "electron": "^22.0.0",
@@ -56,14 +54,13 @@
     "eslint": "^8.30.0"
   },
   "dependencies": {
-    "@xan105/error": "^1.5.0",
+    "@xan105/error": "^1.6.0",
     "@xan105/fs": "^2.1.0",
     "@xan105/ini": "^2.1.1",
-    "@xan105/is": "^2.8.0",
-    "@xan105/nodert": "^1.1.7",
-    "@xan105/usershellfolder": "^1.1.2",
+    "@xan105/is": "^2.8.1",
+    "@xan105/usershellfolder": "^1.1.3",
     "@xan105/vanilla-query": "^1.4.0",
     "win-screen-resolution": "2.1.0",
-    "xinput-ffi": "^3.3.0"
+    "xinput-ffi": "^3.4.0"
   }
 }

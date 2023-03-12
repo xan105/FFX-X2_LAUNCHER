@@ -1,46 +1,58 @@
 import { DOMReady, $select } from "@xan105/vanilla-query";
-
-/*
-//seperate file script src="translate.js" ??
-import l10n from "./l10n.json" assert { type: "json"};
-const lang = l10n[currentlang] ?? l10n["english"];
-*/
+import { locale } from "./l10n.js";
 
 DOMReady(()=>{ 
 
-
+  $select("html").lang = locale;
 
 	const menu = {
     main: $select("main-menu"),
     settings: $select("#settings settings-menu")
 	};
 
-  menu.main.$on("exit", ()=>{
-    //menu.settings.$fadeIn();
-    
-    
-    /*menu.main.input = false;
-    menu.settings.$fadeIn();
-    menu.settings.input = true;*/
-    
-    console.log("exit main menu");
-    menu.settings.show();
+  const audio = {
+    sfx: $select("#sfx"),
+    play: function(name, volume = 0.5){
+      //Load
+      if (this.sfx.$attr("data-name") !== name){
+        this.sfx.$attr("data-name", name);
+        this.sfx.src = "./resources/sound/" + name + ".ogg";
+        this.sfx.load();
+      //Reload
+      } else {
+        this.sfx.currentTime = 0;
+      }
+      //Play
+      this.sfx.volume = volume;  
+      this.sfx.play();
+    }
+  };
+  
+  menu.main.$on("selected", ()=>{
+    audio.play("select");
   });
   
-  console.log(menu.settings.show);
-  
-  menu.settings.$on("exit", ()=>{
-    
-    /*menu.settings.input = false;
-    menu.settings.$fadeOut();
-    menu.main.input = true;*/
+  menu.main.$on("enter", ()=>{
+    audio.play("enter");
   });
 
-	/*Input handling*/
+  menu.main.$on("exit", ()=>{
+    menu.settings.show();
+  });
+
+  menu.settings.$on("saved", ()=>{
+    audio.play("save");
+  });
+  
+  menu.settings.$on("exit", ()=>{
+    audio.play("cancel");
+  });
+
+	/* Input handling */
 	
 	ipcRenderer.onGamepadInput((event, input) => {
     const component = menu.settings.$isHidden() ? "main" : "settings";
-    menu[component].onGamepadInput(input);
+    menu[component].onGamepadInput(input[0]);
   });
   
   document.addEventListener("keydown", (event) => {

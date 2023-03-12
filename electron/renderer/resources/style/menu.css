@@ -16,53 +16,53 @@ main-menu nav ul li {
 	display: block; 
 }
 main-menu nav ul li[data-name="ffx"] { 
-	background-image:url("../img/button/default/ffx_button.png");
+	background-image:url("../img/menu/off/ffx_button.png");
 }
 main-menu nav ul li[data-name="ffx"].active { 
-	background-image:url("../img/button/hover/ffx_button.png");
+	background-image:url("../img/menu/on/ffx_button.png");
 }
 main-menu nav ul li[data-name="ffx_ec"] { 
-	background-image:url("../img/button/default/ffx_ec_button.png");
+	background-image:url("../img/menu/off/ffx_ec_button.png");
 	height: 83px; 
 }
 main-menu nav ul li[data-name="ffx_ec"].active { 
-	background-image:url("../img/button/hover/ffx_ec_button.png");
+	background-image:url("../img/menu/on/ffx_ec_button.png");
 }
 main-menu nav ul li[data-name="ffx2"] { 
-	background-image:url("../img/button/default/ffx2_button.png");
+	background-image:url("../img/menu/off/ffx2_button.png");
 }
 main-menu nav ul li[data-name="ffx2"].active {
-	background-image:url("../img/button/hover/ffx2_button.png");
+	background-image:url("../img/menu/on/ffx2_button.png");
 }
 main-menu nav ul li[data-name="ffx2_lm"] {
-	background-image:url("../img/button/default/ffx2_lm_button.png");
+	background-image:url("../img/menu/off/ffx2_lm_button.png");
 }
 main-menu nav ul li[data-name="ffx2_lm"].active { 
-	background-image:url("../img/button/hover/ffx2_lm_button.png");
+	background-image:url("../img/menu/on/ffx2_lm_button.png");
 }
 main-menu nav ul li[data-name="credits"] {
-	background-image:url("../img/button/default/credits_button.png"); 
+	background-image:url("../img/menu/off/credits_button.png"); 
 	height: 73px; 
 	padding-bottom: 9px;
 }
 main-menu nav ul li[data-name="credits"].active { 
-	background-image:url("../img/button/hover/credits_button.png"); 
+	background-image:url("../img/menu/on/credits_button.png"); 
 	height: 73px; 
 	padding-bottom: 9px;
 }
 main-menu nav ul li[data-name="exit"] {
-	background-image:url("../img/button/default/exit_button.png"); 
+	background-image:url("../img/menu/off/exit_button.png"); 
 	height: 73px;
 }
 main-menu nav ul li[data-name="exit"].active { 
-	background-image:url("../img/button/hover/exit_button.png"); 
+	background-image:url("../img/menu/on/exit_button.png"); 
 	height: 73px;
 }
 main-menu nav ul li[data-name="settings"] { 
-	background-image:url("../img/button/default/setting_button.png"); 
+	background-image:url("../img/menu/off/setting_button.png"); 
 	height: 56px;
 }
 main-menu nav ul li[data-name="settings"].active {
-	background-image:url("../img/button/hover/setting_button.png"); 
+	background-image:url("../img/menu/on/setting_button.png"); 
 	height: 56px;
 }

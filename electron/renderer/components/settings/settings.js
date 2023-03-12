@@ -1,5 +1,8 @@
 import { $select } from "@xan105/vanilla-query";
+import { l10n } from "../../l10n.js";
 import settings from "./settings.json" assert { type: "json" };
+
+console.log(l10n);
 
 const template =
 `
@@ -28,7 +31,28 @@ const html =
 			<div class="text"></div>
 		</div>
 	</div>
-	<div class="footer"></div>
+	<div class="footer">
+	
+    <ul>
+      <li>
+        <div class="gamepad dpad vertical"></div>
+        <span>Select</span>
+      </li>
+      <li>
+        <div class="gamepad dpad horizontal"></div>
+        <span>Change</span>
+      </li>
+      <li>
+        <div class="gamepad A"></div>
+        <span>Save</span>
+      </li>
+      <li>
+        <div class="gamepad B"></div>
+        <span>Cancel</span>
+      </li>
+    </ul>
+    
+	</div>
 	
 	<div class="options">
     <section id="settings-game">
@@ -195,7 +219,15 @@ export default class WebComponent extends HTMLElement {
 
     ipcRenderer.settingsWrite(this.#settings)
     .catch(console.error)
-    .finally(() => { this.hide() });
+    .finally(() => { 
+      this.dispatchEvent(new CustomEvent("saved"));
+      this.hide();
+    });
+  }
+  
+  exit(){
+    this.dispatchEvent(new CustomEvent("exit"));
+    this.hide();
   }
   
   hide(){
@@ -246,10 +278,10 @@ export default class WebComponent extends HTMLElement {
         this.change(true);
         break;
       case "XINPUT_GAMEPAD_B":
-        this.hide();
+        this.exit();
         break;
       case "XINPUT_GAMEPAD_START":
-        this.hide();
+        this.exit();
         break;
     }
   }
@@ -272,10 +304,10 @@ export default class WebComponent extends HTMLElement {
         this.save();
         break;
       case "Escape":
-        this.hide();
+        this.exit();
         break;
       case "Mouse3":
-        this.hide();
+        this.exit();
         break;
     }
   }

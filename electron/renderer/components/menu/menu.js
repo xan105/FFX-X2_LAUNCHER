@@ -44,6 +44,7 @@ export default class WebComponent extends HTMLElement {
   active(el){
     this.#menu.$select("li.active")?.$removeClass("active");
     el.$addClass("active");
+    this.dispatchEvent(new CustomEvent("selected"));
   }
   
   inactive(el){
@@ -51,8 +52,9 @@ export default class WebComponent extends HTMLElement {
   }
   
   click(el){
-    const name = el.$attr("data-name");
+    this.dispatchEvent(new CustomEvent("enter"));
     
+    const name = el.$attr("data-name");
     if (name === "settings"){
       this.dispatchEvent(new CustomEvent("exit"));
     } 
@@ -65,11 +67,9 @@ export default class WebComponent extends HTMLElement {
     
     const current = this.#menu.$select("li.active") ??
                     this.#menu.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
-    current.$removeClass("active");
-
+   
     const next = climb ? current.$prev() : current.$next();
-    next.$toggleClass("active");
-    
+    this.active(next);
     ipcRenderer.gamepadVibrate().catch(console.error);
   }
 
@@ -79,7 +79,7 @@ export default class WebComponent extends HTMLElement {
       this.#menu.$select(`li[data-name="${name}"]`)?.$click();
     } else {
       this.#menu.$select("li.active")?.$removeClass("active")?.$click();
-    }  
+    }
   }
   
   onGamepadInput(input){

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <clipPath id="clip-button_xbox_digital_bumper_light_1">
+      <rect width="120" height="120"/>
+    </clipPath>
+  </defs>
+  <g id="button_xbox_digital_bumper_light_1" clip-path="url(#clip-button_xbox_digital_bumper_light_1)">
+    <g id="Rectangle_49" data-name="Rectangle 49" transform="translate(14 30)" fill="#2a2a2a" stroke="#fff" stroke-width="4">
+      <path d="M34,0H86a8,8,0,0,1,8,8V56a4,4,0,0,1-4,4H4a4,4,0,0,1-4-4V34A34,34,0,0,1,34,0Z" stroke="none"/>
+      <path d="M34-2H86A10,10,0,0,1,96,8V56a6,6,0,0,1-6,6H4a6,6,0,0,1-6-6V34A36,36,0,0,1,34-2Z" fill="none"/>
+    </g>
+    <path id="Rectangle_50" data-name="Rectangle 50" d="M34,0H82a8,8,0,0,1,8,8V52a4,4,0,0,1-4,4H4a4,4,0,0,1-4-4V34A34,34,0,0,1,34,0Z" transform="translate(14 30)" fill="#404040"/>
+    <path id="Rectangle_52" data-name="Rectangle 52" d="M30,0H76a6,6,0,0,1,6,6V44a4,4,0,0,1-4,4H4a4,4,0,0,1-4-4V30A30,30,0,0,1,30,0Z" transform="translate(14 34)" fill="#5b5b5b"/>
+    <path id="Path_140" data-name="Path 140" d="M-10.065-3.93h6.84V0h-11.97V-21.21h5.13Zm21.93-6.99A5.311,5.311,0,0,1,14.91-9.06a5.092,5.092,0,0,1,1.125,3.27A5.269,5.269,0,0,1,14.22-1.53,7.864,7.864,0,0,1,9.015,0H-.855V-21.21h9.63a7.863,7.863,0,0,1,5.01,1.41,4.841,4.841,0,0,1,1.77,4.02,4.953,4.953,0,0,1-1.02,3.195A4.7,4.7,0,0,1,11.865-10.92Zm-7.59-1.62h3.36q2.67,0,2.67-2.28T7.575-17.1h-3.3Zm3.66,8.37q2.85,0,2.85-2.34a2.229,2.229,0,0,0-.75-1.785,3.171,3.171,0,0,0-2.13-.645H4.275v4.77Z" transform="translate(55 71)" fill="#fff"/>
+  </g>
+</svg>
