@@ -12,6 +12,7 @@ DOMReady(()=>{
 
   const audio = {
     sfx: $select("#sfx"),
+    bgm: $select("#bgm"),
     play: function(name, volume = 0.5){
       //Load
       if (this.sfx.$attr("data-name") !== name){
@@ -27,6 +28,9 @@ DOMReady(()=>{
       this.sfx.play();
     }
   };
+  
+  bgm.volume = 0.1;
+  bgm.play();
   
   menu.main.$on("selected", ()=>{
     audio.play("select");
