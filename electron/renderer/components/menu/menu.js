@@ -29,8 +29,9 @@ export default class WebComponent extends HTMLElement {
     this.#menu.$selectAll("li").forEach((el) => {
       el.$click(this.click.bind(this, el));
       el.$on("mouseenter", this.active.bind(this, el));
-      el.$on("mouseleave", this.inactive.bind(this, el)); 
+      el.$on("mouseleave", this.inactive.bind(this, el));
     });
+    this.update();
   }
   
   disconnectedCallback() {
@@ -55,11 +56,15 @@ export default class WebComponent extends HTMLElement {
     this.dispatchEvent(new CustomEvent("enter"));
     
     const name = el.$attr("data-name");
-    if (name === "settings"){
+    if (name === "settings")
       this.dispatchEvent(new CustomEvent("exit"));
-    } 
-    else{
-      ipcRenderer.menuAction(name).catch(console.error);
+    else {
+      const detach = localStorage.getItem("detachFromProcess") ?? "false";
+      const clean = localStorage.getItem("cleanup") ?? "false";
+
+      ipcRenderer
+      .menuAction(name, detach === "false", clean === "true")
+      .catch(console.error);
     }
   }
 
@@ -80,6 +85,16 @@ export default class WebComponent extends HTMLElement {
     } else {
       this.#menu.$select("li.active")?.$removeClass("active")?.$click();
     }
+  }
+  
+  update(){
+    this.#menu
+    .$selectAll("li:not([data-name='exit'], [data-name='settings'])")
+    .forEach((el) => {
+      const name = el.$attr("data-name");
+      const visible = localStorage.getItem("menuEntry-" + name) ?? "true";
+      if(visible === "false") el.$hide();
+    });
   }
   
   onGamepadInput(input){

@@ -8,7 +8,7 @@
       "maximizable": false,
       "closable": true,
       "resizable": false,
-      "fullscreenable": false,
+      "fullscreenable": true,
       "center": true,
       "backgroundColor": "#2d2c31",
       "frame": true,

@@ -1,19 +1,11 @@
 import { DOMReady, $select } from "@xan105/vanilla-query";
-import { locale } from "./l10n.js";
 
 DOMReady(()=>{ 
-
-  $select("html").lang = locale;
-
-	const menu = {
-    main: $select("main-menu"),
-    settings: $select("#settings settings-menu")
-	};
 
   const audio = {
     sfx: $select("#sfx"),
     bgm: $select("#bgm"),
-    play: function(name, volume = 0.5){
+    play: function(name, volume = 0.4){
       //Load
       if (this.sfx.$attr("data-name") !== name){
         this.sfx.$attr("data-name", name);
@@ -28,10 +20,15 @@ DOMReady(()=>{
       this.sfx.play();
     }
   };
+
+  audio.bgm.volume = parseFloat(localStorage.getItem("volume") ?? "0.1");
+  audio.bgm.play();
   
-  bgm.volume = 0.1;
-  bgm.play();
-  
+  const menu = {
+    main: $select("main-menu"),
+    settings: $select("#settings settings-menu")
+	};
+
   menu.main.$on("selected", ()=>{
     audio.play("select");
   });
@@ -45,6 +42,8 @@ DOMReady(()=>{
   });
 
   menu.settings.$on("saved", ()=>{
+    menu.main.update();
+    audio.bgm.volume = +localStorage.getItem("volume");
     audio.play("save");
   });
   

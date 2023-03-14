@@ -4,9 +4,9 @@
       "enabled": "Enable",
       "disabled": "Disabled"
     },
-    "language": {
+    "Language": {
       "display": "Language",
-      "hint": "",
+      "hint": "Hello world",
       "values": {
         "en": "English",
         "fr": "French",
@@ -18,7 +18,7 @@
         "ch": "Chinese"
       }
     },
-    "voice": {
+    "Voice": {
       "display": "Audio",
       "hint": "",
       "values": {
@@ -26,7 +26,7 @@
         "jp": "Japanese"
       }
     },
-    "screenMode": {
+    "ScreenMode": {
       "display": "Display mode",
       "hint": "",
       "values": {
@@ -35,19 +35,19 @@
         "SM_FULLSCREEN": "Fullscreen"
       }
     },
-    "resolution": {
+    "Resolution": {
       "display": "Display resolution",
       "hint": ""
     },
-    "disableDPIScaling": {
+    "DisableDPIScaling": {
       "display": "Disable DPI scaling",
       "hint": "The game claims to be DPI aware but is not, leading to incorrect scaling"
     },
-    "flipMode": {
+    "FlipMode": {
       "display": "Flip Mode",
       "hint": "High Performance Windowed mode rendering"
     },
-    "quality": {
+    "Quality": {
       "display": "Quality preset",
       "hint": "",
       "values": {
@@ -56,7 +56,7 @@
         "VQ_HIGH": "High"
       }
     },
-    "textureSet": {
+    "TextureSet": {
       "display": "Gamepad button style",
       "hint": "Changes the game's button icons",
       "values": {
@@ -69,25 +69,38 @@
         "XboxOne": "Xbox One"
       }
     },
-    "entirePartyEarnsAP": {
+    "EntirePartyEarnsAP": {
       "display": "Entire party earns AP",
       "hint": "Grant AP to all party members (even the ones not in combat)"
     },
-    "grantPermanentSensor": {
+    "GrantPermanentSensor": {
       "display": "Grant Permanent Sensor",
       "hint": "Apply sensor ability without equipment"
     },
-    "fastExit": {
+    "FastExit": {
       "display": "Fast Exit",
       "hint": "Remove confirmation on [Alt + F4]"
     },
-    "fourFingerSalute": {
+    "FourFingerSalute": {
       "display": "Four finger salute",
       "hint": "Bring up the in-game menu by pressing both [Triggers + Start + Select]"
     },
     "volume": {
       "display": "Music volume",
-      "hint": ""
+      "hint": "",
+      "values": {
+        "0": "Mute",
+        "0.1": "10%",
+        "0.2": "20%",
+        "0.3": "30%",
+        "0.4": "40%",
+        "0.5": "50%",
+        "0.6": "60%",
+        "0.7": "70%",
+        "0.8": "80%",
+        "0.9": "90%",
+        "1": "100%"
+      }
     },
     "menuEntry-rememberLast": {
       "display": "Remember last menu entry",

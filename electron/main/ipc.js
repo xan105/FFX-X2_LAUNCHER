@@ -6,14 +6,16 @@ import { read, write } from "./settings.js";
 
 function listen(){
 
-  ipcMain.handle("menu-action", async (event, name, wait = true) => {  
+  ipcMain.handle("menu-action", async (event, name, wait, clean) => {  
     const window = BrowserWindow.fromWebContents(event.sender);
       
     if(name === "exit"){
       window.close();
     } else {
       try {
-        await run(name, wait, window.minimize);
+        await run(name, wait, clean, () => { 
+          window.minimize();
+        });
       }catch(err){
         if (err.code === "ENOENT"){
           const filePath = err.message.replace("spawn","").replace("ENOENT","").trim();
@@ -32,14 +34,14 @@ function listen(){
           });
         }
       }
-      if(wait)
+      if(wait){
         window.restore();
-      else
-        window.close();  
+        window.focus();
+      } else window.close();  
     }
   });
 
-  ipcMain.handle("display-resolution", ()=>{ 
+  ipcMain.handle("display-resolution", () => { 
     const available = resolution.list()
                       .filter(res => res.height <= 2160) //Above 2160p will break ingame UI
                       .map(({width, height}) => `${width}*${height}`); //Stringify

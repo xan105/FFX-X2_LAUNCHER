@@ -53,6 +53,7 @@ try {
   let mainWin;
     
   app.on("second-instance", () => {
+    console.log("second-instance");
     if (mainWin) {
       if (mainWin.isMinimized()) mainWin.restore();
       mainWin.focus();
@@ -119,9 +120,23 @@ try {
         
       const { hookGamepad } = await import("./gamepad.js");
       hookGamepad(mainWin);
-        
-      mainWin.show();
-      mainWin.focus();
+      
+      mainWin.webContents
+      .executeJavaScript(`localStorage.getItem("startFullscreen")`)
+      .then((result)=>{
+        if(result === "true"){
+          //Fullscreen doesn't take the whole screen if resizable isn't activated
+          mainWin.setResizable(true);
+          mainWin.setFullScreen(true);
+          //Prevent reverting fullscreen
+          mainWin.setResizable(false);
+          mainWin.setFullScreenable(false); //Disable F11 etc
+        }
+      })
+      .finally(()=>{
+        mainWin.show();
+        mainWin.focus();
+      })
 
     }).catch(onError);
       

@@ -1,8 +1,6 @@
 import { $select } from "@xan105/vanilla-query";
-import { l10n } from "../../l10n.js";
+import { localize } from "./l10n.js";
 import settings from "./settings.json" assert { type: "json" };
-
-console.log(l10n);
 
 const template =
 `
@@ -89,7 +87,6 @@ export default class WebComponent extends HTMLElement {
         for (const value of option.values){
           const opt = document.createElement("option");
           opt.value = value;
-          opt.text = value; //debug delete me
           opt.defaultSelected = value === option.values[option.default];
           select.add(opt);
         }
@@ -164,20 +161,47 @@ export default class WebComponent extends HTMLElement {
     
     this.#settings = await ipcRenderer.settingsRead().catch(console.error);
     console.log(this.#settings);
+    
+    const l10n = await localize(this.#settings.Language);
+    console.log(l10n);
 
-    const root = this.#options.$select("#settings-game");
-    const list = root.$selectAll("li");
+    const settings = {
+      game: this.#options.$select("#settings-game").$selectAll("li"),
+      launcher: this.#options.$select("#settings-launcher").$selectAll("li")
+    };
 
-    for (const li of list){
-      try{
-        const id = li.$attr("data-id");
-        const unx =  li.$attr("data-unx");
-        if (unx && !this.#settings.unx) li.$hide();
-        const value = unx ? this.#settings.unx[unx][id] : this.#settings[id];
-        console.log("set: ", id, value);
-        li.$select(`.right select option[value="${value}"`).selected  = true;
-      }catch(err){
-        console.warn(err);
+    for(const [name, list] of Object.entries(settings)){
+      for (const li of list){
+        try{
+          const id = li.$attr("data-id");
+          const unx =  li.$attr("data-unx");
+          if (unx && !this.#settings.unx) li.$hide();
+          
+          //Text
+          li.$select(".left label").$text(l10n.settings[id].display);
+          li.$attr("data-hint", l10n.settings[id].hint);
+          const options = li.$selectAll(".right select option");
+          for (const option of options){
+            const value = l10n.settings[id].values?.[option.value];
+            if(option.value === "true" && value == null)
+              option.$text(l10n.settings.common.enabled);
+            else if (option.value === "false" && value == null)
+              option.$text(l10n.settings.common.disabled);
+            else            
+              option.$text(value);
+          }
+          
+          //Value
+          const value = name === "launcher" ? localStorage.getItem(id) :
+                        unx ? this.#settings.unx[unx][id] : this.#settings[id];
+            
+          const opt = li.$select(`.right select option[value="${value}"`);
+          if(!opt) continue;
+          opt.selected = true;
+          console.log("set: ", id, value);
+        }catch(err){
+          console.warn(err);
+        }
       }
     }
 
@@ -187,31 +211,37 @@ export default class WebComponent extends HTMLElement {
   }
   
   save(){
-    const root = this.#options.$select("#settings-game");
-    const list = root.$selectAll("li");
     
-    for (const li of list){
-      try{
+    const settings = {
+      game: this.#options.$select("#settings-game").$selectAll("li"),
+      launcher: this.#options.$select("#settings-launcher").$selectAll("li")
+    };
+    
+    for(const [name, list] of Object.entries(settings)){
+      for (const li of list){
+        try{
         
-        if (li.$isHidden()) continue;
-        
-        const id = li.$attr("data-id");
-        const unx =  li.$attr("data-unx");
-        
-        const value = li.$select(".right select").value;
-        
-        if(unx){
-          this.#settings.unx[unx] ??= Object.create(null);
-          this.#settings.unx[unx][id] = value;
-          console.log("changed: ", unx, id, value);
-        } else {
-          this.#settings[id] = value;
-          console.log("changed: ", id, value);
-        }
+          if (li.$isHidden()) continue;
+          const id = li.$attr("data-id");
+          const unx =  li.$attr("data-unx");
+ 
+          const value = li.$select(".right select").value;
 
-      }catch(err){
-        console.error(err);
-        //continue;
+          if(name === "launcher"){
+            localStorage.setItem(id, value);
+            console.log("changed (launcher): ", id, value);
+          } else if(unx){
+            this.#settings.unx[unx] ??= Object.create(null);
+            this.#settings.unx[unx][id] = value;
+            console.log("changed: ", unx, id, value);
+          } else {
+            this.#settings[id] = value;
+            console.log("changed: ", id, value);
+          }
+
+        }catch(err){
+          console.error(err);
+        }
       }
     }
     
@@ -276,6 +306,9 @@ export default class WebComponent extends HTMLElement {
         break;
       case "XINPUT_GAMEPAD_DPAD_RIGHT":
         this.change(true);
+        break;
+      case "XINPUT_GAMEPAD_A":
+        this.save();
         break;
       case "XINPUT_GAMEPAD_B":
         this.exit();
