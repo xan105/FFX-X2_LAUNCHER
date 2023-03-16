@@ -3,6 +3,11 @@ import { join } from "node:path";
 import { readFile, writeFile, exists } from "@xan105/fs";
 import { parse, stringify } from "@xan105/ini";
 import { isObjNotEmpty } from "@xan105/is";
+import {
+  shouldStringNotEmpty,
+  shouldArrayOfStringNotEmpty,
+  shouldObjNotEmpty
+} from "@xan105/is/assert";
 import { attempt } from "@xan105/error";
 import folders from "@xan105/usershellfolder";
 
@@ -17,6 +22,10 @@ const files = [
 ]
 
 async function readSettingFile(filePath, encodings){
+
+  shouldStringNotEmpty(filePath);
+  shouldArrayOfStringNotEmpty(encodings);
+
   for (const encoding of encodings)
   {
     const file = await readFile(filePath, encoding);
@@ -73,6 +82,8 @@ async function read(){
 }
 
 async function write(settings){
+  
+  shouldObjNotEmpty(settings);
   
   const { unx } = settings;
   delete settings.unx;

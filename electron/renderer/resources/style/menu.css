@@ -1,24 +1,25 @@
 main-menu{
-  background-image:url("../img/background.png"); 
-  background-image:url("../img/background_alternate.png"); 
+  background-image:url("../img/background.png");
   background-size: cover;
 }
+
+main-menu.alternate{
+  background-image:url("../img/background_alternate.png"); 
+}
+
 main-menu nav { 
 	background-image: url("../img/menu_background.png");
+	background-repeat: no-repeat;
 	box-shadow: 5px 0px 10px 1px rgb(20 20 20);
-	/*width: 373px; 
-	height: 703px;
-	margin-left: 81px;*/
-  width: 29.19%;
-  height: 100%;
-  margin-left: 6.34%;
-  background-size: cover;
+	width: 373px; 
+	height: 100%;
+	margin-left: 81px;
 }
 main-menu nav ul { 
 	padding-top: 90px; 
 }
 main-menu nav ul li { 
-	width: 373px; 
+	width: 100%; 
 	height: 82px; 
 	background-repeat: no-repeat;
 	display: block; 

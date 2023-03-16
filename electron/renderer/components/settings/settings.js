@@ -24,13 +24,38 @@ const template =
 const html =
 `
 <div class="container">
-	<div class="help" data-title="">
+	<div class="help" data-title="Help">
 		<div class="content">
 			<div class="text"></div>
 		</div>
 	</div>
+  
+  <nav>
+    <ul>
+      <li class="active">
+        <div class="gamepad L"></div>
+        <span>Game</span>
+      </li>
+      <li>
+        <span>Launcher</span>
+        <div class="gamepad R"></div>
+      </li>
+    </ul>
+  </nav>
+
+	<div class="options">
+    <section id="settings-game">
+      <ul>
+      </ul>
+    </section>
+    <section id="settings-launcher">
+      <ul>
+      </ul>
+    </section>  
+	</div>
+</div>
+
 	<div class="footer">
-	
     <ul>
       <li>
         <div class="gamepad dpad vertical"></div>
@@ -49,20 +74,7 @@ const html =
         <span>Cancel</span>
       </li>
     </ul>
-    
 	</div>
-	
-	<div class="options">
-    <section id="settings-game">
-      <ul>
-      </ul>
-    </section>
-    <section id="settings-launcher">
-      <ul>
-      </ul>
-    </section>  
-	</div>
-</div>
 `;
 
 export default class WebComponent extends HTMLElement {
@@ -74,6 +86,7 @@ export default class WebComponent extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = html;
+    
     this.#helpHint = $select(".container .help", this);
     this.#options = $select(".container .options", this);
 
@@ -132,7 +145,6 @@ export default class WebComponent extends HTMLElement {
       el.$off("click");
     });
   }
-  
   
   async populateAvailableDisplayResolution(){
 

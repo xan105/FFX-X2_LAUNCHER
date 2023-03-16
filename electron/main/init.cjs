@@ -121,22 +121,8 @@ try {
       const { hookGamepad } = await import("./gamepad.js");
       hookGamepad(mainWin);
       
-      mainWin.webContents
-      .executeJavaScript(`localStorage.getItem("startFullscreen")`)
-      .then((result)=>{
-        if(result === "true"){
-          //Fullscreen doesn't take the whole screen if resizable isn't activated
-          mainWin.setResizable(true);
-          mainWin.setFullScreen(true);
-          //Prevent reverting fullscreen
-          mainWin.setResizable(false);
-          mainWin.setFullScreenable(false); //Disable F11 etc
-        }
-      })
-      .finally(()=>{
-        mainWin.show();
-        mainWin.focus();
-      })
+      mainWin.show();
+      mainWin.focus();
 
     }).catch(onError);
       

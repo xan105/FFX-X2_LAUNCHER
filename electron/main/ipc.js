@@ -13,8 +13,12 @@ function listen(){
       window.close();
     } else {
       try {
-        await run(name, wait, clean, () => { 
-          window.minimize();
+        await run(name, { 
+          wait, 
+          clean,
+          onStart: () => { 
+            window.minimize();
+          }
         });
       }catch(err){
         if (err.code === "ENOENT"){
@@ -34,10 +38,13 @@ function listen(){
           });
         }
       }
-      if(wait){
+      if(wait === true)
+      {
         window.restore();
         window.focus();
-      } else window.close();  
+      } else {
+        window.close();
+      } 
     }
   });
 

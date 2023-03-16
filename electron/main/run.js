@@ -2,26 +2,28 @@ import { spawn } from "node:child_process";
 import { join } from "node:path";
 import { app } from "electron";
 import { rm } from "@xan105/fs";
-import games from "./game.json" assert { type: "json" };
-
 import {
   shouldObj,
   shouldObjLike,
-  shouldBoolean,
   shouldStringNotEmpty
 } from "@xan105/is/assert";
 import {
   isStringNotEmpty,
   isArrayOfStringNotEmpty
 } from "@xan105/is";
-import { Failure } from "@xan105/error";
+import { asBoolean } from "@xan105/is/opt";
+import games from "./game.json" assert { type: "json" };
 
-function run(name, wait, clean, callback = ()=>{}){
+function run(name, option = {}){
   return new Promise((resolve, reject) => {
+
     shouldStringNotEmpty(name);
-    shouldBoolean(wait);
-    shouldBoolean(clean);
-    if (typeof callback !== "function") throw new Failure("Expected function", 1);
+    shouldObj(option);
+    const options = {
+      wait: asBoolean(option.wait) ?? false,
+      clean: asBoolean(option.clean) ?? false,
+      onStart: typeof option.onStart === "function" ? option.onStart : ()=>{}
+    };
 
     const game = games[name];
     shouldObjLike(game,{
@@ -45,12 +47,12 @@ function run(name, wait, clean, callback = ()=>{}){
     
     binary.once("spawn", () => {
       binary.unref();
-      if(wait){
-        callback();
+      if(options.wait){
+        options.onStart();
         binary.once("exit", () => {
           binary = null;
           resolve();
-          if(clean){
+          if(options.clean){
             Promise.all([
               rm(join(cwd, "OUTPUT.TXT")),
               rm(join(cwd, "logs"))

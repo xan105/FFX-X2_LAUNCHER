@@ -85,6 +85,19 @@
       "display": "Four finger salute",
       "hint": "Bring up the in-game menu by pressing both [Triggers + Start + Select]"
     },
+    "soundtrack": {
+      "display": "Music track",
+      "hint": "",
+      "values": {
+        "ffx_fleeting_dream": "Original",
+        "ffx2_eternity": "Eternity (FFX-2)",
+        "ffx_besaid": "Besaid (FFX)",
+        "ffx_sight_spira": "Spira (FFX)",
+        "ffx_silence_before_storm": "Macalania (FFX)",
+        "ffx_zanarkand": "Zanarkand (FFX)",
+        "ffx2_gullwings": "Airship (FFX-2)"
+      }
+    },
     "volume": {
       "display": "Music volume",
       "hint": "",
@@ -102,36 +115,52 @@
         "1": "100%"
       }
     },
-    "menuEntry-rememberLast": {
-      "display": "Remember last menu entry",
-      "hint": ""
-    },
     "menuEntry-ffx": {
-      "display": "Hide FFX in the launcher's menu",
-      "hint": ""
+      "display": "Final Fantasy X",
+      "hint": "",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
     },
     "menuEntry-ffx_ec": {
-      "display": "Hide FFX Eternal Calm in the launcher's menu",
-      "hint": ""
+      "display": "Final Fantasy X Eternal Calm",
+      "hint": "",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
     },
     "menuEntry-ffx2": {
-      "display": "Hide FFX-2 in the launcher's menu",
-      "hint": ""
+      "display": "Final Fantasy X-2",
+      "hint": "",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
     },
     "menuEntry-ffx2_lm": {
-      "display": "Hide FFX-2 Last Mission in the launcher's menu",
-      "hint": ""
+      "display": "Final Fantasy X-2 Last Mission",
+      "hint": "",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
     },
     "menuEntry-credits": {
-      "display": "Hide credits and bonus in the launcher's menu",
-      "hint": ""
-    },
-    "startFullscreen": {
-      "display": "Start launcher mode",
-      "hint": "Start launcher in fullscreen or windowed mode",
+      "display": "Credits & Bonus",
+      "hint": "",
       "values": {
-        "true": "Fullscreen",
-        "false": "Windowed"
+        "true": "Show",
+        "false": "Hide"
+      }
+    },
+    "menuBackground": {
+      "display": "Menu background image",
+      "hint": "",
+      "values":{
+        "original": "Original",
+        "alternate": "Vita (FFX-2)"
       }
     },
     "detachFromProcess": {

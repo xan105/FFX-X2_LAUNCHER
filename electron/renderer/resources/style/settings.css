@@ -5,14 +5,6 @@
   src: url(../font/Square/Square721BT-Bold.woff2) format('woff2');
 }
 
-@font-face {
-  font-family: 'test2';
-  font-style: normal;
-  font-weight: normal;
-  src: url(../font/Square/Square721BT-Roman.woff2) format('woff2');
-}
-
-
 #settings{
   background-image:url("../img/background_settings.png"); 
   display: none;
@@ -27,7 +19,7 @@
   height: 40px;
   width: 70%;
   position: relative;
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
   box-shadow: -20px 17px 20px -5px rgba(0,0,0,0.3);
 }
 #settings .help::after {
@@ -62,54 +54,69 @@
 
 #settings .help .content .text {
     margin: auto auto auto 20px;
-    font-family: test2;
+    font-family: Open-Sans;
     color: #e5e5f1;
     text-shadow: 2px 0 0px #000000, -2px 0 0px #000000, 0 2px 0px #000000, 0 -2px 0px #000000, 1px 0px #000000, -1px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-#settings .footer {
-  background-image: linear-gradient(to left, #1a1a24, transparent);
-  height: 60px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+#settings nav {
+  margin: 10px 0;
 }
 
-#settings .footer::before {
-    content: '';
-    position: absolute;
-    height: 2px;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-image: linear-gradient(to left, #b9b9b9, transparent);
-}
-
-#settings .footer ul {
+#settings nav ul{
   display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: flex-end;
+  justify-content: center;
+  font-family: 'test';
+  text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-#settings .footer li {
+#settings nav ul li {
   display: inline-flex;
   margin: auto 20px;
+  padding: 0 10px;
+  border-radius: 20px;
 }
 
-#settings .footer li span {
-  color: white;
+#settings nav ul li:first-child span {
   margin: auto 0 auto 5px;
 }
 
+#settings nav ul li:last-child span {
+  margin: auto 5px auto 0;
+}
+
+#settings nav ul li span {
+  color: #cfcfcf;
+}
+
+#settings nav ul li.active span,
+#settings nav ul li:not(.active):hover span {
+  color: white;
+}
+
+#settings nav ul li:not(.active):hover{
+  background-color: rgba(255,255,255,0.20);
+  transition: all .2s ease-in; 
+}
+
 #settings .options {
-  margin-top: 50px;
   overflow-y: scroll;
-  height: 555px;
-  padding-bottom: 5px;
-  box-sizing: border-box;
+  height: 490px;
+}
+
+#settings .options::-webkit-scrollbar {
+  width: 10px;
+}
+#settings .options::-webkit-scrollbar-track {
+  background: #696c91;
+}
+#settings .options::-webkit-scrollbar-thumb,
+#settings .options::-webkit-scrollbar-thumb:hover {
+  background: #43446e;
 }
 
 #settings .options ul { list-style: none; }
@@ -124,35 +131,18 @@
 	box-sizing: border-box;
 }
 
-#settings .options li.active { border: 1px solid red; } //debug
+#settings .options li.active { background: rgba(25, 26, 54, 0.70) } 
 
 #settings .options li:first-child { margin-top: 0; }
 #settings .options li:last-child { margin-bottom: 0; }
 
-#settings .options li.select { background: rgba(26, 26, 36, 0.63) }
-
-#settings .options li.select::before, li.select::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    border: solid 1px rgba(255, 255, 255, 0.55);
-}
-#settings .options li.select::before {
-    left: 0;
-    top: 0;
-}
-#settings .options li.select::after {
-    left: 0;
-    bottom: 0;
-}
-
 #settings .options li .container {
-  width: 70%;
+  width: 60%;
   margin: auto;
   display: block;
-  font-family: test2;
   color: #e5e5f1;
-  text-shadow: 2px 0 0px #000000, -2px 0 0px #000000, 0 2px 0px #000000, 0 -2px 0px #000000, 1px 0px #000000, -1px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
+  font-family: Open-Sans;
+  text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
 }
 
 #settings .options li .container .left {
@@ -231,4 +221,46 @@
     top: 50%;
     transform: translate(100%,-50%);
     padding: 5px 3px 5px 7px;
+}
+
+#settings .footer {
+  background-image: linear-gradient(to left, #1a1a24, transparent);
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  
+  font-family: 'test';
+  text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#settings .footer::before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-image: linear-gradient(to left, #b9b9b9, transparent);
+}
+
+#settings .footer ul {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+#settings .footer li {
+  display: inline-flex;
+  margin: auto 20px;
+}
+
+#settings .footer li span {
+  color: white;
+  margin: auto 0 auto 5px;
 }

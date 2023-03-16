@@ -5,13 +5,31 @@ DOMReady(()=>{
   const audio = {
     sfx: $select("#sfx"),
     bgm: $select("#bgm"),
-    play: function(name, volume = 0.4){
-      //Load
+    start: function(){
+      const soundtrack = localStorage.getItem("soundtrack") ?? "ffx_fleeting_dream";
+      if (this.bgm.$attr("data-name") !== soundtrack){
+        this.bgm.$attr("data-name", soundtrack);
+        this.bgm.src = `./resources/sound/bgm/${soundtrack}.ogg`;
+        this.bgm.load();
+      }
+      this.bgm.volume = parseFloat(localStorage.getItem("volume") ?? "0.1");
+      this.bgm.play();
+    },
+    play: function(name, volume = 0.2){
+      //Load (new sound)
       if (this.sfx.$attr("data-name") !== name){
+        
+        //Ignore if any previous sound is still playing
+        if (
+          !this.sfx.paused && 
+          !this.sfx.ended && 
+          0 < this.sfx.currentTime
+        ) return;
+      
         this.sfx.$attr("data-name", name);
-        this.sfx.src = "./resources/sound/" + name + ".ogg";
+        this.sfx.src = "./resources/sound/sfx/" + name + ".ogg";
         this.sfx.load();
-      //Reload
+      //Reload (same sound)
       } else {
         this.sfx.currentTime = 0;
       }
@@ -21,8 +39,7 @@ DOMReady(()=>{
     }
   };
 
-  audio.bgm.volume = parseFloat(localStorage.getItem("volume") ?? "0.1");
-  audio.bgm.play();
+  audio.start();
   
   const menu = {
     main: $select("main-menu"),
@@ -34,16 +51,17 @@ DOMReady(()=>{
   });
   
   menu.main.$on("enter", ()=>{
-    audio.play("enter");
+    
   });
 
   menu.main.$on("exit", ()=>{
+    audio.play("sphere", 0.1);
     menu.settings.show();
   });
 
   menu.settings.$on("saved", ()=>{
     menu.main.update();
-    audio.bgm.volume = +localStorage.getItem("volume");
+    audio.start();
     audio.play("save");
   });
   

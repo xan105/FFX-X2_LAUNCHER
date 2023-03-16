@@ -25,7 +25,7 @@ Controls
 
 - `Left click / Enter`: Select
 - `Arrow keys`: Navigate / Change setting
-- `Esc`: Previous menu
+- `Esc / Mouse3`: Previous menu
 
 ### GAMEPAD
 
@@ -33,6 +33,11 @@ Controls
 - `A Button`: Select
 - `B Button`: Previous menu
 - `Start / Options Button`: Enter settings
+- `LB/RB Shoulder`: Change settings section
+
+Build
+=====
+
 
 Legal
 =====

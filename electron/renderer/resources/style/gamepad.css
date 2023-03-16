@@ -25,9 +25,9 @@
 }
 
 .gamepad.L {
-  background-image: url("../img/gamepad/xbox/RL.png");
+  background-image: url("../img/gamepad/xbox/LB.svg");
 }
 
 .gamepad.R {
-  background-image: url("../img/gamepad/xbox/RB.png");
+  background-image: url("../img/gamepad/xbox/RB.svg");
 }

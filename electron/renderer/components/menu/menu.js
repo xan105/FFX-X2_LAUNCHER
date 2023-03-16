@@ -1,4 +1,4 @@
-import { $select } from "@xan105/vanilla-query";
+import { $define } from "@xan105/vanilla-query";
 
 const html = 
 `
@@ -22,7 +22,8 @@ export default class WebComponent extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = html;
-    this.#menu = $select("nav ul", this);
+    $define(this);
+    this.#menu = this.$select("nav ul");
   }
 
   connectedCallback() {
@@ -88,12 +89,19 @@ export default class WebComponent extends HTMLElement {
   }
   
   update(){
+
+    if(localStorage.getItem("menuBackground") === "alternate") 
+      this.$addClass("alternate");
+    else
+      this.$removeClass("alternate");
+    
     this.#menu
     .$selectAll("li:not([data-name='exit'], [data-name='settings'])")
     .forEach((el) => {
       const name = el.$attr("data-name");
       const visible = localStorage.getItem("menuEntry-" + name) ?? "true";
       if(visible === "false") el.$hide();
+      else el.$show();
     });
   }
   
