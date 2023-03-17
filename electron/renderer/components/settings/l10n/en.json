@@ -6,7 +6,7 @@
     },
     "Language": {
       "display": "Language",
-      "hint": "Hello world",
+      "hint": "Set game language",
       "values": {
         "en": "English",
         "fr": "French",
@@ -20,7 +20,7 @@
     },
     "Voice": {
       "display": "Audio",
-      "hint": "",
+      "hint": "Set game voice over, sound effects and video language",
       "values": {
         "en": "English",
         "jp": "Japanese"
@@ -28,7 +28,7 @@
     },
     "ScreenMode": {
       "display": "Display mode",
-      "hint": "",
+      "hint": "Set game display mode",
       "values": {
         "SM_WINDOW": "Window",
         "SM_BORDERLESS": "Borderless",
@@ -37,19 +37,23 @@
     },
     "Resolution": {
       "display": "Display resolution",
-      "hint": ""
+      "hint": "Set game resolution"
     },
     "DisableDPIScaling": {
-      "display": "Disable DPI scaling",
-      "hint": "The game claims to be DPI aware but is not, leading to incorrect scaling"
+      "display": "DPI scaling",
+      "hint": "The game claims to be DPI aware but is not, leading to incorrect scaling. Disabling this will fix scaling problems",
+      "values": {
+        "true": "Disable",
+        "false": "Enable"
+      }
     },
     "FlipMode": {
       "display": "Flip Mode",
-      "hint": "High Performance Windowed mode rendering"
+      "hint": "High performance rendering. Enabling this may significantly reduce stuttering (irrespective of graphics quality settings)"
     },
     "Quality": {
       "display": "Quality preset",
-      "hint": "",
+      "hint": "Set game quality preset",
       "values": {
         "VQ_LOW": "Low",
         "VQ_MEDIUM": "Medium",
@@ -58,7 +62,7 @@
     },
     "TextureSet": {
       "display": "Gamepad button style",
-      "hint": "Changes the game's button icons",
+      "hint": "Choose gamepad button icon theme to be displayed in-game",
       "values": {
         "": "Default",
         "PlayStation_Glossy": "PS Glossy",
@@ -71,23 +75,23 @@
     },
     "EntirePartyEarnsAP": {
       "display": "Entire party earns AP",
-      "hint": "Grant AP to all party members (even the ones not in combat)"
+      "hint": "Grant AP to all party members (even the ones not in combat) in Final Fantasy X"
     },
     "GrantPermanentSensor": {
       "display": "Grant Permanent Sensor",
-      "hint": "Apply sensor ability without equipment"
+      "hint": "Apply sensor ability without equipment in Final Fantasy X"
     },
     "FastExit": {
       "display": "Fast Exit",
-      "hint": "Remove confirmation on [Alt + F4]"
+      "hint": "Remove exit confirmation on [ Alt + F4 ]"
     },
     "FourFingerSalute": {
       "display": "Four finger salute",
-      "hint": "Bring up the in-game menu by pressing both [Triggers + Start + Select]"
+      "hint": "Bring up the in-game menu by pressing both [ Triggers + Start + Select ]"
     },
     "soundtrack": {
       "display": "Music track",
-      "hint": "",
+      "hint": "Choose launcher background music",
       "values": {
         "ffx_fleeting_dream": "Original",
         "ffx2_eternity": "Eternity (FFX-2)",
@@ -100,7 +104,7 @@
     },
     "volume": {
       "display": "Music volume",
-      "hint": "",
+      "hint": "Set launcher background music volume",
       "values": {
         "0": "Mute",
         "0.1": "10%",
@@ -117,7 +121,7 @@
     },
     "menuEntry-ffx": {
       "display": "Final Fantasy X",
-      "hint": "",
+      "hint": "Show or hide Final Fantasy X in the main menu",
       "values": {
         "true": "Show",
         "false": "Hide"
@@ -125,7 +129,7 @@
     },
     "menuEntry-ffx_ec": {
       "display": "Final Fantasy X Eternal Calm",
-      "hint": "",
+      "hint": "Show or hide Final Fantasy X Eternal Calm in the main menu",
       "values": {
         "true": "Show",
         "false": "Hide"
@@ -133,7 +137,7 @@
     },
     "menuEntry-ffx2": {
       "display": "Final Fantasy X-2",
-      "hint": "",
+      "hint": "Show or hide Final Fantasy X-2 in the main menu",
       "values": {
         "true": "Show",
         "false": "Hide"
@@ -141,7 +145,7 @@
     },
     "menuEntry-ffx2_lm": {
       "display": "Final Fantasy X-2 Last Mission",
-      "hint": "",
+      "hint": "Show or hide Final Fantasy X-2 Last Mission in the main menu",
       "values": {
         "true": "Show",
         "false": "Hide"
@@ -149,7 +153,7 @@
     },
     "menuEntry-credits": {
       "display": "Credits & Bonus",
-      "hint": "",
+      "hint": "Show or hide Credits & Bonus in the main menu",
       "values": {
         "true": "Show",
         "false": "Hide"
@@ -157,19 +161,23 @@
     },
     "menuBackground": {
       "display": "Menu background image",
-      "hint": "",
+      "hint": "Choose launcher main menu background image",
       "values":{
         "original": "Original",
         "alternate": "Vita (FFX-2)"
       }
     },
-    "detachFromProcess": {
-      "display": "Exit after launch",
-      "hint": ""
+    "waitProcess": {
+      "display": "On game launch",
+      "hint": "Choose launcher behavior on game launch",
+      "values": {
+        "true": "Minimize",
+        "false": "Exit"
+      }
     },
     "cleanup": {
       "display": "Clean up",
-      "hint": "Delete log file created by the game and UnX when the game closes"
+      "hint": "Delete log files created by the game and UnX when the game closes and the launcher isn't set to exit on game launch"
     }
   }
 }

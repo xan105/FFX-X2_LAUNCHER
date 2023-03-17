@@ -28,9 +28,9 @@ export default class WebComponent extends HTMLElement {
 
   connectedCallback() {
     this.#menu.$selectAll("li").forEach((el) => {
-      el.$click(this.click.bind(this, el));
-      el.$on("mouseenter", this.active.bind(this, el));
-      el.$on("mouseleave", this.inactive.bind(this, el));
+      el.$click(this.#onClick.bind(this, el));
+      el.$on("mouseenter", this.#setActive.bind(this, el));
+      el.$on("mouseleave", this.#setInactive.bind(this, el));
     });
     this.update();
   }
@@ -43,43 +43,41 @@ export default class WebComponent extends HTMLElement {
     });
   }
   
-  active(el){
+  #setActive(el){
     this.#menu.$select("li.active")?.$removeClass("active");
     el.$addClass("active");
     this.dispatchEvent(new CustomEvent("selected"));
   }
   
-  inactive(el){
+  #setInactive(el){
     el.$removeClass("active");
   }
   
-  click(el){
-    this.dispatchEvent(new CustomEvent("enter"));
-    
+  #onClick(el){
     const name = el.$attr("data-name");
-    if (name === "settings")
+    if (name === "settings") 
       this.dispatchEvent(new CustomEvent("exit"));
-    else {
-      const detach = localStorage.getItem("detachFromProcess") ?? "false";
-      const clean = localStorage.getItem("cleanup") ?? "false";
-
-      ipcRenderer
-      .menuAction(name, detach === "false", clean === "true")
-      .catch(console.error);
+    else 
+    {
+      ipcRenderer.menuAction(
+        name, 
+        localStorage.getItem("waitProcess") ?? "false" === "false", 
+        localStorage.getItem("cleanup") ?? "false" === "true"
+      ).catch(console.error);
     }
   }
 
-  move(climb = false){
-    
+  #move(climb, rumble = true){
     const current = this.#menu.$select("li.active") ??
                     this.#menu.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
    
     const next = climb ? current.$prev() : current.$next();
-    this.active(next);
-    ipcRenderer.gamepadVibrate().catch(console.error);
+    this.#setActive(next);
+    
+    if(rumble) ipcRenderer.gamepadVibrate().catch(console.error);
   }
 
-  enter(name = null){
+  #enter(name = null){
     if(name){
       this.#menu.$select("li.active")?.$removeClass("active");
       this.#menu.$select(`li[data-name="${name}"]`)?.$click();
@@ -100,24 +98,29 @@ export default class WebComponent extends HTMLElement {
     .forEach((el) => {
       const name = el.$attr("data-name");
       const visible = localStorage.getItem("menuEntry-" + name) ?? "true";
-      if(visible === "false") el.$hide();
-      else el.$show();
+      if(visible === "false") 
+        el.$hide();
+      else 
+        el.$show();
     });
   }
   
   onGamepadInput(input){
     switch(input){
       case "XINPUT_GAMEPAD_DPAD_UP":
-        this.move(true);
+        this.#move(true);
         break;
       case "XINPUT_GAMEPAD_DPAD_DOWN":
-        this.move(false);
+        this.#move(false);
         break;
       case "XINPUT_GAMEPAD_A":
-        this.enter();
+        this.#enter();
         break;
       case "XINPUT_GAMEPAD_START":
-        this.enter("settings");
+        this.#enter("settings");
+        break;
+      default:
+        this.dispatchEvent(new CustomEvent("unbound"));
         break;
     }
   }
@@ -125,13 +128,16 @@ export default class WebComponent extends HTMLElement {
   onKBMInput(input){
     switch(input){
       case "ArrowUp":
-        this.move(true);
+        this.#move(true, false);
         break;
       case "ArrowDown":
-        this.move(false);
+        this.#move(false, false);
         break;
       case "Enter":
-        this.enter();
+        this.#enter();
+        break;
+      default:
+        this.dispatchEvent(new CustomEvent("unbound"));
         break;
     }
   }

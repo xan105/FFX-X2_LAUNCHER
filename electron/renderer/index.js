@@ -49,13 +49,12 @@ DOMReady(()=>{
   menu.main.$on("selected", ()=>{
     audio.play("select");
   });
-  
-  menu.main.$on("enter", ()=>{
-    
+
+  menu.main.$on("unbound", ()=>{
+    audio.play("deny");
   });
 
   menu.main.$on("exit", ()=>{
-    audio.play("sphere", 0.1);
     menu.settings.show();
   });
 
@@ -63,6 +62,22 @@ DOMReady(()=>{
     menu.main.update();
     audio.start();
     audio.play("save");
+  });
+  
+  menu.settings.$on("selected", ()=>{
+    audio.play("select");
+  });
+  
+  menu.settings.$on("unbound", ()=>{
+    audio.play("deny");
+  });
+  
+  menu.settings.$on("deny", ()=>{
+    audio.play("deny");
+  });
+  
+  menu.settings.$on("changed", ()=>{
+    audio.play("select");
   });
   
   menu.settings.$on("exit", ()=>{

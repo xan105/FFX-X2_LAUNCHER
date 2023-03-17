@@ -135,7 +135,7 @@
       "default": 0
     },
     {
-      "id": "detachFromProcess",
+      "id": "waitProcess",
       "values": ["true","false"],
       "default": 1
     },

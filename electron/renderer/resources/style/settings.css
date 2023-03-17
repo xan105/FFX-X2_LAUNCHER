@@ -108,6 +108,10 @@
   height: 490px;
 }
 
+#settings .options #settings-launcher{
+  display: none;
+}
+
 #settings .options::-webkit-scrollbar {
   width: 10px;
 }
@@ -126,12 +130,28 @@
 	background: rgba(25, 26, 54, 0.49); 
 	margin: 10px 0; 
 	padding: 0px 20px; 
-	position: relative; 
 	display: flex; 
 	box-sizing: border-box;
 }
 
-#settings .options li.active { background: rgba(25, 26, 54, 0.70) } 
+#settings .options li.active { background: rgba(25, 26, 54, 0.70) }
+
+#settings .options li .container {
+  position: relative;
+}
+#settings .options li.active .container:before { 
+  --scale: 3;
+  content: '';
+  position: absolute;
+  left: -35px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url("../img/cursor.png");
+  background-repeat: no-repeat;
+  width: calc( 158px/ var(--scale) );
+  height: calc( 81px / var(--scale) );
+  background-size: contain;
+}
 
 #settings .options li:first-child { margin-top: 0; }
 #settings .options li:last-child { margin-bottom: 0; }

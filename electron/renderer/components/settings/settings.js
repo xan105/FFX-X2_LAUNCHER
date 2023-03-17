@@ -1,4 +1,4 @@
-import { $select } from "@xan105/vanilla-query";
+import { $select, $define } from "@xan105/vanilla-query";
 import { localize } from "./l10n.js";
 import settings from "./settings.json" assert { type: "json" };
 
@@ -82,12 +82,13 @@ export default class WebComponent extends HTMLElement {
   #helpHint;
   #options;
   #settings;
-
+  
   constructor() {
     super();
     this.innerHTML = html;
+    $define(this);
     
-    this.#helpHint = $select(".container .help", this);
+    this.#helpHint = $select(".container .help .text", this);
     this.#options = $select(".container .options", this);
 
     for(const [name, options] of Object.entries(settings)){
@@ -108,32 +109,71 @@ export default class WebComponent extends HTMLElement {
   }
 
   connectedCallback() {
+    
+    this.#options.$selectAll("li").forEach((el) => {
+      el.$on("mouseenter", this.#setActive.bind(this, el));
+    });
+
     this.#options.$selectAll("li .next").forEach((el) => {
-      el.$click(function(){
-        const select = this.$parent(".right").$select("select");
+      el.$click(() => {
+        const select = el.$parent(".right").$select("select");
         const max = select.options.length;
         if(max === 0) return;
         const current = select.selectedIndex == -1 ? 0 : select.selectedIndex; //select first entry if none
         const next = current + 1;
         const index = next > max - 1 ? 0 : next; //reset when out of range
         select.options[index].selected = true;
-        select.$trigger("change");  
+        select.$trigger("change"); //emit event like the real thing
+        this.dispatchEvent(new CustomEvent("changed"));
       });
     }); 
       
     this.#options.$selectAll("li .previous").forEach((el) => {
-      el.$click(function(){
-        const select = this.$parent(".right").$select("select");
+      el.$click(() => {
+        const select = el.$parent(".right").$select("select");
         const max = select.options.length;
         if(max === 0) return;
         const current = select.selectedIndex == -1 ? 0 : select.selectedIndex; //select first entry if none
         const next = current - 1;
         const index = next < 0 ? max - 1 : next; //reset when out of range
         select.options[index].selected = true;
-        select.$trigger("change");  
+        select.$trigger("change"); //emit event like the real thing
+        this.dispatchEvent(new CustomEvent("changed"));  
       });
     });
-
+ 
+    const gameBtn = this.$select("nav ul li:first-child");
+    const launcherBtn = this.$select("nav ul li:last-child");
+    
+    const sectionGame = this.$select("#settings-game");
+    const sectionLauncher = this.$select("#settings-launcher");
+    
+    const self = this;
+    
+    gameBtn.$click(function(){ 
+      if(gameBtn.$hasClass("active")) {
+        //self.dispatchEvent(new CustomEvent("deny"));
+        return;
+      }
+      gameBtn.$addClass("active");
+      launcherBtn.$removeClass("active");
+      sectionLauncher.$hide();
+      sectionGame.$show();
+      sectionGame.$select("li.active")?.$removeClass("active");
+    });
+    
+    launcherBtn.$click(function(){ 
+      if(launcherBtn.$hasClass("active")) {
+        //self.dispatchEvent(new CustomEvent("deny"));
+        return;
+      }
+      launcherBtn.$addClass("active");
+      gameBtn.$removeClass("active");
+      sectionGame.$hide();
+      sectionLauncher.$show();
+      sectionLauncher.$select("li.active")?.$removeClass("active");
+    });
+    
   }
   
   disconnectedCallback() {
@@ -190,8 +230,10 @@ export default class WebComponent extends HTMLElement {
           if (unx && !this.#settings.unx) li.$hide();
           
           //Text
-          li.$select(".left label").$text(l10n.settings[id].display);
-          li.$attr("data-hint", l10n.settings[id].hint);
+          
+          const label = li.$select(".left label");
+          label.$text(l10n.settings[id].display);
+          label.$attr("data-hint", l10n.settings[id].hint);
           const options = li.$selectAll(".right select option");
           for (const option of options){
             const value = l10n.settings[id].values?.[option.value];
@@ -217,9 +259,8 @@ export default class WebComponent extends HTMLElement {
       }
     }
 
-    this.$parent("#settings").$fadeIn(500).then(()=>{
-      this.#options.scrollTo({top: 0, behavior: "smooth"});
-    });
+    this.$select("nav ul li:first-child").$click();
+    this.$parent("#settings").$fadeIn(500);
   }
   
   save(){
@@ -274,35 +315,74 @@ export default class WebComponent extends HTMLElement {
   
   hide(){
     this.#options.$selectAll("li.active").forEach(el => el.$removeClass("active"));
+    this.#options.scrollTo({top: 0, behavior: "auto"});
     this.$parent("#settings").$fadeOut(450);
   }
   
-  move(climb = false){
+  #setActive(el, silent = true){
+    this.#options.$selectAll("section").forEach((section)=>{
+      section.$select("li.active")?.$removeClass("active");
+    });
+    const hint = el.$select(".left label").$attr("data-hint");
+    if(hint) this.$select(".container .help .text").$text(hint);
+    if(!silent){
+      el.$addClass("active");
+      this.dispatchEvent(new CustomEvent("selected"));
+    }
+  }
+  
+  #scroll(root, el){
+    //scrollIntoView() trigger mouve event when scrolling -.-
     
-    const root = this.#options.$select("#settings-game");
-    const current = root.$select("li.active") ??
-                    root.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
-    current.$removeClass("active");
+    //disable mouse while scrolling.
+    root.$selectAll("li").forEach((el)=>{
+      el.$css("pointer-events", "none");
+    });
 
-    const next = climb ? current.$prev() : current.$next();
-    next.$toggleClass("active");
+    //scrollend event isn't available yet 
+    //so this will have to do...
+    setTimeout(()=>{
+      root.$selectAll("li").forEach((el)=>{
+        el.$css("pointer-events", "auto");
+      });
+    }, 33); //One gamepad frame at 30hz
+
+    el.scrollIntoView({
+      behavior: "auto",
+      block: "nearest",
+      inline: "center"
+    });
+  }
+  
+  #which(){
+    const sections = this.#options.$selectAll("section");
+    for (const section of sections){
+      if (section.$isHidden() === false) return section;
+    }
+  }
+  
+  move(climb, rumble = true){
+    const section = this.#which();
+    const current = section.$select("li.active") ??
+                    section.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
     
-    root.scrollIntoView();
-    ipcRenderer.gamepadVibrate().catch(console.error);
+    const next = climb ? current.$prev() : current.$next();
+    this.#setActive(next, false);
+    this.#scroll(section, next);
+
+    if(rumble) ipcRenderer.gamepadVibrate().catch(console.error);
   }
   
   change(next = false){
+    const section = this.#which();
+    const current = section.$select("li.active");
+    if(!current) {
+      this.dispatchEvent(new CustomEvent("deny"));
+      return;
+    }
     
-    const root = this.#options.$select("#settings-game");
-    const current = root.$select("li.active");
-    if(!current) return;
-    
-    if(next)
-      current.$select("li .next").$click();
-    else
-      current.$select("li .previous").$click();
-
-    ipcRenderer.gamepadVibrate().catch(console.error);
+    const direction = next ? ".next" : ".previous";
+    current.$select(`li ${direction}`).$click();
   }
   
   onGamepadInput(input){
@@ -328,16 +408,25 @@ export default class WebComponent extends HTMLElement {
       case "XINPUT_GAMEPAD_START":
         this.exit();
         break;
+      case "XINPUT_GAMEPAD_LEFT_SHOULDER":
+        this.$select("nav ul li:first-child").$click();
+        break;
+      case "XINPUT_GAMEPAD_RIGHT_SHOULDER":
+        this.$select("nav ul li:last-child").$click();
+        break;
+      default:
+        this.dispatchEvent(new CustomEvent("unbound"));
+        break;
     }
   }
   
   onKBMInput(input){
     switch(input){
       case "ArrowUp":
-        this.move(true);
+        this.move(true, false);
         break;
       case "ArrowDown":
-        this.move(false);
+        this.move(false, false);
         break;
       case "ArrowLeft":
         this.change(false);
@@ -353,6 +442,9 @@ export default class WebComponent extends HTMLElement {
         break;
       case "Mouse3":
         this.exit();
+        break;
+      default:
+        this.dispatchEvent(new CustomEvent("unbound"));
         break;
     }
   }
