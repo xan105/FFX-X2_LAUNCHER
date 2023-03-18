@@ -44,7 +44,7 @@ const html =
   </nav>
 
 	<div class="options">
-    <section id="settings-game">
+    <section id="settings-game" class="active">
       <ul>
       </ul>
     </section>
@@ -141,37 +141,21 @@ export default class WebComponent extends HTMLElement {
         this.dispatchEvent(new CustomEvent("changed"));  
       });
     });
- 
-    const gameBtn = this.$select("nav ul li:first-child");
-    const launcherBtn = this.$select("nav ul li:last-child");
-    
-    const sectionGame = this.$select("#settings-game");
-    const sectionLauncher = this.$select("#settings-launcher");
-    
-    const self = this;
-    
-    gameBtn.$click(function(){ 
-      if(gameBtn.$hasClass("active")) {
-        //self.dispatchEvent(new CustomEvent("deny"));
-        return;
-      }
-      gameBtn.$addClass("active");
-      launcherBtn.$removeClass("active");
-      sectionLauncher.$hide();
-      sectionGame.$show();
-      sectionGame.$select("li.active")?.$removeClass("active");
-    });
-    
-    launcherBtn.$click(function(){ 
-      if(launcherBtn.$hasClass("active")) {
-        //self.dispatchEvent(new CustomEvent("deny"));
-        return;
-      }
-      launcherBtn.$addClass("active");
-      gameBtn.$removeClass("active");
-      sectionGame.$hide();
-      sectionLauncher.$show();
-      sectionLauncher.$select("li.active")?.$removeClass("active");
+
+    this.$selectAll("nav ul li").forEach((el)=>{
+      el.$click(()=>{
+        if(el.$hasClass("active")) {
+          this.dispatchEvent(new CustomEvent("deny"));
+          return;
+        }
+        el.$addClass("active").$next().$removeClass("active");
+
+        this.#options.$selectAll("section").forEach((section)=>{
+          section.$toggleClass("active");
+          section.$select("li.active")?.$removeClass("active");  
+        });
+        
+      });
     });
     
   }
@@ -186,14 +170,14 @@ export default class WebComponent extends HTMLElement {
     });
   }
   
-  async populateAvailableDisplayResolution(){
+  async #populateAvailableDisplayResolution(){
 
     const el = this.#options.$select("#settings-game li[data-id=\"Resolution\"]");
-    const select = el.$select(".container .right select");
     
-    if (select.options.length > 0) return;
     try{
-
+      const select = el.$select(".container .right select");
+      if (select.options.length > 0) return;
+      
       const { available, current } = await ipcRenderer.displayResolution();
         
       for (const resolution of available){
@@ -209,7 +193,7 @@ export default class WebComponent extends HTMLElement {
   }
 
   async show(){
-    this.populateAvailableDisplayResolution().catch(console.error);
+    this.#populateAvailableDisplayResolution();
     
     this.#settings = await ipcRenderer.settingsRead().catch(console.error);
     console.log(this.#settings);
@@ -259,7 +243,6 @@ export default class WebComponent extends HTMLElement {
       }
     }
 
-    this.$select("nav ul li:first-child").$click();
     this.$parent("#settings").$fadeIn(500);
   }
   
@@ -315,16 +298,20 @@ export default class WebComponent extends HTMLElement {
   
   hide(){
     this.#options.$selectAll("li.active").forEach(el => el.$removeClass("active"));
+    this.$select("nav ul li:first-child").$addClass("active").$next().$removeClass("active");
+    this.#options.$select("#settings-game").$addClass("active").$next().$removeClass("active");
     this.#options.scrollTo({top: 0, behavior: "auto"});
     this.$parent("#settings").$fadeOut(450);
   }
-  
-  #setActive(el, silent = true){
-    this.#options.$selectAll("section").forEach((section)=>{
-      section.$select("li.active")?.$removeClass("active");
-    });
+
+  #setHelp(el){
     const hint = el.$select(".left label").$attr("data-hint");
     if(hint) this.$select(".container .help .text").$text(hint);
+  }
+  
+  #setActive(el, silent = true){
+    this.#options.$selectAll("li.active").forEach(el => el.$removeClass("active"));
+    this.#setHelp(el);
     if(!silent){
       el.$addClass("active");
       this.dispatchEvent(new CustomEvent("selected"));
@@ -332,9 +319,9 @@ export default class WebComponent extends HTMLElement {
   }
   
   #scroll(root, el){
-    //scrollIntoView() trigger mouve event when scrolling -.-
+    //scrollIntoView() trigger mouve event when scrolling -.-"
     
-    //disable mouse while scrolling.
+    //disable mouse while scrolling
     root.$selectAll("li").forEach((el)=>{
       el.$css("pointer-events", "none");
     });
@@ -354,19 +341,12 @@ export default class WebComponent extends HTMLElement {
     });
   }
   
-  #which(){
-    const sections = this.#options.$selectAll("section");
-    for (const section of sections){
-      if (section.$isHidden() === false) return section;
-    }
-  }
-  
   move(climb, rumble = true){
-    const section = this.#which();
+    const section = this.#options.$selectAll("section").find(el => !el.$isHidden());
     const current = section.$select("li.active") ??
                     section.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
     
-    const next = climb ? current.$prev() : current.$next();
+    const next = climb ? current.$prevUntilVisible() : current.$nextUntilVisible();
     this.#setActive(next, false);
     this.#scroll(section, next);
 
@@ -374,7 +354,7 @@ export default class WebComponent extends HTMLElement {
   }
   
   change(next = false){
-    const section = this.#which();
+    const section = this.#options.$selectAll("section").find(el => !el.$isHidden());
     const current = section.$select("li.active");
     if(!current) {
       this.dispatchEvent(new CustomEvent("deny"));
@@ -383,6 +363,11 @@ export default class WebComponent extends HTMLElement {
     
     const direction = next ? ".next" : ".previous";
     current.$select(`li ${direction}`).$click();
+  }
+  
+  swap(next = false){
+    const direction = next ? "last-child" : "first-child";
+    this.$select(`nav ul li:${direction}`).$click();
   }
   
   onGamepadInput(input){
@@ -409,10 +394,10 @@ export default class WebComponent extends HTMLElement {
         this.exit();
         break;
       case "XINPUT_GAMEPAD_LEFT_SHOULDER":
-        this.$select("nav ul li:first-child").$click();
+        this.swap(false);
         break;
       case "XINPUT_GAMEPAD_RIGHT_SHOULDER":
-        this.$select("nav ul li:last-child").$click();
+        this.swap(true);
         break;
       default:
         this.dispatchEvent(new CustomEvent("unbound"));

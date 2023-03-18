@@ -108,7 +108,7 @@
   height: 490px;
 }
 
-#settings .options #settings-launcher{
+#settings .options section:not(.active){
   display: none;
 }
 

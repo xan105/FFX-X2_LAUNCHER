@@ -47,6 +47,7 @@ DOMReady(()=>{
 	};
 
   menu.main.$on("selected", ()=>{
+    console.log("selected");
     audio.play("select");
   });
 

@@ -71,7 +71,7 @@ export default class WebComponent extends HTMLElement {
     const current = this.#menu.$select("li.active") ??
                     this.#menu.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
    
-    const next = climb ? current.$prev() : current.$next();
+    const next = climb ? current.$prevUntilVisible() : current.$nextUntilVisible();
     this.#setActive(next);
     
     if(rumble) ipcRenderer.gamepadVibrate().catch(console.error);
