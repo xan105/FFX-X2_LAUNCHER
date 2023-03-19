@@ -1,5 +1,11 @@
-import { join } from "node:path";
-//import { app } from "electron";
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
+found in the LICENSE file in the root directory of this source tree.
+*/
+
+import { join, dirname } from "node:path";
+import { execPath } from "node:process";
 import { readFile, writeFile, exists } from "@xan105/fs";
 import { parse, stringify } from "@xan105/ini";
 import { isObjNotEmpty } from "@xan105/is";
@@ -11,7 +17,7 @@ import {
 import { attempt } from "@xan105/error";
 import folders from "@xan105/usershellfolder";
 
-const cwd = /*app.getAppPath();*/ "G:\\Library\\SteamLibrary\\steamapps\\common\\FINAL FANTASY FFX&FFX-2 HD Remaster";
+const cwd = dirname(execPath);
 
 const files = [
   join(folders.user.documents, "SQUARE ENIX/FINAL FANTASY X&X-2 HD Remaster/GameSetting.ini"),  

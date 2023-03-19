@@ -21,7 +21,8 @@
     "start:linux": "export $(cat .env | xargs) && electron .",
     "native-rebuild": "electron-rebuild",
     "clean": "npm prune --production",
-    "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\""
+    "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\"",
+    "build": "node build/build.js"
   },
   "author": "Anthony Beaumont",
   "license": "GPL-3.0-only",

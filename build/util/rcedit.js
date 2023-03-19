@@ -1,4 +1,9 @@
-import { arch } from "node:process";
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the MIT License
+found in the LICENSE file in the "build" directory of this source tree.
+*/
+
 import { fileURLToPath } from "node:url";
 import { join, dirname, resolve } from "node:path";
 import { promisify } from "node:util";
@@ -6,9 +11,9 @@ import { execFile } from "node:child_process";
 
 import { shouldStringNotEmpty } from "@xan105/is/assert";
 import { asArrayOfSomeObjLike } from "@xan105/is/opt";
-import { isStringNotEmpty } from "@xan105/is";
+import { isStringNotEmpty, is64bit } from "@xan105/is";
 
-function rcedit(execFilePath, option = {}){
+async function rcedit(execFilePath, option = {}){
   
   shouldStringNotEmpty(execFilePath);
   
@@ -24,10 +29,12 @@ function rcedit(execFilePath, option = {}){
     level: executionLevels.includes(option.level) ? option.level : executionLevels[0] 
   };
 
+  const x64 = await is64bit(execFilePath);
+
   const bin = join(
     dirname(fileURLToPath(import.meta.url)), 
     "../vendor/rcedit", 
-    `rcedit-${(arch === "x64") ? "x64" : "x86"}.exe`
+    `rcedit-${x64 ? "x64" : "x86"}.exe`
   );
   
   const args = [ 

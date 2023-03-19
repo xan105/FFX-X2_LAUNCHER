@@ -1,3 +1,11 @@
+#!/usr/bin/env node
+
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the MIT License
+found in the LICENSE file in the "build" directory of this source tree.
+*/
+
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { promisify } from "node:util";
@@ -7,6 +15,8 @@ import { mkdir, ls, copyFile, rm } from "@xan105/fs";
 import { rcedit } from "./util/rcedit.js";
 
 const asar = false;
+
+console.log(process.env);
 
 console.log("Creating temporary working dir...");
 const rng = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -79,7 +89,4 @@ if(asar){
   await rm(join(cwd, "resources/app"));
 }
 
-
-//console.log("Copying license...");
-//rcedit
 //enigma self contain package

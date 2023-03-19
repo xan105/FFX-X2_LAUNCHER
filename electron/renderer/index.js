@@ -1,3 +1,9 @@
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
+found in the LICENSE file in the root directory of this source tree.
+*/
+
 import { DOMReady, $select } from "@xan105/vanilla-query";
 
 DOMReady(()=>{ 
@@ -53,6 +59,16 @@ DOMReady(()=>{
 
   menu.main.$on("unbound", ()=>{
     audio.play("deny");
+  });
+
+  menu.main.$on("launchStart", ()=>{
+    console.log("pause");
+    audio.bgm.pause();
+  });
+  
+  menu.main.$on("launchEnd", ()=>{
+    console.log("resume");
+    audio.bgm.play();
   });
 
   menu.main.$on("exit", ()=>{

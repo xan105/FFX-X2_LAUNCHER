@@ -1,5 +1,12 @@
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
+found in the LICENSE file in the root directory of this source tree.
+*/
+
 import { spawn } from "node:child_process";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { execPath } from "node:process";
 import { app } from "electron";
 import { rm } from "@xan105/fs";
 import {
@@ -30,8 +37,8 @@ function run(name, option = {}){
       binary: isStringNotEmpty,
       args: isArrayOfStringNotEmpty
     });
-    
-    const cwd = /*app.getAppPath();*/ "G:\\Library\\SteamLibrary\\steamapps\\common\\FINAL FANTASY FFX&FFX-2 HD Remaster"
+
+    const cwd = dirname(execPath);      
     const file = join(cwd, game.binary);
 
     let binary = spawn(file, game.args, {

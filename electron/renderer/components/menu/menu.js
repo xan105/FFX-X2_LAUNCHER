@@ -1,3 +1,9 @@
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
+found in the LICENSE file in the root directory of this source tree.
+*/
+
 import { $define } from "@xan105/vanilla-query";
 
 const html = 
@@ -59,11 +65,17 @@ export default class WebComponent extends HTMLElement {
       this.dispatchEvent(new CustomEvent("exit"));
     else 
     {
+      this.dispatchEvent(new CustomEvent("launchStart"));
+      
       ipcRenderer.menuAction(
         name, 
-        localStorage.getItem("waitProcess") ?? "false" === "false", 
-        localStorage.getItem("cleanup") ?? "false" === "true"
-      ).catch(console.error);
+        (localStorage.getItem("waitProcess") ?? "false") === "true", 
+        (localStorage.getItem("cleanup") ?? "false") === "true"
+      ).catch(console.error)
+      .finally(()=>{
+        this.dispatchEvent(new CustomEvent("launchEnd"));
+      });
+      
     }
   }
 

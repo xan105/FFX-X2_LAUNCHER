@@ -1,3 +1,9 @@
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
+found in the LICENSE file in the root directory of this source tree.
+*/
+
 import { ipcMain, BrowserWindow, dialog } from "electron";
 import * as resolution from "win-screen-resolution";
 import { run } from "./run.js";
@@ -7,7 +13,7 @@ import { read, write } from "./settings.js";
 function listen(){
 
   ipcMain.handle("menu-action", async (event, name, wait, clean) => {  
-    const window = BrowserWindow.fromWebContents(event.sender);
+    const window = BrowserWindow.fromWebContents(event.sender); 
       
     if(name === "exit"){
       window.close();

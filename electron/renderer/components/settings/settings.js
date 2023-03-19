@@ -1,3 +1,9 @@
+/*
+Copyright (c) Anthony Beaumont
+This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
+found in the LICENSE file in the root directory of this source tree.
+*/
+
 import { $select, $define } from "@xan105/vanilla-query";
 import { localize } from "./l10n.js";
 import settings from "./settings.json" assert { type: "json" };
