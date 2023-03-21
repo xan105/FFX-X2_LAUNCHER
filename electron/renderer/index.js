@@ -31,14 +31,6 @@ DOMReady(()=>{
     play: function(name, volume = 0.2){
       //Load (new sound)
       if (this.sfx.$attr("data-name") !== name){
-        
-        //Ignore if any previous sound is still playing
-        if (
-          !this.sfx.paused && 
-          !this.sfx.ended && 
-          0 < this.sfx.currentTime
-        ) return;
-      
         this.sfx.$attr("data-name", name);
         this.sfx.src = "./resources/sound/sfx/" + name + ".ogg";
         this.sfx.load();
@@ -56,7 +48,7 @@ DOMReady(()=>{
   
   const menu = {
     main: $select("main-menu"),
-    settings: $select("#settings settings-menu")
+    settings: $select("settings-menu")
 	};
 
   menu.main.$on("selected", ()=>{
@@ -67,15 +59,16 @@ DOMReady(()=>{
     audio.play("deny");
   });
 
-  menu.main.$on("launchStart", ()=>{
+  menu.main.$on("spawn", ()=>{
     audio.bgm.pause();
   });
   
-  menu.main.$on("launchEnd", ()=>{
+  menu.main.$on("spawned", ()=>{
     audio.bgm.play();
   });
 
   menu.main.$on("exit", ()=>{
+    audio.play("sphere", 0.1);
     menu.settings.show();
   });
 
@@ -86,6 +79,10 @@ DOMReady(()=>{
     audio.play("save");
   });
   
+  menu.settings.$on("swaped", ()=>{
+    audio.play("change_page", 0.1);
+  });
+
   menu.settings.$on("selected", ()=>{
     audio.play("select");
   });

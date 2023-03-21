@@ -5,8 +5,7 @@ found in the LICENSE file in the root directory of this source tree.
 */
 
 import { spawn } from "node:child_process";
-import { join, dirname } from "node:path";
-import { execPath } from "node:process";
+import { join } from "node:path";
 import { app } from "electron";
 import { rm } from "@xan105/fs";
 import {
@@ -19,6 +18,7 @@ import {
   isArrayOfStringNotEmpty
 } from "@xan105/is";
 import { asBoolean } from "@xan105/is/opt";
+import { gamePath } from "./gamedir.js";
 import games from "./game.json" assert { type: "json" };
 
 function run(name, option = {}){
@@ -37,12 +37,11 @@ function run(name, option = {}){
       binary: isStringNotEmpty,
       args: isArrayOfStringNotEmpty
     });
-
-    const cwd = dirname(execPath);      
-    const file = join(cwd, game.binary);
+    
+    const file = join(gamePath, game.binary);
 
     let binary = spawn(file, game.args, {
-      cwd,
+      cwd: gamePath,
       stdio:[ "ignore", "ignore", "ignore" ], 
       detached: true
     });
@@ -61,8 +60,8 @@ function run(name, option = {}){
           resolve();
           if(options.clean){
             Promise.all([
-              rm(join(cwd, "OUTPUT.TXT")),
-              rm(join(cwd, "logs"))
+              rm(join(gamePath, "OUTPUT.TXT")),
+              rm(join(gamePath, "logs"))
             ]);
           }
         });

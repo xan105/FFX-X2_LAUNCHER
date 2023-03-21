@@ -161,6 +161,7 @@ export default class WebComponent extends HTMLElement {
           section.$select("li.active")?.$removeClass("active");  
         });
         
+        this.dispatchEvent(new CustomEvent("swaped"));
       });
     });
     
@@ -177,9 +178,7 @@ export default class WebComponent extends HTMLElement {
   }
   
   async #populateAvailableDisplayResolution(){
-
     const el = this.#options.$select("#settings-game li[data-id=\"Resolution\"]");
-    
     try{
       const select = el.$select(".container .right select");
       if (select.options.length > 0) return;
@@ -192,7 +191,6 @@ export default class WebComponent extends HTMLElement {
         opt.defaultSelected = resolution === current;
         select.add(opt);
       }
-
     }catch{
       el.$hide();
     }
@@ -200,12 +198,8 @@ export default class WebComponent extends HTMLElement {
 
   async show(){
     this.#populateAvailableDisplayResolution();
-    
     this.#settings = await ipcRenderer.settingsRead().catch(console.error);
-    console.log(this.#settings);
-    
     const l10n = await localize(this.#settings.Language);
-    console.log(l10n);
 
     const settings = {
       game: this.#options.$select("#settings-game").$selectAll("li"),
@@ -242,14 +236,13 @@ export default class WebComponent extends HTMLElement {
           const opt = li.$select(`.right select option[value="${value}"`);
           if(!opt) continue;
           opt.selected = true;
-          console.log("set: ", id, value);
         }catch(err){
           console.warn(err);
         }
       }
     }
 
-    this.$parent("#settings").$fadeIn(500);
+    this.$fadeIn(500);
   }
   
   save(){
@@ -262,17 +255,16 @@ export default class WebComponent extends HTMLElement {
     for(const [name, list] of Object.entries(settings)){
       for (const li of list){
         try{
-        
-          if (li.$isHidden()) continue;
+          
           const id = li.$attr("data-id");
           const unx =  li.$attr("data-unx");
- 
           const value = li.$select(".right select").value;
 
           if(name === "launcher"){
             localStorage.setItem(id, value);
             console.log("changed (launcher): ", id, value);
           } else if(unx){
+            if(!this.#settings.unx) continue;
             this.#settings.unx[unx] ??= Object.create(null);
             this.#settings.unx[unx][id] = value;
             console.log("changed: ", unx, id, value);
@@ -286,8 +278,6 @@ export default class WebComponent extends HTMLElement {
         }
       }
     }
-    
-    console.log(this.#settings);
 
     ipcRenderer.settingsWrite(this.#settings)
     .catch(console.error)
@@ -307,7 +297,7 @@ export default class WebComponent extends HTMLElement {
     this.$select("nav ul li:first-child").$addClass("active").$next().$removeClass("active");
     this.#options.$select("#settings-game").$addClass("active").$next().$removeClass("active");
     this.#options.scrollTo({top: 0, behavior: "auto"});
-    this.$parent("#settings").$fadeOut(450);
+    this.$fadeOut(450);
   }
 
   #setHelp(el){

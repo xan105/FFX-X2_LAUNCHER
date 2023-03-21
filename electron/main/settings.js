@@ -4,8 +4,7 @@ This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
 found in the LICENSE file in the root directory of this source tree.
 */
 
-import { join, dirname } from "node:path";
-import { execPath } from "node:process";
+import { join } from "node:path";
 import { readFile, writeFile, exists } from "@xan105/fs";
 import { parse, stringify } from "@xan105/ini";
 import { isObjNotEmpty } from "@xan105/is";
@@ -16,15 +15,14 @@ import {
 } from "@xan105/is/assert";
 import { attempt } from "@xan105/error";
 import folders from "@xan105/usershellfolder";
-
-const cwd = dirname(execPath);
+import { gamePath } from "./gamedir.js";
 
 const files = [
   join(folders.user.documents, "SQUARE ENIX/FINAL FANTASY X&X-2 HD Remaster/GameSetting.ini"),  
-  join(cwd, "UnX.ini"),
-  join(cwd, "UnX_Booster.ini"),
-  join(cwd, "UnX_Gamepad.ini"),
-  join(cwd, "UnX_Language.ini")
+  join(gamePath, "UnX.ini"),
+  join(gamePath, "UnX_Booster.ini"),
+  join(gamePath, "UnX_Gamepad.ini"),
+  join(gamePath, "UnX_Language.ini")
 ]
 
 async function readSettingFile(filePath, encodings){
@@ -41,13 +39,13 @@ async function readSettingFile(filePath, encodings){
 }
 
 async function hasUnx(){
-  if (await exists(join(cwd, "dxgi.dll")) === false) return false; 
+  if (await exists(join(gamePath, "dxgi.dll")) === false) return false; 
     
   const [ dxgi ] = await attempt(readSettingFile, [
-    join(cwd, "dxgi.ini"),
+    join(gamePath, "dxgi.ini"),
     ["utf16le", "utf8"]
   ]);
-  const unxPath = join(cwd, dxgi?.["Import.UnX"]?.Filename ?? "unx.dll");
+  const unxPath = join(gamePath, dxgi?.["Import.UnX"]?.Filename ?? "unx.dll");
   const result = await exists(unxPath);
   return result;
 }

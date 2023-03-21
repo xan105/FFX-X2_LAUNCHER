@@ -78,15 +78,14 @@ export default class WebComponent extends HTMLElement {
       this.dispatchEvent(new CustomEvent("exit"));
     else 
     {
-      this.dispatchEvent(new CustomEvent("launchStart"));
-      
+      this.dispatchEvent(new CustomEvent("spawn"));
       ipcRenderer.menuAction(
         name, 
         (localStorage.getItem("waitProcess") ?? "false") === "true", 
         (localStorage.getItem("cleanup") ?? "false") === "true"
       ).catch(console.error)
       .finally(()=>{
-        this.dispatchEvent(new CustomEvent("launchEnd"));
+        this.dispatchEvent(new CustomEvent("spawned"));
       });
       
     }
