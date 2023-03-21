@@ -5,7 +5,7 @@ found in the LICENSE file in the root directory of this source tree.
 */
 
 import { $select, $define } from "@xan105/vanilla-query";
-import { localize } from "./l10n.js";
+import { localize } from "./l10n/l10n.js";
 import settings from "./settings.json" assert { type: "json" };
 
 const template =
@@ -61,26 +61,26 @@ const html =
 	</div>
 </div>
 
-	<div class="footer">
-    <ul>
-      <li>
-        <div class="gamepad dpad vertical"></div>
-        <span>Select</span>
-      </li>
-      <li>
-        <div class="gamepad dpad horizontal"></div>
-        <span>Change</span>
-      </li>
-      <li>
-        <div class="gamepad A"></div>
-        <span>Save</span>
-      </li>
-      <li>
-        <div class="gamepad B"></div>
-        <span>Cancel</span>
-      </li>
-    </ul>
-	</div>
+<footer>
+  <ul>
+    <li>
+      <div class="gamepad dpad vertical"></div>
+      <span>Select</span>
+    </li>
+    <li>
+      <div class="gamepad dpad horizontal"></div>
+      <span>Change</span>
+    </li>
+    <li>
+      <div class="gamepad btn A"></div>
+      <span>Save</span>
+    </li>
+    <li>
+      <div class="gamepad btn B"></div>
+      <span>Cancel</span>
+    </li>
+  </ul>
+</footer>
 `;
 
 export default class WebComponent extends HTMLElement {
@@ -433,9 +433,6 @@ export default class WebComponent extends HTMLElement {
         break;
       case "Mouse3":
         this.exit();
-        break;
-      default:
-        this.dispatchEvent(new CustomEvent("unbound"));
         break;
     }
   }

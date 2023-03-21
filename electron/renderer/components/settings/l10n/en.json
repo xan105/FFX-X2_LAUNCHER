@@ -167,6 +167,14 @@
         "alternate": "Vita (FFX-2)"
       }
     },
+    "gamepadStyle": {
+      "display": "Gamepad button style",
+      "hint": "Choose gamepad button icon theme to be displayed",
+      "values":{
+        "xbox": "Xbox",
+        "playstation": "Playstation"
+      }
+    },
     "waitProcess": {
       "display": "On game launch",
       "hint": "Choose launcher behavior on game launch",

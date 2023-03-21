@@ -49,6 +49,13 @@ const npm_ci = await promisify(exec)("npm ci", {
 });
 console.log(npm_ci);
 
+console.log("Rebuilding native addon for Electron...");
+const npm_rebuild = await promisify(exec)("npm run-script native-rebuild", {
+  cwd: join(cwd, "resources/app"),
+  windowsHide: true
+});
+console.log(npm_rebuild);
+
 console.log("Copying distributable electron...");
 const files = await ls(join(cwd, "resources/app/node_modules/electron/dist"), {
   recursive: true,

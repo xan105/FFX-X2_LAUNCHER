@@ -75,3 +75,22 @@ main-menu nav ul li[data-name="settings"].active {
 	background-image:url("../img/menu/on/setting_button.png"); 
 	height: 56px;
 }
+
+main-menu footer {
+  width: 27%;
+  left: calc( 100% - 27% );
+}
+
+main-menu.alternate footer{
+  background-image: linear-gradient(to right, #1a1a24, transparent);
+  width: 39%;
+  left: 450px;
+}
+
+main-menu.alternate footer::before {
+  background-image: linear-gradient(to right, #b9b9b9, transparent);
+}
+
+main-menu.alternate footer ul {
+  justify-content: flex-start;
+}

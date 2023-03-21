@@ -19,6 +19,19 @@ const html =
     <li data-name="settings"></li>
   </ul>
 </nav>
+
+<footer>
+  <ul>
+    <li>
+      <div class="gamepad dpad vertical"></div>
+      <span>Select</span>
+    </li>
+    <li>
+      <div class="gamepad btn A"></div>
+      <span>Enter</span>
+    </li>
+  </ul>
+</footer>
 `;
 
 export default class WebComponent extends HTMLElement {
@@ -147,9 +160,6 @@ export default class WebComponent extends HTMLElement {
         break;
       case "Enter":
         this.#enter();
-        break;
-      default:
-        this.dispatchEvent(new CustomEvent("unbound"));
         break;
     }
   }

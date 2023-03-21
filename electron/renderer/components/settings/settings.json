@@ -135,6 +135,11 @@
       "default": 0
     },
     {
+      "id": "gamepadStyle",
+      "values": ["xbox","playstation"],
+      "default": 0
+    },
+    {
       "id": "waitProcess",
       "values": ["true","false"],
       "default": 1

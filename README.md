@@ -11,6 +11,26 @@ Gamepad and UnX friendly launcher for `FINAL FANTASY X/X-2 HD Remaster (PC)`.
 
 <details><summary>Screenshot</summary>
 
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main.png"><br />
+<em>Main menu</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_unx.png"><br />
+<em>Settings (UnX installed)</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_launcher.png"><br />
+<em>Launcher settings</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main_alternate.png"><br />
+<em>Main menu (alternate)</em>
+</p>
+
 </details>
 
 Install

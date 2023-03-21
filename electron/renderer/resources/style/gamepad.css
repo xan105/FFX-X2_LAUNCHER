@@ -1,7 +1,12 @@
 .gamepad {
+  background-size: contain;
   height: 48px;
   width: 48px;
-  background-size: contain;
+}
+
+.gamepad.btn{
+  height: 40px;
+  width: 40px;
 }
 
 .gamepad.dpad.vertical {
@@ -12,22 +17,34 @@
   background-image: url("../img/gamepad/horizontal.svg");
 }
 
-.gamepad.A {
+body[data-gamepad="xbox"] .gamepad.A {
   background-image: url("../img/gamepad/xbox/A.svg");
-  height: 40px;
-  width: 40px;
 }
 
-.gamepad.B {
+body[data-gamepad="xbox"] .gamepad.B {
   background-image: url("../img/gamepad/xbox/B.svg");
-  height: 40px;
-  width: 40px;
 }
 
-.gamepad.L {
+body[data-gamepad="xbox"] .gamepad.L {
   background-image: url("../img/gamepad/xbox/LB.svg");
 }
 
-.gamepad.R {
+body[data-gamepad="xbox"] .gamepad.R {
   background-image: url("../img/gamepad/xbox/RB.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.A {
+  background-image: url("../img/gamepad/playstation/cross.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.B {
+  background-image: url("../img/gamepad/playstation/circle.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.L {
+  background-image: url("../img/gamepad/playstation/L1.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.R {
+  background-image: url("../img/gamepad/playstation/R1.svg");
 }

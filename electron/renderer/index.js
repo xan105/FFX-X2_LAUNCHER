@@ -6,7 +6,14 @@ found in the LICENSE file in the root directory of this source tree.
 
 import { DOMReady, $select } from "@xan105/vanilla-query";
 
+function updateGamepadStyle(){
+  const style = localStorage.getItem("gamepadStyle") ?? "xbox";
+  $select("body").$attr("data-gamepad", style);
+}
+
 DOMReady(()=>{ 
+
+  updateGamepadStyle();
 
   const audio = {
     sfx: $select("#sfx"),
@@ -15,7 +22,7 @@ DOMReady(()=>{
       const soundtrack = localStorage.getItem("soundtrack") ?? "ffx_fleeting_dream";
       if (this.bgm.$attr("data-name") !== soundtrack){
         this.bgm.$attr("data-name", soundtrack);
-        this.bgm.src = `./resources/sound/bgm/${soundtrack}.ogg`;
+        this.bgm.src = "./resources/sound/bgm/" + soundtrack + ".ogg";
         this.bgm.load();
       }
       this.bgm.volume = parseFloat(localStorage.getItem("volume") ?? "0.1");
@@ -53,7 +60,6 @@ DOMReady(()=>{
 	};
 
   menu.main.$on("selected", ()=>{
-    console.log("selected");
     audio.play("select");
   });
 
@@ -62,12 +68,10 @@ DOMReady(()=>{
   });
 
   menu.main.$on("launchStart", ()=>{
-    console.log("pause");
     audio.bgm.pause();
   });
   
   menu.main.$on("launchEnd", ()=>{
-    console.log("resume");
     audio.bgm.play();
   });
 
@@ -77,6 +81,7 @@ DOMReady(()=>{
 
   menu.settings.$on("saved", ()=>{
     menu.main.update();
+    updateGamepadStyle();
     audio.start();
     audio.play("save");
   });
@@ -121,7 +126,7 @@ DOMReady(()=>{
   });
   
   document.addEventListener("mousedown", (event) => { 
-    if (event.button <= 2 ) return;
+    if (event.button <= 2 ) return; //ignore left/right click
 
     const component = menu.settings.$isHidden() ? "main" : "settings";
     menu[component].onKBMInput("Mouse" + event.button);

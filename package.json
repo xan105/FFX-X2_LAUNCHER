@@ -60,7 +60,7 @@
     "@xan105/fs": "^2.1.0",
     "@xan105/ini": "^2.1.1",
     "@xan105/is": "^2.8.1",
-    "@xan105/usershellfolder": "^1.1.3",
+    "@xan105/usershellfolder": "^1.1.4",
     "@xan105/vanilla-query": "^1.6.0",
     "win-screen-resolution": "2.1.0",
     "xinput-ffi": "^3.4.0"
