@@ -79,14 +79,19 @@ Build
 
 - Node.js / NPM
 - C/C++ build tools and Python 3.x (node-gyp)
-- Internet connection
+- git
   
 ```
-git clone https://github.com/xan105/FFX-X2_LAUNCHER.git && cd FFX-X2_LAUNCHER  
+git clone https://github.com/xan105/FFX-X2_LAUNCHER.git && cd FFX-X2_LAUNCHER
+npm ci
+npm run-script native-rebuild  
 npm run-script build
 ```
 
-Application can be found in the `dist` folder as well as a boxed version (single executable file).
+Application can be found in the `./dist` folder.
+
+The boxed version (single executable file) is made by using [Enigma Virtual Box](https://enigmaprotector.com/en/aboutvb.html):
+its `.evb` project file is located in the `./build` folder (💡 it's just a xml file).
 
 Legal
 =====

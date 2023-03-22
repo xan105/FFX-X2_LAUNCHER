@@ -6,23 +6,21 @@ This source code is licensed under the MIT License
 found in the LICENSE file in the "build" directory of this source tree.
 */
 
-import { join } from "node:path";
+import { join, resolve } from "node:path";
+import { env } from "node:process";
 import { tmpdir } from "node:os";
 import { promisify } from "node:util";
 import { exec } from "node:child_process";
 
-import { mkdir, ls, copyFile, rm } from "@xan105/fs";
+import { mkdir, ls, copyFile, rm, mv } from "@xan105/fs";
 import { rcedit } from "./util/rcedit.js";
 
 const asar = false;
 
-console.log(process.env);
-
-console.log("Creating temporary working dir...");
-const rng = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-const cwd = join(tmpdir(), `${Date.now()}${rng(0, 1000)}`);
+const cwd = join("./dist");
+await rm(cwd);
 await mkdir(cwd);
-console.log("cwd:", cwd);
+console.log("cwd:", resolve(cwd));
 
 console.log("Copying metadata...");
 for (const file of ["package.json", "package-lock.json", "LICENSE"]){
@@ -56,7 +54,7 @@ const npm_rebuild = await promisify(exec)("npm run-script native-rebuild", {
 });
 console.log(npm_rebuild);
 
-console.log("Copying distributable electron...");
+console.log("Copying redist electron...");
 const files = await ls(join(cwd, "resources/app/node_modules/electron/dist"), {
   recursive: true,
   normalize: true,
@@ -70,11 +68,21 @@ for (const file of files){
   );
 }
 
-/*
 console.log("Patching electron.exe")
-use npm env var to get value from package.json when run by npm
-rcedit(...args)
-*/
+const rcedit_output = await rcedit("./dist/electron.exe", {
+  icon: "./dist/resources/app/electron/renderer/resources/icon/icon.ico",
+  version: env["npm_package_version"],
+  info: [
+    { name: "CompanyName", value: "Anthony Beaumont" },
+    { name: "ProductName", value: env["npm_package_name"] },
+    { name: "FileDescription", value: env["npm_package_name"] },
+    { name: "OriginalFilename", value: env["npm_package_name"] + ".exe" },
+    { name: "InternalName", value: env["npm_package_name"] },
+    { name: "LegalCopyright", value: "Copyright 2016-2023 Anthony Beaumont." }
+  ]
+});
+await mv("./dist/electron.exe", "./dist/" + env["npm_package_name"] + ".exe");
+console.log(rcedit_output);
 
 console.log("Removing dev dependencies...");
 const npm_prune = await promisify(exec)("npm prune --production", {
@@ -82,6 +90,46 @@ const npm_prune = await promisify(exec)("npm prune --production", {
   windowsHide: true
 });
 console.log(npm_prune);
+
+console.log("Debloating native-addons...");
+const modules = [
+  { name: "koffi" },
+  { name: "win-screen-resolution", filter: ["node_modules", "bin", "prebuilds"] }
+];
+for (const module of modules){
+  console.log("\t>>>", module.name);
+  const files_all = await ls(join(cwd, "resources/app/node_modules", module.name), {
+    recursive: true,
+    normalize: true,
+    ignore: { dir: true }
+  });
+  
+  const files = (await Promise.all([
+    ls(join(cwd, "resources/app/node_modules", module.name), {
+      recursive: true,
+      normalize: true,
+      ignore: { dir: true },
+      filter: ["LICENSE", "LICENSE.txt"],
+      whitelist: true
+    }),
+    ls(join(cwd, "resources/app/node_modules", module.name), {
+      recursive: true,
+      normalize: true,
+      ignore: { dir: true },
+      ext: ["js", "cjs", "mjs", "node", "json", "md"],
+      filter: module.filter
+    })
+  ])).flat();
+  
+  let counter = 0;
+  for (const file of files_all){
+    if(!files.includes(file)){
+      await rm(join(cwd, "resources/app/node_modules", module.name, file));
+      counter += 1;
+    }
+  }
+  console.log(`\t\tRemoved ${counter} files`);
+}
 
 if(asar){
   console.log("Packing into an .asar file...");
@@ -95,5 +143,3 @@ if(asar){
   console.log("Cleaning up...")
   await rm(join(cwd, "resources/app"));
 }
-
-//enigma self contain package

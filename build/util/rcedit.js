@@ -22,7 +22,7 @@ async function rcedit(execFilePath, option = {}){
   const options = {
     icon: option.icon,
     version: option.version,
-    misc: asArrayOfSomeObjLike(option.misc, {
+    info: asArrayOfSomeObjLike(option.info, {
       name: isStringNotEmpty,
       value: isStringNotEmpty
     }) ?? [],
@@ -55,7 +55,7 @@ async function rcedit(execFilePath, option = {}){
     args.push(option.version);
   }
   
-  for (const { name, value } of options.misc){
+  for (const { name, value } of options.info){
     args.push("--set-version-string");
     args.push(name);
     args.push(value);
@@ -66,7 +66,3 @@ async function rcedit(execFilePath, option = {}){
 }
 
 export { rcedit };
-
-/*
-  --set-icon %~dp0..\{{app}}\icon.ico --set-file-version "1.6.8" --set-product-version "1.6.8" --set-version-string "CompanyName" "Anthony Beaumont" --set-version-string "ProductName" "Achievement Watcher" --set-version-string "FileDescription" "Achievement Watcher" --set-version-string "OriginalFilename" "AchievementWatcher.exe" --set-version-string "InternalName" "AchievementWatcher" --set-version-string "LegalCopyright" "Copyright 2019-2022 Anthony Beaumont."
-*/
