@@ -85,7 +85,6 @@ const html =
 
 export default class WebComponent extends HTMLElement {
 
-  #helpHint;
   #options;
   #settings;
   
@@ -94,7 +93,6 @@ export default class WebComponent extends HTMLElement {
     this.innerHTML = html;
     $define(this);
     
-    this.#helpHint = $select(".container .help .text", this);
     this.#options = $select(".container .options", this);
 
     for(const [name, options] of Object.entries(settings)){
@@ -161,6 +159,9 @@ export default class WebComponent extends HTMLElement {
           section.$select("li.active")?.$removeClass("active");  
         });
         
+        this.#options.scrollTo({top: 0, behavior: "auto"});
+        this.$select(".container .help .text").$text("");
+        
         this.dispatchEvent(new CustomEvent("swaped"));
       });
     });
@@ -168,11 +169,20 @@ export default class WebComponent extends HTMLElement {
   }
   
   disconnectedCallback() {
+  
+    this.#options.$selectAll("li").forEach((el) => {
+      el.$off("mouseenter");
+    });
+  
     this.#options.$selectAll("li .next").forEach((el) => {
       el.$off("click");
     });
     
     this.#options.$selectAll("li .previous").forEach((el) => {
+      el.$off("click");
+    });
+    
+    this.$selectAll("nav ul li").forEach((el)=>{
       el.$off("click");
     });
   }
@@ -242,11 +252,11 @@ export default class WebComponent extends HTMLElement {
       }
     }
 
+    this.$select(".container .help .text").$text("");
     this.$fadeIn(500);
   }
   
-  save(){
-    
+  #save(){
     const settings = {
       game: this.#options.$select("#settings-game").$selectAll("li"),
       launcher: this.#options.$select("#settings-launcher").$selectAll("li")
@@ -262,15 +272,12 @@ export default class WebComponent extends HTMLElement {
 
           if(name === "launcher"){
             localStorage.setItem(id, value);
-            console.log("changed (launcher): ", id, value);
           } else if(unx){
             if(!this.#settings.unx) continue;
             this.#settings.unx[unx] ??= Object.create(null);
             this.#settings.unx[unx][id] = value;
-            console.log("changed: ", unx, id, value);
           } else {
             this.#settings[id] = value;
-            console.log("changed: ", id, value);
           }
 
         }catch(err){
@@ -283,16 +290,16 @@ export default class WebComponent extends HTMLElement {
     .catch(console.error)
     .finally(() => { 
       this.dispatchEvent(new CustomEvent("saved"));
-      this.hide();
+      this.#hide();
     });
   }
   
-  exit(){
+  #exit(){
     this.dispatchEvent(new CustomEvent("exit"));
-    this.hide();
+    this.#hide();
   }
   
-  hide(){
+  #hide(){
     this.#options.$selectAll("li.active").forEach(el => el.$removeClass("active"));
     this.$select("nav ul li:first-child").$addClass("active").$next().$removeClass("active");
     this.#options.$select("#settings-game").$addClass("active").$next().$removeClass("active");
@@ -313,7 +320,7 @@ export default class WebComponent extends HTMLElement {
       this.dispatchEvent(new CustomEvent("selected"));
     }
   }
-  
+
   #scroll(root, el){
     //scrollIntoView() trigger mouve event when scrolling -.-"
     
@@ -337,7 +344,7 @@ export default class WebComponent extends HTMLElement {
     });
   }
   
-  move(climb, rumble = true){
+  #move(climb, rumble = true){
     const section = this.#options.$selectAll("section").find(el => !el.$isHidden());
     const current = section.$select("li.active") ??
                     section.$selectAll("li").at(climb ? 1 : -1); //default pos will result in first el in next                   
@@ -349,7 +356,7 @@ export default class WebComponent extends HTMLElement {
     if(rumble) ipcRenderer.gamepadVibrate().catch(console.error);
   }
   
-  change(next = false){
+  #change(next = false){
     const section = this.#options.$selectAll("section").find(el => !el.$isHidden());
     const current = section.$select("li.active");
     if(!current) {
@@ -361,7 +368,7 @@ export default class WebComponent extends HTMLElement {
     current.$select(`li ${direction}`).$click();
   }
   
-  swap(next = false){
+  #swap(next = false){
     const direction = next ? "last-child" : "first-child";
     this.$select(`nav ul li:${direction}`).$click();
   }
@@ -369,31 +376,31 @@ export default class WebComponent extends HTMLElement {
   onGamepadInput(input){
     switch(input){
       case "XINPUT_GAMEPAD_DPAD_UP":
-        this.move(true);
+        this.#move(true);
         break;
       case "XINPUT_GAMEPAD_DPAD_DOWN":
-        this.move(false);
+        this.#move(false);
         break;
       case "XINPUT_GAMEPAD_DPAD_LEFT":
-        this.change(false);
+        this.#change(false);
         break;
       case "XINPUT_GAMEPAD_DPAD_RIGHT":
-        this.change(true);
+        this.#change(true);
         break;
       case "XINPUT_GAMEPAD_A":
-        this.save();
+        this.#save();
         break;
       case "XINPUT_GAMEPAD_B":
-        this.exit();
+        this.#exit();
         break;
       case "XINPUT_GAMEPAD_START":
-        this.exit();
+        this.#exit();
         break;
       case "XINPUT_GAMEPAD_LEFT_SHOULDER":
-        this.swap(false);
+        this.#swap(false);
         break;
       case "XINPUT_GAMEPAD_RIGHT_SHOULDER":
-        this.swap(true);
+        this.#swap(true);
         break;
       default:
         this.dispatchEvent(new CustomEvent("unbound"));
@@ -404,25 +411,25 @@ export default class WebComponent extends HTMLElement {
   onKBMInput(input){
     switch(input){
       case "ArrowUp":
-        this.move(true, false);
+        this.#move(true, false);
         break;
       case "ArrowDown":
-        this.move(false, false);
+        this.#move(false, false);
         break;
       case "ArrowLeft":
-        this.change(false);
+        this.#change(false);
         break;
       case "ArrowRight":
-        this.change(true);
+        this.#change(true);
         break;
       case "Enter":
-        this.save();
+        this.#save();
         break;
       case "Escape":
-        this.exit();
+        this.#exit();
         break;
       case "Mouse3":
-        this.exit();
+        this.#exit();
         break;
     }
   }

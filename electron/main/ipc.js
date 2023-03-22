@@ -4,15 +4,23 @@ This source code is licensed under the GNU GENERAL PUBLIC LICENSE Version 3
 found in the LICENSE file in the root directory of this source tree.
 */
 
-import { ipcMain, BrowserWindow, dialog } from "electron";
+import { BrowserWindow, dialog } from "electron";
 import * as resolution from "win-screen-resolution";
 import { run } from "./run.js";
 import { vibrateGamepad } from "./gamepad.js";
 import { read, write } from "./settings.js";
 
-function listen(){
-
-  ipcMain.handle("menu-action", async (event, name, wait, clean) => {  
+function listen(webContents){
+  /*
+    Note to self:
+    webContents.ipc.handle(...) is same as
+    ipcMain.handle(..., (e, ...)=>{
+      e.sender === webContents
+    })
+    webContents.ipc is like a scoped ipc to webContents instead of global ipcMain which can be invoked by anyone thus requires check(s)
+  */
+  
+  webContents.ipc.handle("menu-action", async (event, name, wait, clean) => {
     const window = BrowserWindow.fromWebContents(event.sender); 
       
     if(name === "exit"){
@@ -54,7 +62,7 @@ function listen(){
     }
   });
 
-  ipcMain.handle("display-resolution", () => { 
+  webContents.ipc.handle("display-resolution", () => { 
     const available = resolution.list()
                       .filter(res => res.height <= 2160) //Above 2160p will break ingame UI
                       .map(({width, height}) => `${width}*${height}`); //Stringify
@@ -66,7 +74,7 @@ function listen(){
   });
 
   
-  ipcMain.handle("settings-write", async (event, settings) => {
+  webContents.ipc.handle("settings-write", async (event, settings) => {
     try{
       await write(settings);
     }catch(err){
@@ -80,8 +88,8 @@ function listen(){
     }
   });
 
-  ipcMain.handle("gamepad-vibrate", vibrateGamepad);
-  ipcMain.handle("settings-read", read);
+  webContents.ipc.handle("gamepad-vibrate", vibrateGamepad);
+  webContents.ipc.handle("settings-read", read);
 }
 
 export { listen };

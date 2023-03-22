@@ -103,6 +103,7 @@ footer {
   bottom: 0;
   left: 0;
   font-family: "Kanit";
+  color: white;
   text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
   font-size: 15px;
   letter-spacing: 0.15em;
@@ -130,6 +131,5 @@ footer li {
 }
 
 footer li span {
-  color: white;
   margin: auto 0 auto 5px;
 }

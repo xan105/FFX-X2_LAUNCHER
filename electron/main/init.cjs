@@ -122,7 +122,7 @@ try {
     .then(async() => {
 
       const { listen } = await import("./ipc.js");
-      listen();
+      listen(mainWin.webContents);
         
       const { hookGamepad } = await import("./gamepad.js");
       hookGamepad(mainWin);
