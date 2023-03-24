@@ -83,8 +83,7 @@ Build
   
 ```
 git clone https://github.com/xan105/FFX-X2_LAUNCHER.git && cd FFX-X2_LAUNCHER
-npm ci
-npm run-script native-rebuild  
+npm ci --arch=ia32 
 npm run-script build
 ```
 

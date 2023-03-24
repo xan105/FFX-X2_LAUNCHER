@@ -6,7 +6,8 @@
   "type": "module",
   "main": "./electron/main/init.cjs",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=16.0.0",
+    "npm": "^8.19.3"
   },
   "os": [
     "win32"
@@ -50,7 +51,6 @@
   ],
   "devDependencies": {
     "@electron/asar": "^3.2.3",
-    "@electron/rebuild": "^3.2.10",
     "cli-progress": "^3.12.0",
     "electron": "^22.0.0",
     "electron-context-menu": "^3.6.1",
@@ -65,5 +65,11 @@
     "@xan105/vanilla-query": "^1.6.1",
     "win-screen-resolution": "2.1.0",
     "xinput-ffi": "^3.4.0"
+  },
+  "overrides": {
+    "win-screen-resolution": {
+      "node-gyp-load": "0.0.5"
+    },
+    "koffi": "2.3.9"
   }
 }

@@ -13,6 +13,8 @@ import { promisify, parseArgs } from "node:util";
 import { exec } from "node:child_process";
 import cliProgress from "cli-progress";
 import { mkdir, ls, copyFile, rm, mv } from "@xan105/fs";
+import { is64bit } from "@xan105/is";
+import { attemptify } from "@xan105/error";
 import { rcedit } from "./util/rcedit.js";
 
 async function copy(cwd){
@@ -151,6 +153,17 @@ async function build(){
   await copy(cwd);
   await mkElectron(cwd);
   await cleaning(cwd);
+  
+  const files = [
+    join(cwd, env["npm_package_name"] + ".exe"),
+    join(cwd, "resources/app/node_modules/win-screen-resolution\build\Release\resolution.node"),
+    join(cwd, "resources/app/node_modules/win-screen-resolution\build\Release\resolution_legacy.node"),
+    join(cwd, "resources/app/node_modules/koffi/src/koffi/build/koffi.node")
+  ];
+  for (const file of files){
+    const [ is64 ] = await attemptify(is64bit)(file);
+    if(is64) console.warn(basename(file), "is x64!");
+  }
   
   if(args.asar === true){
     console.log("Packing into an .asar file...");
