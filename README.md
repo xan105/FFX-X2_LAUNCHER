@@ -88,9 +88,9 @@ npm run-script native-rebuild
 npm run-script build
 ```
 
-Application can be found in the `./dist` folder.
+✔️ Application can be found in the `./dist` folder.
 
-The boxed version (single executable file) is made by using [Enigma Virtual Box](https://enigmaprotector.com/en/aboutvb.html):
+NB: The boxed version (single executable file) is made by using [Enigma Virtual Box](https://enigmaprotector.com/en/aboutvb.html):
 its `.evb` project file is located in the `./build` folder (💡 it's just a xml file).
 
 Legal

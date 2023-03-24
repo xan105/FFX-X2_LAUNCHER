@@ -51,6 +51,7 @@
   "devDependencies": {
     "@electron/asar": "^3.2.3",
     "@electron/rebuild": "^3.2.10",
+    "cli-progress": "^3.12.0",
     "electron": "^22.0.0",
     "electron-context-menu": "^3.6.1",
     "eslint": "^8.30.0"
