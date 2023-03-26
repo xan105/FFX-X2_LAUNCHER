@@ -253,7 +253,7 @@ export default class WebComponent extends HTMLElement {
     }
 
     this.$select(".container .help .text").$text("");
-    this.$fadeIn(500);
+    this.$fadeIn(800);
   }
   
   #save(){
@@ -304,7 +304,7 @@ export default class WebComponent extends HTMLElement {
     this.$select("nav ul li:first-child").$addClass("active").$next().$removeClass("active");
     this.#options.$select("#settings-game").$addClass("active").$next().$removeClass("active");
     this.#options.scrollTo({top: 0, behavior: "auto"});
-    this.$fadeOut(450);
+    this.$fadeOut(600);
   }
 
   #setHelp(el){
@@ -338,9 +338,9 @@ export default class WebComponent extends HTMLElement {
     }, 33); //One gamepad frame at 30hz
 
     el.scrollIntoView({
-      behavior: "auto",
+      behavior: "instant",
       block: "nearest",
-      inline: "center"
+      inline: "nearest"
     });
   }
   

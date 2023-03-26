@@ -7,7 +7,7 @@ Gamepad and UnX friendly launcher for `FINAL FANTASY X/X-2 HD Remaster (PC)`.
 - 🎮 Gamepad (XInput) and 🖱 mouse/keyboard support
 - 🔧 [UnX](https://steamcommunity.com/groups/SpecialK_Mods/discussions/8/2741975115064718432/) mod support: when installed display additional options
 - ⚙️ Bunch of options to customize your experience
-- 🐧 [Linux] Tested against Proton .x (32bit prefix)
+- 🐧 [Linux] Tested against Proton 7.0.6 (32bit prefix)
 
 <details><summary>Screenshot:</summary>
 
@@ -29,6 +29,11 @@ Gamepad and UnX friendly launcher for `FINAL FANTASY X/X-2 HD Remaster (PC)`.
 <p align="center">
 <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main_alternate.png"><br />
 <em>Main menu (alternate)</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/proton.png"><br />
+<em>🐧 Proton 7.0.6</em>
 </p>
 
 </details>

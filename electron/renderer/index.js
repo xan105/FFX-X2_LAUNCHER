@@ -28,7 +28,7 @@ DOMReady(()=>{
       this.bgm.volume = parseFloat(localStorage.getItem("volume") ?? "0.1");
       this.bgm.play();
     },
-    play: function(name, volume = 0.2){
+    play: function(name){
       //Load (new sound)
       if (this.sfx.$attr("data-name") !== name){
         this.sfx.$attr("data-name", name);
@@ -39,7 +39,7 @@ DOMReady(()=>{
         this.sfx.currentTime = 0;
       }
       //Play
-      this.sfx.volume = volume;  
+      this.sfx.volume = parseFloat(localStorage.getItem("volumeSFX") ?? "0.5");  
       this.sfx.play();
     }
   };
@@ -68,7 +68,7 @@ DOMReady(()=>{
   });
 
   menu.main.$on("exit", ()=>{
-    audio.play("sphere", 0.1);
+    audio.play("sphere");
     menu.settings.show();
   });
 
@@ -80,7 +80,7 @@ DOMReady(()=>{
   });
   
   menu.settings.$on("swaped", ()=>{
-    audio.play("change_page", 0.1);
+    audio.play("change_page");
   });
 
   menu.settings.$on("selected", ()=>{
