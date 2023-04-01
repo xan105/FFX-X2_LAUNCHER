@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="windows-1252"?>
 <>
   <InputFile>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\dist\FFX&amp;X-2_LAUNCHER.exe</InputFile>
-  <OutputFile>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\dist\FFX&amp;X-2_LAUNCHER.boxed.exe</OutputFile>
+  <OutputFile>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\release\FFX&amp;X-2_LAUNCHER.exe</OutputFile>
   <Files>
     <Enabled>True</Enabled>
     <DeleteExtractedOnExit>True</DeleteExtractedOnExit>
@@ -1979,6 +1979,62 @@
                               </File>
                             </Files>
                           </File>
+                          <File>
+                            <Type>3</Type>
+                            <Name>vendor</Name>
+                            <Action>0</Action>
+                            <OverwriteDateTime>False</OverwriteDateTime>
+                            <OverwriteAttributes>False</OverwriteAttributes>
+                            <HideFromDialogs>0</HideFromDialogs>
+                            <Files>
+                              <File>
+                                <Type>3</Type>
+                                <Name>smooth-scroll-into-view-if-needed</Name>
+                                <Action>0</Action>
+                                <OverwriteDateTime>False</OverwriteDateTime>
+                                <OverwriteAttributes>False</OverwriteAttributes>
+                                <HideFromDialogs>0</HideFromDialogs>
+                                <Files>
+                                  <File>
+                                    <Type>2</Type>
+                                    <Name>bundle.min.mjs</Name>
+                                    <File>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\dist\resources\app\electron\renderer\vendor\smooth-scroll-into-view-if-needed\bundle.min.mjs</File>
+                                    <ActiveX>False</ActiveX>
+                                    <ActiveXInstall>False</ActiveXInstall>
+                                    <Action>0</Action>
+                                    <OverwriteDateTime>False</OverwriteDateTime>
+                                    <OverwriteAttributes>False</OverwriteAttributes>
+                                    <PassCommandLine>False</PassCommandLine>
+                                    <HideFromDialogs>0</HideFromDialogs>
+                                  </File>
+                                  <File>
+                                    <Type>2</Type>
+                                    <Name>LICENSE</Name>
+                                    <File>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\dist\resources\app\electron\renderer\vendor\smooth-scroll-into-view-if-needed\LICENSE</File>
+                                    <ActiveX>False</ActiveX>
+                                    <ActiveXInstall>False</ActiveXInstall>
+                                    <Action>0</Action>
+                                    <OverwriteDateTime>False</OverwriteDateTime>
+                                    <OverwriteAttributes>False</OverwriteAttributes>
+                                    <PassCommandLine>False</PassCommandLine>
+                                    <HideFromDialogs>0</HideFromDialogs>
+                                  </File>
+                                  <File>
+                                    <Type>2</Type>
+                                    <Name>package.json</Name>
+                                    <File>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\dist\resources\app\electron\renderer\vendor\smooth-scroll-into-view-if-needed\package.json</File>
+                                    <ActiveX>False</ActiveX>
+                                    <ActiveXInstall>False</ActiveXInstall>
+                                    <Action>0</Action>
+                                    <OverwriteDateTime>False</OverwriteDateTime>
+                                    <OverwriteAttributes>False</OverwriteAttributes>
+                                    <PassCommandLine>False</PassCommandLine>
+                                    <HideFromDialogs>0</HideFromDialogs>
+                                  </File>
+                                </Files>
+                              </File>
+                            </Files>
+                          </File>
                         </Files>
                       </File>
                     </Files>
@@ -2072,60 +2128,6 @@
                       </File>
                       <File>
                         <Type>3</Type>
-                        <Name>@eslint</Name>
-                        <Action>0</Action>
-                        <OverwriteDateTime>False</OverwriteDateTime>
-                        <OverwriteAttributes>False</OverwriteAttributes>
-                        <HideFromDialogs>0</HideFromDialogs>
-                        <Files/>
-                      </File>
-                      <File>
-                        <Type>3</Type>
-                        <Name>@gar</Name>
-                        <Action>0</Action>
-                        <OverwriteDateTime>False</OverwriteDateTime>
-                        <OverwriteAttributes>False</OverwriteAttributes>
-                        <HideFromDialogs>0</HideFromDialogs>
-                        <Files/>
-                      </File>
-                      <File>
-                        <Type>3</Type>
-                        <Name>@humanwhocodes</Name>
-                        <Action>0</Action>
-                        <OverwriteDateTime>False</OverwriteDateTime>
-                        <OverwriteAttributes>False</OverwriteAttributes>
-                        <HideFromDialogs>0</HideFromDialogs>
-                        <Files/>
-                      </File>
-                      <File>
-                        <Type>3</Type>
-                        <Name>@malept</Name>
-                        <Action>0</Action>
-                        <OverwriteDateTime>False</OverwriteDateTime>
-                        <OverwriteAttributes>False</OverwriteAttributes>
-                        <HideFromDialogs>0</HideFromDialogs>
-                        <Files/>
-                      </File>
-                      <File>
-                        <Type>3</Type>
-                        <Name>@nodelib</Name>
-                        <Action>0</Action>
-                        <OverwriteDateTime>False</OverwriteDateTime>
-                        <OverwriteAttributes>False</OverwriteAttributes>
-                        <HideFromDialogs>0</HideFromDialogs>
-                        <Files/>
-                      </File>
-                      <File>
-                        <Type>3</Type>
-                        <Name>@npmcli</Name>
-                        <Action>0</Action>
-                        <OverwriteDateTime>False</OverwriteDateTime>
-                        <OverwriteAttributes>False</OverwriteAttributes>
-                        <HideFromDialogs>0</HideFromDialogs>
-                        <Files/>
-                      </File>
-                      <File>
-                        <Type>3</Type>
                         <Name>@sindresorhus</Name>
                         <Action>0</Action>
                         <OverwriteDateTime>False</OverwriteDateTime>
@@ -2136,15 +2138,6 @@
                       <File>
                         <Type>3</Type>
                         <Name>@szmarczak</Name>
-                        <Action>0</Action>
-                        <OverwriteDateTime>False</OverwriteDateTime>
-                        <OverwriteAttributes>False</OverwriteAttributes>
-                        <HideFromDialogs>0</HideFromDialogs>
-                        <Files/>
-                      </File>
-                      <File>
-                        <Type>3</Type>
-                        <Name>@tootallnate</Name>
                         <Action>0</Action>
                         <OverwriteDateTime>False</OverwriteDateTime>
                         <OverwriteAttributes>False</OverwriteAttributes>
@@ -9047,6 +9040,18 @@
                     <Type>2</Type>
                     <Name>package.json</Name>
                     <File>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\dist\resources\app\package.json</File>
+                    <ActiveX>False</ActiveX>
+                    <ActiveXInstall>False</ActiveXInstall>
+                    <Action>0</Action>
+                    <OverwriteDateTime>False</OverwriteDateTime>
+                    <OverwriteAttributes>False</OverwriteAttributes>
+                    <PassCommandLine>False</PassCommandLine>
+                    <HideFromDialogs>0</HideFromDialogs>
+                  </File>
+                  <File>
+                    <Type>2</Type>
+                    <Name>README.md</Name>
+                    <File>D:\Documents\GitHub\xan105\public\FFX-X2_LAUNCHER\dist\resources\app\README.md</File>
                     <ActiveX>False</ActiveX>
                     <ActiveXInstall>False</ActiveXInstall>
                     <Action>0</Action>

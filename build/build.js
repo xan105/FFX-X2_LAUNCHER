@@ -19,7 +19,7 @@ import { rcedit } from "./util/rcedit.js";
 
 async function copy(cwd){
   console.log("Copying metadata...");
-  for (const file of ["package.json", "package-lock.json", "LICENSE"]){
+  for (const file of ["package.json", "package-lock.json", "LICENSE", "README.md"]){
     await copyFile("./" + file, join(cwd, "resources/app", file));
   }
   

@@ -41,7 +41,25 @@ Gamepad and UnX friendly launcher for `FINAL FANTASY X/X-2 HD Remaster (PC)`.
 Install
 =======
 
+### Boxed version (single executable file)
+
 Replace `FFX&X-2_LAUNCHER.exe` in the `FINAL FANTASY FFX&FFX-2 HD Remaster` folder.
+
+⚠️ Does not work on Linux (proton) as of this writing.
+
+### Extract and replace file
+
+Extract `./FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into the `FINAL FANTASY FFX&FFX-2 HD Remaster` game folder.
+
+💡 If you find it a bit messy consider the symlink method down below.
+
+### Symlink
+
+Extract `./FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into any folder like for example `FINAL FANTASY FFX&FFX-2 HD Remaster/launcher`
+
+Inside the `FINAL FANTASY FFX&FFX-2 HD Remaster` game folder symlink `FFX&X-2_LAUNCHER.exe` with `launcher/FFX&X-2_LAUNCHER.exe`
+
+⚠️ NB: As of this writing the Steam client (Windows & Linux) does not follow symlink ! Using this method you will have to manually start the game.
 
 Controls
 ========

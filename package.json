@@ -6,7 +6,7 @@
   "type": "module",
   "main": "./electron/main/init.cjs",
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=16.19.1",
     "npm": "^8.19.3"
   },
   "os": [
@@ -20,9 +20,7 @@
     "start": "npm run-script start:windows",
     "start:windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && electron .",
     "start:linux": "export $(cat .env | xargs) && electron .",
-    "native-rebuild": "electron-rebuild",
     "clean": "npm prune --production",
-    "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\"",
     "build": "node build/build.js"
   },
   "author": "Anthony Beaumont",
@@ -53,8 +51,7 @@
     "@electron/asar": "^3.2.3",
     "cli-progress": "^3.12.0",
     "electron": "^22.0.0",
-    "electron-context-menu": "^3.6.1",
-    "eslint": "^8.30.0"
+    "electron-context-menu": "^3.6.1"
   },
   "dependencies": {
     "@xan105/error": "^1.6.0",

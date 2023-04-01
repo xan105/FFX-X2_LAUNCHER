@@ -5,6 +5,7 @@ found in the LICENSE file in the root directory of this source tree.
 */
 
 import { $select, $define } from "@xan105/vanilla-query";
+import scrollIntoView from "smooth-scroll";
 import { localize } from "./l10n/l10n.js";
 import settings from "./settings.json" assert { type: "json" };
 
@@ -91,6 +92,7 @@ export default class WebComponent extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = html;
+    this.scrollLast = 0;
     $define(this);
     
     this.#options = $select(".container .options", this);
@@ -115,7 +117,7 @@ export default class WebComponent extends HTMLElement {
   connectedCallback() {
     
     this.#options.$selectAll("li").forEach((el) => {
-      el.$on("mouseenter", this.#setActive.bind(this, el));
+      el.$on("mouseenter", this.#setActive.bind(this, el, true));
     });
 
     this.#options.$selectAll("li .next").forEach((el) => {
@@ -312,36 +314,17 @@ export default class WebComponent extends HTMLElement {
     if(hint) this.$select(".container .help .text").$text(hint);
   }
   
-  #setActive(el, silent = true){
+  #setActive(el, mouse = false){
+    //scrollIntoView() trigger mouse event
+    if(mouse && Date.now() <= this.scrollLast + 100) return;
+  
     this.#options.$selectAll("li.active").forEach(el => el.$removeClass("active"));
     this.#setHelp(el);
-    if(!silent){
+    
+    if(!mouse){
       el.$addClass("active");
       this.dispatchEvent(new CustomEvent("selected"));
     }
-  }
-
-  #scroll(root, el){
-    //scrollIntoView() trigger mouve event when scrolling -.-"
-    
-    //disable mouse while scrolling
-    root.$selectAll("li").forEach((el)=>{
-      el.$css("pointer-events", "none");
-    });
-
-    //scrollend event isn't available yet 
-    //so this will have to do...
-    setTimeout(()=>{
-      root.$selectAll("li").forEach((el)=>{
-        el.$css("pointer-events", "auto");
-      });
-    }, 33); //One gamepad frame at 30hz
-
-    el.scrollIntoView({
-      behavior: "instant",
-      block: "nearest",
-      inline: "nearest"
-    });
   }
   
   #move(climb, rumble = true){
@@ -351,7 +334,16 @@ export default class WebComponent extends HTMLElement {
     
     const next = climb ? current.$prevUntilVisible() : current.$nextUntilVisible();
     this.#setActive(next, false);
-    this.#scroll(section, next);
+    
+    //scrollIntoView() trigger mouse event
+    scrollIntoView(next, { 
+      behavior: "auto",
+      block: "nearest",
+      inline: "start",
+      scrollMode: "if-needed"
+    }).then(()=>{
+      this.scrollLast = Date.now();
+    });
 
     if(rumble) ipcRenderer.gamepadVibrate().catch(console.error);
   }

@@ -25,7 +25,7 @@ DOMReady(()=>{
         this.bgm.src = "./resources/sound/bgm/" + soundtrack + ".ogg";
         this.bgm.load();
       }
-      this.bgm.volume = parseFloat(localStorage.getItem("volume") ?? "0.1");
+      this.bgm.volume = parseFloat(localStorage.getItem("volume") ?? "0.2");
       this.bgm.play();
     },
     play: function(name){
