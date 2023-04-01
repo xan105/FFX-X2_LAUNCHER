@@ -1,46 +1,124 @@
-#FINAL FANTASY X/X-2 LAUNCHER+
-*Gamepad and UnX friendly Launcher for FINAL FANTASY X/X-2 HD Remaster (PC)*
---------------------------------
+About
+=====
 
-Gamepad and mouse support.<br />
-Build mostly with NW.js (http://nwjs.io/)<br />
+Gamepad and UnX friendly launcher for `FINAL FANTASY X/X-2 HD Remaster (PC)`.
 
-Download: https://github.com/xan105/FFX-X2_LAUNCHER/releases/ <br/>
-Mirror Download link: http://download.xan105.com/apps/FFX&X-2_LAUNCHER.zip
+- 🔍 Open source
+- 🎮 Gamepad (XInput) and 🖱 mouse/keyboard support
+- 🔧 [UnX](https://steamcommunity.com/groups/SpecialK_Mods/discussions/8/2741975115064718432/) mod support: when installed display additional options
+- ⚙️ Bunch of options to customize your experience
+- 🐧 [Linux] Tested against Proton 7.0.6 (32bit prefix)
 
-I can't guarantee that it will work with every gamepad that exist but as long as yours support xinput you are in the green i guess. It works great with my Logitech F310 ^-^.
+<details><summary>Screenshot:</summary>
 
-If you have UnX installed it will display more configuration option in the setting screen.<br /> 
-(see https://steamcommunity.com/app/359870/discussions/0/364041517007524857/)<br /> 
-UnX:<br/>
-- Launcher needs admin right to save settings in UnX.ini if UnX.ini is in a protected folder (eg: C:\Program Files\Steam\FFX-X2)
-- Custom Gamepad special key can only be configured with the mouse for now.
-- Last tested with UnX v0.4.0
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main.png"><br />
+<em>Main menu</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_unx.png"><br />
+<em>Settings (UnX installed)</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_launcher.png"><br />
+<em>Launcher settings</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main_alternate.png"><br />
+<em>Main menu (alternate)</em>
+</p>
+
+<p align="center">
+<img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/proton.png"><br />
+<em>🐧 Proton 7.0.6</em>
+</p>
+
+</details>
 
 Install
--------
+=======
 
-Replace ```FFX&X-2_LAUNCHER.exe``` in the ```'FINAL FANTASY FFX&FFX-2 HD Remaster'``` folder.
+### Boxed version (single executable file)
 
-Screenshot
-----------
+Replace `FFX&X-2_LAUNCHER.exe` in the `FINAL FANTASY FFX&FFX-2 HD Remaster` folder.
 
-Main Menu:
-![screen01](https://cloud.githubusercontent.com/assets/14090532/15367796/c4f818da-1d54-11e6-97d5-cb3a9fe13895.png)
+⚠️ Does not work on Linux (proton) as of this writing.
 
-Setting Screen with UnX detected:
-![screen02](https://cloud.githubusercontent.com/assets/14090532/15367806/cf73912c-1d54-11e6-81d2-bc3d0222aa04.png)
+### Extract and replace file
 
-Setting Screen without UnX detected:
-![screen03](https://cloud.githubusercontent.com/assets/14090532/15367807/cfd3e55e-1d54-11e6-9179-1ffd4bfa12c6.png)
+Extract `./FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into the `FINAL FANTASY FFX&FFX-2 HD Remaster` game folder.
 
-Gamepad Special Keys (UnX)
-![screen04](https://cloud.githubusercontent.com/assets/14090532/15409018/2942f880-1e3d-11e6-9361-b92b5aab3b5d.png)
-![screen05](https://cloud.githubusercontent.com/assets/14090532/15409020/2b54ba28-1e3d-11e6-891e-3c1ef16fb54c.png)
+💡 If you find it a bit messy consider the symlink method down below.
+
+### Symlink
+
+Extract `./FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into any folder like for example `FINAL FANTASY FFX&FFX-2 HD Remaster/launcher`
+
+Inside the `FINAL FANTASY FFX&FFX-2 HD Remaster` game folder symlink `FFX&X-2_LAUNCHER.exe` with `launcher/FFX&X-2_LAUNCHER.exe`
+
+⚠️ NB: As of this writing the Steam client (Windows & Linux) does not follow symlink ! Using this method you will have to manually start the game.
+
+Controls
+========
+
+#### GAMEPAD
+
+- `D-pad/Left Analog Stick`: Navigate / Change setting
+- `A Button`: Select
+- `B Button`: Previous menu
+- `Start / Options Button`: Enter settings
+- `LB/RB Shoulder`: Change settings section
+
+#### MOUSE/KEYBOARD
+
+- `Left click / Enter`: Select
+- `Arrow keys`: Navigate / Change setting
+- `Esc / Mouse3`: Previous menu
+
+Command line
+============
+
+By default the launcher will look for game's files next to itself.
+
+If for whatever reason(s) you would like to change this, you can either
+
+- Use the `--gamePath` argument
+
+```
+FFX&X-2_LAUNCHER.exe --gamePath="path\to\game\dir"
+```
+
+- or set the env variable `GAMEPATH`
+
+```
+GAMEPATH=path\to\game\dir
+```
+
+Build
+=====
+
+- Node.js / NPM
+- C/C++ build tools and Python 3.x (node-gyp)
+- git
+  
+```
+git clone https://github.com/xan105/FFX-X2_LAUNCHER.git && cd FFX-X2_LAUNCHER
+npm ci --arch=ia32 
+npm run-script build
+```
+
+✔️ Application can be found in the `./dist` folder.
+
+NB: The boxed version (single executable file) is made by using [Enigma Virtual Box](https://enigmaprotector.com/en/aboutvb.html):
+its `.evb` project file is located in the `./build` folder (💡 it's just a xml file).
 
 Legal
------
+=====
+
 ©2001-2004, 2013-2016 SQUARE ENIX CO., LTD.<br />
 This Launcher is not affiliated nor associated with SQUARE ENIX CO., LTD.<br />
 Other trademarks are the property of their respective owners.<br />
-No copyright or trademark infringement is intended in using FINAL FANTASY™ content.<br />
+No copyright or trademark infringement is intended in using FINAL FANTASY™ content.

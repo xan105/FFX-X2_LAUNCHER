@@ -1,0 +1,135 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("../font/OpenSans/OpenSans-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kanit";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../font/Kanit/Kanit-Bold.woff2") format("woff2");
+}
+
+*:focus{ outline: none; }
+ul, ol, li, p { margin: 0; padding: 0; }
+img { -webkit-user-drag: none; user-drag: none; }
+li { list-style: none; }
+
+html, body { 
+  margin: 0; padding: 0; 
+}
+
+html {
+  user-select: none; 
+}
+
+body { 
+  width: 100vw; 
+  height: 100vh; 
+  overflow: hidden; 
+  border: 1px solid #3f4046;
+  box-sizing: border-box; 
+  background: transparent;
+}
+
+.background {
+	background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.gamepad {
+  background-size: contain;
+  height: 48px;
+  width: 48px;
+}
+
+.gamepad.btn{
+  height: 40px;
+  width: 40px;
+}
+
+.gamepad.dpad.vertical {
+  background-image: url("../img/gamepad/vertical.svg");
+}
+
+.gamepad.dpad.horizontal {
+  background-image: url("../img/gamepad/horizontal.svg");
+}
+
+body[data-gamepad="xbox"] .gamepad.A {
+  background-image: url("../img/gamepad/xbox/A.svg");
+}
+
+body[data-gamepad="xbox"] .gamepad.B {
+  background-image: url("../img/gamepad/xbox/B.svg");
+}
+
+body[data-gamepad="xbox"] .gamepad.L {
+  background-image: url("../img/gamepad/xbox/LB.svg");
+}
+
+body[data-gamepad="xbox"] .gamepad.R {
+  background-image: url("../img/gamepad/xbox/RB.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.A {
+  background-image: url("../img/gamepad/playstation/cross.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.B {
+  background-image: url("../img/gamepad/playstation/circle.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.L {
+  background-image: url("../img/gamepad/playstation/L1.svg");
+}
+
+body[data-gamepad="playstation"] .gamepad.R {
+  background-image: url("../img/gamepad/playstation/R1.svg");
+}
+
+footer {
+  background-image: linear-gradient(to left, #1a1a24, transparent);
+  z-index: -1;
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-family: "Kanit";
+  color: white;
+  text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
+  font-size: 15px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background-image: linear-gradient(to left, #b9b9b9, transparent);
+}
+
+footer ul {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+footer li {
+  display: inline-flex;
+  margin: auto 20px;
+}
+
+footer li span {
+  margin: auto 0 auto 5px;
+}

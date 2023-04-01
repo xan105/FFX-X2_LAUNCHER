@@ -1,0 +1,234 @@
+settings-menu{
+  background-image:url("../img/background_settings.png"); 
+  display: none;
+}
+
+settings-menu .help {
+  background-image: linear-gradient(to right, #1a1a24, transparent);
+  height: 40px;
+  width: 70%;
+  position: relative;
+  margin: 20px auto 0 auto;
+  box-shadow: -20px 17px 20px -5px rgba(0,0,0,0.3);
+}
+settings-menu .help::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-image: linear-gradient(to right, #b9b9b9, transparent);
+}
+settings-menu .help::before {
+  content: attr(data-title);
+  font-family: "Kanit";
+  z-index: 2;
+  color: #e5e5f1;
+  left: 1px;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  position: absolute;
+  top: -13px;
+  text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
+}
+
+settings-menu .help .content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 10px 50px;
+  box-sizing: border-box;
+}
+
+settings-menu .help .content .text {
+  margin: auto auto auto 20px;
+  font-family: "Open Sans";
+  color: #e5e5f1;
+  text-shadow: 2px 0 0px #000000, -2px 0 0px #000000, 0 2px 0px #000000, 0 -2px 0px #000000, 1px 0px #000000, -1px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
+  font-size: 14px;
+}
+
+settings-menu nav {
+  margin: 10px 0;
+}
+
+settings-menu nav ul{
+  display: flex;
+  justify-content: center;
+  font-family: "Kanit";
+  text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+settings-menu nav ul li {
+  display: inline-flex;
+  margin: auto 20px;
+  padding: 0 10px;
+  border-radius: 20px;
+}
+
+settings-menu nav ul li:first-child span {
+  margin: auto 0 auto 5px;
+}
+
+settings-menu nav ul li:last-child span {
+  margin: auto 5px auto 0;
+}
+
+settings-menu nav ul li span {
+  color: #cfcfcf;
+}
+
+settings-menu nav ul li.active span,
+settings-menu nav ul li:not(.active):hover span {
+  color: white;
+}
+
+settings-menu nav ul li:not(.active):hover{
+  background-color: rgba(255,255,255,0.20);
+  transition: all .2s ease-in; 
+}
+
+settings-menu .options {
+  overflow-y: scroll;
+  height: 490px;
+}
+
+settings-menu .options section:not(.active){
+  display: none;
+}
+
+settings-menu .options::-webkit-scrollbar {
+  width: 10px;
+}
+settings-menu .options::-webkit-scrollbar-track {
+  background: #696c91;
+}
+settings-menu .options::-webkit-scrollbar-thumb,
+settings-menu .options::-webkit-scrollbar-thumb:hover {
+  background: #43446e;
+}
+
+settings-menu .options ul { list-style: none; }
+settings-menu .options li { 
+	width: 100%; 
+	height: 40px; 
+	background: rgba(25, 26, 54, 0.49); 
+	margin: 10px 0; 
+	padding: 0px 20px; 
+	display: flex; 
+	box-sizing: border-box;
+}
+
+settings-menu .options li.active { background: rgba(25, 26, 54, 0.70) }
+
+settings-menu .options li .container {
+  position: relative;
+}
+settings-menu .options li.active .container:before { 
+  --scale: 3;
+  content: '';
+  position: absolute;
+  left: -35px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url("../img/cursor.png");
+  background-repeat: no-repeat;
+  width: calc( 158px/ var(--scale) );
+  height: calc( 81px / var(--scale) );
+  background-size: contain;
+}
+
+settings-menu .options li:first-child { margin-top: 0; }
+settings-menu .options li:last-child { margin-bottom: 0; }
+
+settings-menu .options li .container {
+  width: 60%;
+  margin: auto;
+  display: block;
+  color: #e5e5f1;
+  font-family: "Open Sans";
+  text-shadow: 2px 0 1px #212121, -2px 0 1px #212121, 0 2px 1px #212121, 0 -2px 1px #212121, 1px 1px #212121, -1px -1px 1px #212121, 1px -1px 1px #212121, -1px 1px 1px #212121;
+}
+
+settings-menu .options li .container .left {
+  float: left;
+  margin-left: 30px;
+  line-height: 24px;
+}
+
+settings-menu .options li .container .left::after {
+  content: ":";
+  display: inline-block;
+  margin-left: -3px;
+}
+
+settings-menu .options li .container .right {
+  float: right;
+  text-shadow: none;
+  margin-right: 60px;
+}
+
+settings-menu .options li .container::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+settings-menu .options li .container .right .option-wrap {
+  margin: 0 10px 0 10px;
+  position: relative;
+}
+
+settings-menu .options li .container .right .option-wrap select{
+  display: inline-block;
+  background: transparent;
+  color: #e5e5f1;
+  border: 0;
+  width: 200px;
+  text-align-last: center;
+  line-height: 24px;
+  height: 24px;
+  -webkit-appearance: none;
+  pointer-events: none;
+}
+
+settings-menu .options li .container .right .previous,
+settings-menu .options li .container .right .next {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  background-color: transparent;
+  transition: all .2s ease-in;
+}
+settings-menu .options li .container .right .previous:hover,
+settings-menu .options li .container .right .next:hover { 
+  background-color: rgba(255,255,255,0.20); 
+}
+settings-menu .options li .container .right .previous {
+  left: -10px;
+  top: 50%;
+  transform: translate(-100%,-50%);
+  padding: 5px;
+}
+settings-menu .options li .container .right .previous .arrow,
+settings-menu .options li .container .right .next .arrow {
+  display: flex;
+  width: 18px;
+  height: 18px;
+}
+settings-menu .options li .container .right .previous .arrow > i,
+settings-menu .options li .container .right .next .arrow > i {
+  margin: auto;
+}
+
+settings-menu .options li .container .right .next{
+  right: -10px;
+  top: 50%;
+  transform: translate(100%,-50%);
+  padding: 5px 3px 5px 7px;
+}

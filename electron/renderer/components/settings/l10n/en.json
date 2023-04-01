@@ -1,0 +1,202 @@
+{
+  "settings" : {
+    "common": {
+      "enabled": "Enable",
+      "disabled": "Disabled"
+    },
+    "Language": {
+      "display": "Language",
+      "hint": "Set game language",
+      "values": {
+        "en": "English",
+        "fr": "French",
+        "it": "Italian",
+        "de": "German",
+        "es": "Spanish",
+        "jp": "Japanese",
+        "kr": "Korean",
+        "ch": "Chinese"
+      }
+    },
+    "Voice": {
+      "display": "Audio",
+      "hint": "Set game voice over, sound effects and video language",
+      "values": {
+        "en": "English",
+        "jp": "Japanese"
+      }
+    },
+    "ScreenMode": {
+      "display": "Display mode",
+      "hint": "Set game display mode",
+      "values": {
+        "SM_WINDOW": "Window",
+        "SM_BORDERLESS": "Borderless",
+        "SM_FULLSCREEN": "Fullscreen"
+      }
+    },
+    "Resolution": {
+      "display": "Display resolution",
+      "hint": "Set game resolution"
+    },
+    "DisableDPIScaling": {
+      "display": "DPI scaling",
+      "hint": "The game claims to be DPI aware but is not, leading to incorrect scaling. Disabling this will fix scaling problems",
+      "values": {
+        "true": "Disable",
+        "false": "Enable"
+      }
+    },
+    "FlipMode": {
+      "display": "Flip Mode",
+      "hint": "High performance rendering. Enabling this may significantly reduce stuttering (irrespective of graphics quality settings)"
+    },
+    "Quality": {
+      "display": "Quality preset",
+      "hint": "Set game quality preset",
+      "values": {
+        "VQ_LOW": "Low",
+        "VQ_MEDIUM": "Medium",
+        "VQ_HIGH": "High"
+      }
+    },
+    "TextureSet": {
+      "display": "Gamepad button style",
+      "hint": "Choose gamepad button icon theme to be displayed in-game",
+      "values": {
+        "": "Default",
+        "PlayStation_Glossy": "PS Glossy",
+        "PlayStation_Simple": "PS Simple",
+        "PS3": "PS3",
+        "PS4": "PS4",
+        "Xbox360": "Xbox 360",
+        "XboxOne": "Xbox One"
+      }
+    },
+    "EntirePartyEarnsAP": {
+      "display": "Entire party earns AP",
+      "hint": "Grant AP to all party members (even the ones not in combat) in Final Fantasy X"
+    },
+    "GrantPermanentSensor": {
+      "display": "Grant Permanent Sensor",
+      "hint": "Apply sensor ability without equipment in Final Fantasy X"
+    },
+    "FastExit": {
+      "display": "Fast Exit",
+      "hint": "Remove exit confirmation on [ Alt + F4 ]"
+    },
+    "FourFingerSalute": {
+      "display": "Four finger salute",
+      "hint": "Bring up the in-game menu by pressing both [ Triggers + Start + Select ]"
+    },
+    "soundtrack": {
+      "display": "Music track",
+      "hint": "Choose launcher background music",
+      "values": {
+        "ffx_fleeting_dream": "Original",
+        "ffx2_eternity": "Eternity (FFX-2)",
+        "ffx_besaid": "Besaid (FFX)",
+        "ffx_sight_spira": "Spira (FFX)",
+        "ffx_silence_before_storm": "Macalania (FFX)",
+        "ffx_zanarkand": "Zanarkand (FFX)",
+        "ffx2_gullwings": "Airship (FFX-2)"
+      }
+    },
+    "volume": {
+      "display": "Music volume",
+      "hint": "Set launcher background music volume",
+      "values": {
+        "0": "Mute",
+        "0.1": "10%",
+        "0.2": "20%",
+        "0.3": "30%",
+        "0.4": "40%",
+        "0.5": "50%",
+        "0.6": "60%",
+        "0.7": "70%",
+        "0.8": "80%",
+        "0.9": "90%",
+        "1": "100%"
+      }
+    },
+    "volumeSFX": {
+      "display": "SFX volume",
+      "hint": "Set launcher SFX volume",
+      "values": {
+        "0": "Mute",
+        "0.25": "25%",
+        "0.5": "50%",
+        "0.75": "75%",
+        "1": "100%"
+      }
+    },
+    "menuEntry-ffx": {
+      "display": "Final Fantasy X",
+      "hint": "Show or hide Final Fantasy X in the main menu",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
+    },
+    "menuEntry-ffx_ec": {
+      "display": "Final Fantasy X Eternal Calm",
+      "hint": "Show or hide Final Fantasy X Eternal Calm in the main menu",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
+    },
+    "menuEntry-ffx2": {
+      "display": "Final Fantasy X-2",
+      "hint": "Show or hide Final Fantasy X-2 in the main menu",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
+    },
+    "menuEntry-ffx2_lm": {
+      "display": "Final Fantasy X-2 Last Mission",
+      "hint": "Show or hide Final Fantasy X-2 Last Mission in the main menu",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
+    },
+    "menuEntry-credits": {
+      "display": "Credits & Bonus",
+      "hint": "Show or hide Credits & Bonus in the main menu",
+      "values": {
+        "true": "Show",
+        "false": "Hide"
+      }
+    },
+    "menuBackground": {
+      "display": "Menu background image",
+      "hint": "Choose launcher main menu background image",
+      "values":{
+        "original": "Original",
+        "alternate": "Vita (FFX-2)"
+      }
+    },
+    "gamepadStyle": {
+      "display": "Gamepad button style",
+      "hint": "Choose gamepad button icon theme to be displayed",
+      "values":{
+        "xbox": "Xbox",
+        "playstation": "Playstation"
+      }
+    },
+    "waitProcess": {
+      "display": "On game launch",
+      "hint": "Choose launcher behavior on game launch",
+      "values": {
+        "true": "Minimize",
+        "false": "Exit"
+      }
+    },
+    "cleanup": {
+      "display": "Clean up",
+      "hint": "Delete log files created by the game and UnX when the game closes and the launcher isn't set to exit on game launch"
+    }
+  }
+}

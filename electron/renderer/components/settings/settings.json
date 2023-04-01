@@ -1,0 +1,158 @@
+{
+  "game": [
+    {
+      "id": "Language",
+      "values": ["en","fr","it","de","es","jp","kr","ch"],
+      "default": 0
+    },
+    {
+      "id": "Voice",
+      "values": ["en","jp"],
+      "default": 0,
+      "unx": "Language.Master"
+    },
+    {
+      "id": "ScreenMode",
+      "values": [
+        "SM_WINDOW",
+        "SM_BORDERLESS",
+        "SM_FULLSCREEN"
+      ],
+      "default": 1
+    },
+    {
+      "id": "Resolution",
+      "values": [],
+      "default": null
+    },
+    {
+      "id": "DisableDPIScaling",
+      "values": ["true","false"],
+      "default": 0,
+      "unx": "UnX.Display"
+    },
+    {
+      "id": "FlipMode",
+      "values": ["true","false"],
+      "default": 1,
+      "unx": "UnX.Render"
+    },
+    {
+      "id": "Quality",
+      "values": [
+        "VQ_LOW",
+        "VQ_MEDIUM",
+        "VQ_HIGH"
+      ],
+      "default": 2
+    },
+    {
+      "id": "TextureSet",
+      "values": [
+        "",
+        "PlayStation_Glossy",
+        "PlayStation_Simple",
+        "PS3",
+        "PS4",
+        "Xbox360",
+        "XboxOne"
+      ],
+      "default": 4,
+      "unx": "Gamepad.Type"
+    },
+    {
+      "id": "EntirePartyEarnsAP",
+      "values": ["true","false"],
+      "default": 1,
+      "unx": "Boost.FFX"
+    },
+    {
+      "id": "GrantPermanentSensor",
+      "values": ["true","false"],
+      "default": 1,
+      "unx": "Boost.FFX"
+    },
+    {
+      "id": "FastExit",
+      "values": ["true","false"],
+      "default": 0,
+      "unx": "UnX.Input"
+    },
+    {
+      "id": "FourFingerSalute",
+      "values": ["true","false"],
+      "default": 0,
+      "unx": "UnX.Input"
+    }
+  ],
+  "launcher": [
+    {
+      "id": "soundtrack",
+      "values": [
+        "ffx_fleeting_dream",
+        "ffx2_eternity",
+        "ffx_besaid",
+        "ffx_sight_spira",
+        "ffx_silence_before_storm",
+        "ffx_zanarkand",
+        "ffx2_gullwings"
+      ],
+      "default": 0
+    },
+    {
+      "id": "volume",
+      "values": ["0","0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1"],
+      "default": 2
+    },
+    {
+      "id": "volumeSFX",
+      "values": ["0","0.25","0.5","0.75","1"],
+      "default": 2
+    },
+    {
+      "id": "menuEntry-ffx",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-ffx_ec",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-ffx2",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-ffx2_lm",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuEntry-credits",
+      "values": ["true","false"],
+      "default": 0
+    },
+    {
+      "id": "menuBackground",
+      "values": ["original","alternate"],
+      "default": 0
+    },
+    {
+      "id": "gamepadStyle",
+      "values": ["xbox","playstation"],
+      "default": 0
+    },
+    {
+      "id": "waitProcess",
+      "values": ["true","false"],
+      "default": 1
+    },
+    {
+      "id": "cleanup",
+      "values": ["true","false"],
+      "default": 1
+    }
+  ]
+}

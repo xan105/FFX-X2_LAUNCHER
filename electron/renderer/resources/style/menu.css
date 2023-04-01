@@ -1,0 +1,96 @@
+main-menu{
+  background-image:url("../img/background.png");
+  background-size: cover;
+}
+
+main-menu.alternate{
+  background-image:url("../img/background_alternate.png"); 
+}
+
+main-menu nav { 
+	background-image: url("../img/menu_background.png");
+	background-repeat: no-repeat;
+	box-shadow: 5px 0px 10px 1px rgb(20 20 20);
+	width: 373px; 
+	height: 100%;
+	margin-left: 81px;
+}
+main-menu nav ul { 
+	padding-top: 90px; 
+}
+main-menu nav ul li { 
+	width: 100%; 
+	height: 82px; 
+	background-repeat: no-repeat;
+	display: block; 
+}
+main-menu nav ul li[data-name="ffx"] { 
+	background-image:url("../img/menu/off/ffx_button.png");
+}
+main-menu nav ul li[data-name="ffx"].active { 
+	background-image:url("../img/menu/on/ffx_button.png");
+}
+main-menu nav ul li[data-name="ffx_ec"] { 
+	background-image:url("../img/menu/off/ffx_ec_button.png");
+	height: 83px; 
+}
+main-menu nav ul li[data-name="ffx_ec"].active { 
+	background-image:url("../img/menu/on/ffx_ec_button.png");
+}
+main-menu nav ul li[data-name="ffx2"] { 
+	background-image:url("../img/menu/off/ffx2_button.png");
+}
+main-menu nav ul li[data-name="ffx2"].active {
+	background-image:url("../img/menu/on/ffx2_button.png");
+}
+main-menu nav ul li[data-name="ffx2_lm"] {
+	background-image:url("../img/menu/off/ffx2_lm_button.png");
+}
+main-menu nav ul li[data-name="ffx2_lm"].active { 
+	background-image:url("../img/menu/on/ffx2_lm_button.png");
+}
+main-menu nav ul li[data-name="credits"] {
+	background-image:url("../img/menu/off/credits_button.png"); 
+	height: 73px; 
+	padding-bottom: 9px;
+}
+main-menu nav ul li[data-name="credits"].active { 
+	background-image:url("../img/menu/on/credits_button.png"); 
+	height: 73px; 
+	padding-bottom: 9px;
+}
+main-menu nav ul li[data-name="exit"] {
+	background-image:url("../img/menu/off/exit_button.png"); 
+	height: 73px;
+}
+main-menu nav ul li[data-name="exit"].active { 
+	background-image:url("../img/menu/on/exit_button.png"); 
+	height: 73px;
+}
+main-menu nav ul li[data-name="settings"] { 
+	background-image:url("../img/menu/off/setting_button.png"); 
+	height: 56px;
+}
+main-menu nav ul li[data-name="settings"].active {
+	background-image:url("../img/menu/on/setting_button.png"); 
+	height: 56px;
+}
+
+main-menu footer {
+  width: 27%;
+  left: calc( 100% - 27% );
+}
+
+main-menu.alternate footer{
+  background-image: linear-gradient(to right, #1a1a24, transparent);
+  width: 39%;
+  left: 450px;
+}
+
+main-menu.alternate footer::before {
+  background-image: linear-gradient(to right, #b9b9b9, transparent);
+}
+
+main-menu.alternate footer ul {
+  justify-content: flex-start;
+}

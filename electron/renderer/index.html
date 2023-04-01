@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Anthony Beaumont">  
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self'; 
+      script-src 'self' 'sha256-TlM/sO6qgTuYdJR0JXv8xbYivsAViGtVUY4yHnbVczc='; 
+      style-src 'self' 'unsafe-inline';
+    ">
+    <link rel="stylesheet" href="./resources/style/vendor/normalize.css" type="text/css" integrity="sha384-M86HUGbBFILBBZ9ykMAbT3nVb0+2C7yZlF8X2CiKNpDOQjKroMJqIeGZ/Le8N2Qp"/>
+    <link rel="stylesheet" href="./resources/style/vendor/fontawesome.css" type="text/css" integrity="sha384-NrVR4griTq6E5psbVd3JKLfcMY7b5FvjOZ1BpJi6CSpd3rmINRX/tRzsubuVd9d4"/>
+    <link rel="stylesheet" href="./resources/style/common.css" type="text/css" integrity="sha384-18ySnnzr2ZOoiOyfjLuNqCtidhjmMPy7HvIrqBXL7eGyTiHMrzz9f4ZiQCWvLqvn"/>
+    <link rel="stylesheet" href="./resources/style/menu.css" type="text/css" integrity="sha384-dVUAaiMRBIpuorY7Boas8phjZ71HmAEv5ilpCs+dWxrXVZR7+tu9kKmIcTmRmZ1C"/>
+    <link rel="stylesheet" href="./resources/style/settings.css" type="text/css" integrity="sha384-gskToE3xW65fUdqdbacI7dNyFmBmoVaRMEyefELIKkApXQ3OYAdjNpnISLKPRxlv"/>
+  </head>
+  <body>
+  
+  <audio id="bgm" type="audio/ogg" loop></audio>
+  <audio id="sfx" type="audio/ogg"></audio>
+  
+  <main-menu class="background"></main-menu>
+  <settings-menu class="background"></settings-menu>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "@xan105/vanilla-query": "../../node_modules/@xan105/vanilla-query/dist/vq.min.js",
+      "smooth-scroll": "./vendor/smooth-scroll-into-view-if-needed/bundle.min.mjs"
+    }
+  }
+  </script>
+  <script src="./components/load.js" type="module" integrity="sha384-I1Ez7jBQnB4PXCKfacfD6J91e3KGvcGbgQXcrDchCYr6K/4QEi5qsJoiRmpgWkc8"></script>
+  <script src="./index.js" type="module" integrity="sha384-uLHPIA5ll0vrqgBtMcDRVfNsdTiSqiTbXbLT4Mr41+B0p7cAKTSj5vbLjqrjl/fH"></script>
+  </body>
+</html>
