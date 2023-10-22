@@ -31,11 +31,11 @@ const template =
 const html =
 `
 <div class="container">
-	<div class="help" data-title="Help">
-		<div class="content">
-			<div class="text"></div>
-		</div>
-	</div>
+  <div class="help" data-title="Help">
+    <div class="content">
+      <div class="text"></div>
+    </div>
+  </div>
   
   <nav>
     <ul>
@@ -50,7 +50,7 @@ const html =
     </ul>
   </nav>
 
-	<div class="options">
+  <div class="options">
     <section id="settings-game" class="active">
       <ul>
       </ul>
@@ -59,7 +59,7 @@ const html =
       <ul>
       </ul>
     </section>  
-	</div>
+  </div>
 </div>
 
 <footer>

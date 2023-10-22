@@ -50,14 +50,14 @@
   "devDependencies": {
     "@electron/asar": "^3.2.3",
     "cli-progress": "^3.12.0",
-    "electron": "^22.0.0",
+    "electron": "22.3.27",
     "electron-context-menu": "^3.6.1"
   },
   "dependencies": {
-    "@xan105/error": "^1.6.0",
-    "@xan105/fs": "^2.1.0",
-    "@xan105/ini": "^2.1.1",
-    "@xan105/is": "^2.8.1",
+    "@xan105/error": "^1.6.1",
+    "@xan105/fs": "^2.2.0",
+    "@xan105/ini": "2.1.1",
+    "@xan105/is": "^2.8.2",
     "@xan105/usershellfolder": "^1.1.4",
     "@xan105/vanilla-query": "^1.6.1",
     "win-screen-resolution": "2.1.0",
