@@ -51,23 +51,22 @@ async function hasUnx(){
 }
 
 async function read(){ 
-  
+
   let promises = [
-    readSettingFile(files[0], ["utf8"])
+    [files[0], ["utf8"]]
   ];
   
   const unx = await hasUnx();
-  
   if (unx) {
     promises = promises.concat([
-      readSettingFile(files[1], ["utf16le", "utf8"]),
-      readSettingFile(files[2], ["utf16le", "utf8"]),
-      readSettingFile(files[3], ["utf16le", "utf8"]),
-      readSettingFile(files[4], ["utf16le", "utf8"])
+      [files[1], ["utf16le", "utf8"]],
+      [files[2], ["utf16le", "utf8"]],
+      [files[3], ["utf16le", "utf8"]],
+      [files[4], ["utf16le", "utf8"]]
     ]);
   }
 
-  const data = await Promise.allSettled(promises);
+  const data = await Promise.allSettled(promises.map(args => readSettingFile(...args)));
   
   const result = data[0].value ?? Object.create(null);
   if (unx) {
