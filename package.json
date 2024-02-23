@@ -4,10 +4,10 @@
   "description": "Gamepad and UnX friendly Launcher for FINAL FANTASY X/X-2 HD Remaster (PC)",
   "version": "2.0.0",
   "type": "module",
-  "main": "./electron/main/init.cjs",
+  "main": "./electron/main/boot.js",
   "engines": {
-    "node": ">=16.19.1",
-    "npm": "^8.19.3"
+    "node": ">=20.11.0",
+    "npm": "^10.2.4"
   },
   "os": [
     "win32"
@@ -17,13 +17,19 @@
     "ia32"
   ],
   "scripts": {
+    "lint": "eslint .",
     "start": "npm run-script start:windows",
     "start:windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && electron .",
     "start:linux": "export $(cat .env | xargs) && electron .",
     "clean": "npm prune --production",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "build:asar": "node build/build.js --asar"
   },
-  "author": "Anthony Beaumont",
+  "author": {
+    "name": "Anthony Beaumont",
+    "email": "dev.xan105@outlook.be",
+    "url": "https://xan105.com/"
+  },
   "license": "GPL-3.0-only",
   "repository": {
     "type": "git",
@@ -48,25 +54,24 @@
     }
   ],
   "devDependencies": {
-    "@electron/asar": "^3.2.3",
+    "@electron/asar": "^3.2.8",
+    "@electron/fuses": "^1.7.0",
+    "@eslint/js": "^8.56.0",
     "cli-progress": "^3.12.0",
-    "electron": "22.3.27",
-    "electron-context-menu": "^3.6.1"
+    "electron": "^29.0.1",
+    "electron-context-menu": "^3.6.1",
+    "eslint": "^8.56.0",
+    "globals": "^14.0.0"
   },
   "dependencies": {
-    "@xan105/error": "^1.6.1",
-    "@xan105/fs": "^2.2.0",
-    "@xan105/ini": "2.1.1",
-    "@xan105/is": "^2.8.2",
-    "@xan105/usershellfolder": "^1.1.4",
-    "@xan105/vanilla-query": "^1.6.1",
-    "win-screen-resolution": "2.1.0",
-    "xinput-ffi": "^3.4.1"
-  },
-  "overrides": {
-    "win-screen-resolution": {
-      "node-gyp-load": "0.0.5"
-    },
-    "koffi": "2.3.9"
+    "@xan105/error": "^1.6.2",
+    "@xan105/ffi": "^1.1.3",
+    "@xan105/fs": "^2.2.1",
+    "@xan105/ini": "^2.2.0",
+    "@xan105/is": "^2.9.3",
+    "@xan105/usershellfolder": "^1.2.1",
+    "@xan105/vanilla-query": "^1.8.0",
+    "win-screen-resolution": "^3.0.2",
+    "xinput-ffi": "^4.0.0"
   }
 }

@@ -9,12 +9,12 @@ Gamepad and UnX friendly launcher for `FINAL FANTASY X/X-2 HD Remaster (PC)`.
 - ⚙️ Bunch of options to customize your experience
 - 🐧 [Linux] Tested against Proton 7.0.6 (32bit prefix)
 
-<details><summary>Screenshot:</summary>
-
 <p align="center">
 <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main.png"><br />
 <em>Main menu</em>
 </p>
+
+<details><summary>More screenshots:</summary>
 
 <p align="center">
 <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_unx.png"><br />
@@ -107,7 +107,7 @@ Build
 ```
 git clone https://github.com/xan105/FFX-X2_LAUNCHER.git && cd FFX-X2_LAUNCHER
 npm ci --arch=ia32 
-npm run-script build
+npm run build
 ```
 
 ✔️ Application can be found in the `./dist` folder.
