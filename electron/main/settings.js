@@ -153,7 +153,10 @@ async function write(settings){
     }, encoding]);
   }
 
-  await Promise.all(promises.map(args => writeFile(args[0], stringify(args[1], { eol: "\r\n", comment: false }), args[2])));
+  await Promise.all(promises.map(([file, data, encoding]) => {
+    const string = stringify(data, { eol: "\r\n", comment: false });
+    return writeFile(file, string, encoding);
+  }));
 }
 
 export { read, write };

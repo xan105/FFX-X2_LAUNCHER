@@ -26,7 +26,7 @@ const html =
       <div class="gamepad dpad vertical"></div>
       <span>Select</span>
     </li>
-    <li>
+    <li class="action">
       <div class="gamepad btn A"></div>
       <span>Enter</span>
     </li>

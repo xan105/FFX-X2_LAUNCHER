@@ -72,11 +72,11 @@ const html =
       <div class="gamepad dpad horizontal"></div>
       <span>Change</span>
     </li>
-    <li>
+    <li class="action">
       <div class="gamepad btn A"></div>
       <span>Save</span>
     </li>
-    <li>
+    <li class="action">
       <div class="gamepad btn B"></div>
       <span>Cancel</span>
     </li>

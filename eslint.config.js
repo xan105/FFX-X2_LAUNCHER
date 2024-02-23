@@ -32,7 +32,7 @@ export default [
     rules
   },
   {
-    files: ["electron/renderer/**/*.cjs"],
+    files: ["electron/renderer/preload.cjs"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "commonjs",

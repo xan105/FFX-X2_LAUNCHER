@@ -8,72 +8,72 @@ main-menu.alternate{
 }
 
 main-menu nav { 
-	background-image: url("../img/menu_background.png");
-	background-repeat: no-repeat;
-	box-shadow: 5px 0px 10px 1px rgb(20 20 20);
-	width: 373px; 
-	height: 100%;
-	margin-left: 81px;
+  background-image: url("../img/menu_background.png");
+  background-repeat: no-repeat;
+  box-shadow: 5px 0px 10px 1px rgb(20 20 20);
+  width: 373px; 
+  height: 100%;
+  margin-left: 81px;
 }
 main-menu nav ul { 
-	padding-top: 90px; 
+  padding-top: 90px; 
 }
 main-menu nav ul li { 
-	width: 100%; 
-	height: 82px; 
-	background-repeat: no-repeat;
-	display: block; 
+  width: 100%; 
+  height: 82px; 
+  background-repeat: no-repeat;
+  display: block; 
 }
 main-menu nav ul li[data-name="ffx"] { 
-	background-image:url("../img/menu/off/ffx_button.png");
+  background-image:url("../img/menu/off/ffx_button.png");
 }
 main-menu nav ul li[data-name="ffx"].active { 
-	background-image:url("../img/menu/on/ffx_button.png");
+  background-image:url("../img/menu/on/ffx_button.png");
 }
 main-menu nav ul li[data-name="ffx_ec"] { 
-	background-image:url("../img/menu/off/ffx_ec_button.png");
-	height: 83px; 
+  background-image:url("../img/menu/off/ffx_ec_button.png");
+  height: 83px; 
 }
 main-menu nav ul li[data-name="ffx_ec"].active { 
-	background-image:url("../img/menu/on/ffx_ec_button.png");
+  background-image:url("../img/menu/on/ffx_ec_button.png");
 }
 main-menu nav ul li[data-name="ffx2"] { 
-	background-image:url("../img/menu/off/ffx2_button.png");
+  background-image:url("../img/menu/off/ffx2_button.png");
 }
 main-menu nav ul li[data-name="ffx2"].active {
-	background-image:url("../img/menu/on/ffx2_button.png");
+  background-image:url("../img/menu/on/ffx2_button.png");
 }
 main-menu nav ul li[data-name="ffx2_lm"] {
-	background-image:url("../img/menu/off/ffx2_lm_button.png");
+  background-image:url("../img/menu/off/ffx2_lm_button.png");
 }
 main-menu nav ul li[data-name="ffx2_lm"].active { 
-	background-image:url("../img/menu/on/ffx2_lm_button.png");
+  background-image:url("../img/menu/on/ffx2_lm_button.png");
 }
 main-menu nav ul li[data-name="credits"] {
-	background-image:url("../img/menu/off/credits_button.png"); 
-	height: 73px; 
-	padding-bottom: 9px;
+  background-image:url("../img/menu/off/credits_button.png"); 
+  height: 73px; 
+  padding-bottom: 9px;
 }
 main-menu nav ul li[data-name="credits"].active { 
-	background-image:url("../img/menu/on/credits_button.png"); 
-	height: 73px; 
-	padding-bottom: 9px;
+  background-image:url("../img/menu/on/credits_button.png"); 
+  height: 73px; 
+  padding-bottom: 9px;
 }
 main-menu nav ul li[data-name="exit"] {
-	background-image:url("../img/menu/off/exit_button.png"); 
-	height: 73px;
+  background-image:url("../img/menu/off/exit_button.png"); 
+  height: 73px;
 }
 main-menu nav ul li[data-name="exit"].active { 
-	background-image:url("../img/menu/on/exit_button.png"); 
-	height: 73px;
+  background-image:url("../img/menu/on/exit_button.png"); 
+  height: 73px;
 }
 main-menu nav ul li[data-name="settings"] { 
-	background-image:url("../img/menu/off/setting_button.png"); 
-	height: 56px;
+  background-image:url("../img/menu/off/setting_button.png"); 
+  height: 56px;
 }
 main-menu nav ul li[data-name="settings"].active {
-	background-image:url("../img/menu/on/setting_button.png"); 
-	height: 56px;
+  background-image:url("../img/menu/on/setting_button.png"); 
+  height: 56px;
 }
 
 main-menu footer {

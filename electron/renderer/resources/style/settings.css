@@ -115,13 +115,13 @@ settings-menu .options::-webkit-scrollbar-thumb:hover {
 
 settings-menu .options ul { list-style: none; }
 settings-menu .options li { 
-	width: 100%; 
-	height: 40px; 
-	background: rgba(25, 26, 54, 0.49); 
-	margin: 10px 0; 
-	padding: 0px 20px; 
-	display: flex; 
-	box-sizing: border-box;
+  width: 100%; 
+  height: 40px; 
+  background: rgba(25, 26, 54, 0.49); 
+  margin: 10px 0; 
+  padding: 0px 20px; 
+  display: flex; 
+  box-sizing: border-box;
 }
 
 settings-menu .options li.active { background: rgba(25, 26, 54, 0.70) }
