@@ -16,25 +16,26 @@ About
 
   <details><summary>More screenshots:</summary>
 
-    <p align="center">
-      <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_unx.png"><br />
-      <em>Settings (UnX installed)</em>
-    </p>
+  <br />
+  <p align="center">
+    <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_unx.png"><br />
+    <em>Settings (UnX installed)</em>
+  </p>
 
-    <p align="center">
-      <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_launcher.png"><br />
-      <em>Launcher settings</em>
-    </p>
+  <p align="center">
+    <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_launcher.png"><br />
+    <em>Launcher settings</em>
+  </p>
 
-    <p align="center">
-      <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main_alternate.png"><br />
-      <em>Main menu (alternate)</em>
-    </p>
+  <p align="center">
+    <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main_alternate.png"><br />
+    <em>Main menu (alternate)</em>
+  </p>
 
-    <p align="center">
-      <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/proton.png"><br />
-      <em>🐧 Proton 7.0.6</em>
-    </p>
+  <p align="center">
+    <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/proton.png"><br />
+    <em>🐧 Proton 7.0.6</em>
+  </p>
 
   </details>
 
@@ -49,13 +50,13 @@ Install
 
 ### Extract and replace file
 
-  Extract `./FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into the `FINAL FANTASY FFX&FFX-2 HD Remaster` game folder.
+  Extract `FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into the `FINAL FANTASY FFX&FFX-2 HD Remaster` game folder.
 
   💡 If you find it a bit messy consider the symlink method down below.
 
 ### Symlink
 
-  Extract `./FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into any folder like for example `FINAL FANTASY FFX&FFX-2 HD Remaster/launcher`
+  Extract `FINAL FANTASY FFX&FFX-2 HD Remaster/` archive content into any folder like for example `FINAL FANTASY FFX&FFX-2 HD Remaster/launcher`
 
   Inside the `FINAL FANTASY FFX&FFX-2 HD Remaster` game folder symlink `FFX&X-2_LAUNCHER.exe` with `launcher/FFX&X-2_LAUNCHER.exe`
 
