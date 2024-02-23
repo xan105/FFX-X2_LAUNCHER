@@ -22,7 +22,6 @@ const gamePath = asStringNotEmpty(args.gamePath) ??
                  asStringNotEmpty(env["GAMEPATH"]) ??
                  dirname(execPath);
   
-if(env["NODE_ENV"] === "dev") 
-  console.log("Game dir:", gamePath);
+if(env["NODE_ENV"] === "dev") console.log("Game dir:", gamePath);
 
 export { gamePath };

@@ -6,7 +6,7 @@ found in the LICENSE file in the root directory of this source tree.
 
 import { shouldObj } from "@xan105/is/assert";
 import { asBoolean } from "@xan105/is/opt";
-import { XInputGamepad } from "xinput-ffi/promises";
+import { XInputGamepad } from "xinput-ffi";
 
 let gamepad = new XInputGamepad({
   hz: 30,

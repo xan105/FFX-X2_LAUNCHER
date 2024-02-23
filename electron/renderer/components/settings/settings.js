@@ -168,6 +168,8 @@ export default class WebComponent extends HTMLElement {
       });
     });
     
+    this.$select(".gamepad.btn.A").$parent().$click(() => this.onGamepadInput("XINPUT_GAMEPAD_A"));
+    this.$select(".gamepad.btn.B").$parent().$click(() => this.onGamepadInput("XINPUT_GAMEPAD_B"));
   }
   
   disconnectedCallback() {
@@ -187,6 +189,9 @@ export default class WebComponent extends HTMLElement {
     this.$selectAll("nav ul li").forEach((el)=>{
       el.$off("click");
     });
+    
+    this.$select(".gamepad.btn.A").$parent().$off("click");
+    this.$select(".gamepad.btn.B").$parent().$off("click");
   }
   
   async #populateAvailableDisplayResolution(){

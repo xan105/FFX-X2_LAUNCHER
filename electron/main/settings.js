@@ -14,7 +14,7 @@ import {
   shouldObjNotEmpty
 } from "@xan105/is/assert";
 import { attempt } from "@xan105/error";
-import folders from "@xan105/usershellfolder";
+import { folders } from "@xan105/usershellfolder";
 import { gamePath } from "./gamedir.js";
 
 const files = [
@@ -33,7 +33,7 @@ async function readSettingFile(filePath, encodings){
   for (const encoding of encodings)
   {
     const file = await readFile(filePath, encoding);
-    const result = parse(file, { translate: false });
+    const result = parse(file, { translate: false, comment: false });
     if (isObjNotEmpty(result)) return result;
   }
 }
@@ -87,16 +87,15 @@ async function read(){
 async function write(settings){
   
   shouldObjNotEmpty(settings);
-  
+
   const { unx } = settings;
   delete settings.unx;
   
   const promises = [
-    writeFile(files[0], stringify(settings, {eol: "\r\n"}), "utf8")
+    [files[0], settings, "utf8"]
   ];
-
+    
   if (unx){
-  
     //Forcing some value as per author's instruction (better safe than sorry)
     unx["UnX.Render"] ??= Object.create(null);
     unx["UnX.Render"].BypassIntel = "false"; //STABILITY_NOTE
@@ -120,8 +119,10 @@ async function write(settings){
     unx["FFX&X-2_Will.exe"].Video = unx["Language.Master"].Voice;
     unx["FFX&X-2_Will.exe"].Voice = unx["Language.Master"].Voice;
 
+    const encoding = { bom: true, encoding: "utf16le" };
+    
     //Remapping each UnX section to its corresponding file
-    promises.push( writeFile(files[1], stringify({ 
+    promises.push([files[1], { 
       "UnX.Display": unx["UnX.Display"], 
       "UnX.Render": unx["UnX.Render"], 
       "UnX.Stutter": unx["UnX.Stutter"],
@@ -129,30 +130,30 @@ async function write(settings){
       "UnX.Input": unx["UnX.Input"],
       "UnX.Compatibility": unx["UnX.Compatibility"],
       "UnX.System": unx["UnX.System"]
-    }, {eol: "\r\n"}), { bom: true, encoding: "utf16le" }) );
-
-    promises.push( writeFile(files[2], stringify({ 
+    }, encoding]);
+    
+    promises.push([files[2], { 
       "Boost.FFX": unx["Boost.FFX"], 
       "Fun.FFX": unx["Fun.FFX"],  
       "SpeedHack.FFX": unx["SpeedHack.FFX"]
-    }, {eol: "\r\n"}), { bom: true, encoding: "utf16le" }) );
+    }, encoding]);
     
-    promises.push( writeFile(files[3], stringify({ 
+    promises.push([files[3], { 
       "UNX.Keybinds": unx["UNX.Keybinds"], 
       "Gamepad.Type": unx["Gamepad.Type"],
       "Gamepad.Remap": unx["Gamepad.Remap"],
       "Gamepad.PC": unx["Gamepad.PC"],
       "Gamepad.Steam": unx["Gamepad.Steam"]
-    }, {eol: "\r\n"}), { bom: true, encoding: "utf16le" }) );
+    }, encoding]);
     
-    promises.push( writeFile(files[4], stringify({ 
+    promises.push([files[4], { 
       "Language.Master": unx["Language.Master"],
       "FFX.exe": unx["FFX.exe"],
       "FFX&X-2_Will.exe": unx["FFX&X-2_Will.exe"]
-    }, {eol: "\r\n"}), { bom: true, encoding: "utf16le" }) );
+    }, encoding]);
   }
-  
-  await Promise.all(promises);
+
+  await Promise.all(promises.map(args => writeFile(args[0], stringify(args[1], { eol: "\r\n", comment: false }), args[2])));
 }
 
 export { read, write };

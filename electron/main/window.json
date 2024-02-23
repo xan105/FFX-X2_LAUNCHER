@@ -1,6 +1,6 @@
 {
   "main": {
-    "window":{
+    "options":{
       "title": "FINAL FANTASY X-X2 LAUNCHER+",
       "width": 1278,
       "height": 703,
@@ -16,6 +16,6 @@
     },
     "view": "../renderer/index.html",
     "preload": "../renderer/preload.cjs",
-    "menuBar": false
+    "menu": false
   }
 }

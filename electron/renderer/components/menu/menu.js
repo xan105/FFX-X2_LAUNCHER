@@ -51,6 +51,9 @@ export default class WebComponent extends HTMLElement {
       el.$on("mouseenter", this.#setActive.bind(this, el));
       el.$on("mouseleave", this.#setInactive.bind(this, el));
     });
+    
+    this.$select(".gamepad.btn.A").$parent().$click(() => this.onGamepadInput("XINPUT_GAMEPAD_A"));
+    
     this.update();
   }
   
@@ -60,6 +63,8 @@ export default class WebComponent extends HTMLElement {
       el.$off("mouseenter");
       el.$off("mouseleave"); 
     });
+    
+    this.$select(".gamepad.btn.A").$parent().$off("click");
   }
   
   #setActive(el){
