@@ -35,7 +35,7 @@ async function setApplication(){
 
   if (debug) console.info((({node,electron,chrome})=>({node,electron,chrome}))(versions));
   
-  const { default: { name } } = await import("../../package.json", { assert: { type: "json" } });
+  const { default: { name } } = await import("../../package.json", { with: { type: "json" } });
   
   app.setAppUserModelId(name);
   app.disableHardwareAcceleration();
@@ -82,7 +82,7 @@ function openExternalLink(window){
 
 async function createWindow(){
 
-  const { default: Windows } = await import ("./window.json", { assert: { type: "json" } });
+  const { default: Windows } = await import ("./window.json", { with: { type: "json" } });
   const { options } = Windows.main;
   
   options.show = false;

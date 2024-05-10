@@ -19,7 +19,7 @@ import {
 } from "@xan105/is";
 import { asBoolean } from "@xan105/is/opt";
 import { gamePath } from "./gamedir.js";
-import games from "./game.json" assert { type: "json" };
+import games from "./game.json" with { type: "json" };
 
 function run(name, option = {}){
   return new Promise((resolve, reject) => {

@@ -7,7 +7,7 @@ found in the LICENSE file in the "build" directory of this source tree.
 */
 
 import { join, resolve, basename  } from "node:path";
-import { env } from "node:process";
+import { env, exit } from "node:process";
 import { promisify, parseArgs } from "node:util";
 import { exec } from "node:child_process";
 
@@ -258,8 +258,8 @@ async function build(){
 
 build()
 .then(()=>{
-  process.exit(0);
+  exit(0);
 }).catch((err)=>{
   console.error(err);
-  process.exit(1);
+  exit(1);
 });
