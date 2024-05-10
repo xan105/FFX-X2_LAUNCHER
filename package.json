@@ -18,9 +18,7 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "start": "npm run-script start:windows",
-    "start:windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && electron .",
-    "start:linux": "export $(cat .env | xargs) && electron .",
+    "start": "electron --js-flags='--env-file=.env' .",
     "clean": "npm prune --production",
     "build": "node build/build.js",
     "build:asar": "node build/build.js --asar"
@@ -54,17 +52,17 @@
     }
   ],
   "devDependencies": {
-    "@electron/asar": "^3.2.8",
-    "@electron/fuses": "^1.7.0",
+    "@electron/asar": "^3.2.9",
+    "@electron/fuses": "^1.8.0",
     "@eslint/js": "^8.56.0",
     "cli-progress": "^3.12.0",
-    "electron": "^29.0.1",
+    "electron": "^30.0.0",
     "electron-context-menu": "^3.6.1",
     "eslint": "^8.56.0",
     "globals": "^14.0.0"
   },
   "dependencies": {
-    "@xan105/error": "^1.6.2",
+    "@xan105/error": "^1.7.1",
     "@xan105/ffi": "^1.1.3",
     "@xan105/fs": "^2.2.1",
     "@xan105/ini": "^2.2.0",
