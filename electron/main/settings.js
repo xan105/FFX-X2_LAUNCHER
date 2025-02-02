@@ -58,11 +58,11 @@ async function read(){
   
   const unx = await hasUnx();
   if (unx) {
-    promises = promises.concat([
-      [files[1], ["utf16le", "utf8"]],
-      [files[2], ["utf16le", "utf8"]],
-      [files[3], ["utf16le", "utf8"]],
-      [files[4], ["utf16le", "utf8"]]
+    promises = promises.concat([ //earlier versions of UnX used utf16le only
+      [files[1], ["utf16le", "utf8"]], //UnX.ini
+      [files[2], ["utf8", "utf16le"]], //UnX_Booster.ini
+      [files[3], ["utf8", "utf16le"]], //UnX_Gamepad.ini
+      [files[4], ["utf8", "utf16le"]]  //UnX_Language.ini
     ]);
   }
 
@@ -119,10 +119,8 @@ async function write(settings){
     unx["FFX&X-2_Will.exe"].Video = unx["Language.Master"].Voice;
     unx["FFX&X-2_Will.exe"].Voice = unx["Language.Master"].Voice;
 
-    const encoding = { bom: true, encoding: "utf16le" };
-    
     //Remapping each UnX section to its corresponding file
-    promises.push([files[1], { 
+    promises.push([files[1], { //UnX.ini
       "UnX.Display": unx["UnX.Display"], 
       "UnX.Render": unx["UnX.Render"], 
       "UnX.Stutter": unx["UnX.Stutter"],
@@ -130,27 +128,27 @@ async function write(settings){
       "UnX.Input": unx["UnX.Input"],
       "UnX.Compatibility": unx["UnX.Compatibility"],
       "UnX.System": unx["UnX.System"]
-    }, encoding]);
+    }, { bom: true, encoding: "utf16le" }]);
     
-    promises.push([files[2], { 
+    promises.push([files[2], { //UnX_Booster.ini
       "Boost.FFX": unx["Boost.FFX"], 
       "Fun.FFX": unx["Fun.FFX"],  
       "SpeedHack.FFX": unx["SpeedHack.FFX"]
-    }, encoding]);
+    }, { bom: true, encoding: "utf8" }]);
     
-    promises.push([files[3], { 
+    promises.push([files[3], { //UnX_Gamepad.ini
       "UNX.Keybinds": unx["UNX.Keybinds"], 
       "Gamepad.Type": unx["Gamepad.Type"],
       "Gamepad.Remap": unx["Gamepad.Remap"],
       "Gamepad.PC": unx["Gamepad.PC"],
       "Gamepad.Steam": unx["Gamepad.Steam"]
-    }, encoding]);
+    }, { bom: true, encoding: "utf8" }]);
     
-    promises.push([files[4], { 
+    promises.push([files[4], { //UnX_Language.ini
       "Language.Master": unx["Language.Master"],
       "FFX.exe": unx["FFX.exe"],
       "FFX&X-2_Will.exe": unx["FFX&X-2_Will.exe"]
-    }, encoding]);
+    }, { bom: true, encoding: "utf8" }]);
   }
 
   await Promise.all(promises.map(([file, data, encoding]) => {
