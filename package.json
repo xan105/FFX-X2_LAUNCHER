@@ -18,7 +18,9 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "start": "electron --js-flags='--env-file=.env' .",
+    "start": "npm run-script start:windows",
+    "start:windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && electron .",
+    "start:linux": "export $(cat .env | xargs) && electron .",
     "clean": "npm prune --production",
     "build": "node build/build.js",
     "build:asar": "node build/build.js --asar"
