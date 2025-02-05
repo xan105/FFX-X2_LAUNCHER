@@ -19,6 +19,7 @@ import { join, dirname } from "node:path";
 import { env, versions } from "node:process";
 
 const debug = env["NODE_ENV"] === "dev";
+console.log("debug:" + debug);
 const cwd = join(dirname(fileURLToPath(import.meta.url)));
 
 let mainWin;

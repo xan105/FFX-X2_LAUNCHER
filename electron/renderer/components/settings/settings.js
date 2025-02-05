@@ -7,7 +7,7 @@ found in the LICENSE file in the root directory of this source tree.
 import { $select, $define } from "@xan105/vanilla-query";
 import scrollIntoView from "smooth-scroll";
 import { localize } from "./l10n/l10n.js";
-import settings from "./settings.json" assert { type: "json" };
+import settings from "./settings.json" with { type: "json" };
 
 const template =
 `

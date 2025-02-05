@@ -13,14 +13,15 @@ About
     <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/main.png"><br />
     <em>Main menu</em>
   </p>
-
-  <details><summary>More screenshots:</summary>
-
-  <br />
+  
   <p align="center">
     <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_unx.png"><br />
     <em>Settings (UnX installed)</em>
   </p>
+
+  <details><summary>More screenshots:</summary>
+
+  <br />
 
   <p align="center">
     <img src="https://github.com/xan105/FFX-X2_LAUNCHER/raw/master/screenshot/settings_launcher.png"><br />
