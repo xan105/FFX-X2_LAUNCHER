@@ -6,7 +6,7 @@ found in the LICENSE file in the root directory of this source tree.
 
 async function load(locale = "en"){
   const { default: l10n } = await import(`./${locale}.json`, { 
-    assert: { type: "json" } 
+    with: { type: "json" } 
   });
   return l10n;
 }
