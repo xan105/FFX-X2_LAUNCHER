@@ -1,0 +1,26 @@
+Enigma Virtual Box 
+Copyright (C) 2004-2023 The Enigma Protector Developers Team
+All Rights Reserved
+Web:		https://enigmaprotector.com/
+E-mail:		support@enigmaprotector.com
+Developers:	Vladimir Sukhov
+
+*** LICENSE AGREEMENT ***
+
+Please carefully read the following terms and conditions before using "Enigma Virtual Box". The license agreement is the contract between you and "The Enigma Protector Developers Team". By using the "Enigma Virtual Box" you are agreeing to all the limitations and rules provided by "The Enigma Protector Developers Team". In case you do not agree with the following license agreement, you should not use or download or store "Enigma Virtual Box".
+
+*** END USER LICENSE AGREEMENT ***
+
+1. "Enigma Virtual Box" is a result of the intellectual property of "The Enigma Protector Developers Team" and is protected by intellectual property laws. You will be able to use "Enigma Virtual Box" only within the scope of the current license agreement. In case you do not agree to the terms set forth, please do not use or download or store "Enigma Virtual Box".
+
+2. "Enigma Virtual Box" and all accompanying files are licensed "AS IS" without warranties as to performance or merchantability or any other warranties whether expressed or implied. Because of the various hardware and software environments in which "Enigma Virtual Box" may be operated, no warranty of fitness for a particular purpose is offered.
+
+3. "Enigma Virtual Box" is a FREEWARE software. You may not pay to use it.
+
+4. You may not, nor permit or allow others to, sell, rent, loan, lease, sub-license "Enigma Virtual Box".
+
+5. "Enigma Virtual Box" and the accompanying files should not be reverse-engineered, disassembled, decompiled etc.
+
+6. "Enigma Virtual Box" itself and any of it's components can't be used as a part of any other software. Additional licensing agreements should be applied if you want to use "Enigma Virtual Box" itself or any of it's components inside your application.
+
+7. You shall comply with all relevant import and export laws, rules and regulations affecting "Enigma Virtual Box" or any portion of it.

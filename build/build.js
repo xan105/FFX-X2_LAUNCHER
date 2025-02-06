@@ -9,7 +9,7 @@ found in the LICENSE file in the "build" directory of this source tree.
 import { join, resolve, basename  } from "node:path";
 import { env, exit } from "node:process";
 import { promisify, parseArgs } from "node:util";
-import { exec } from "node:child_process";
+import { exec, spawn } from "node:child_process";
 
 import cliProgress from "cli-progress";
 import { flipFuses, FuseVersion, FuseV1Options } from "@electron/fuses";
@@ -66,7 +66,7 @@ async function mkElectron(cwd, asar = false){
     recursive: true,
     normalize: true,
     ignore: { dir: true },
-    filter: ["version"]
+    filter: ["version", "default_app.asar"]
   });
   for (const file of files){
     await copyFile(
@@ -85,7 +85,7 @@ async function mkElectron(cwd, asar = false){
       { name: "FileDescription", value: env["npm_package_name"] },
       { name: "OriginalFilename", value: env["npm_package_name"] + ".exe" },
       { name: "InternalName", value: env["npm_package_name"] },
-      { name: "LegalCopyright", value: "Copyright 2016-2023 Anthony Beaumont." }
+      { name: "LegalCopyright", value: "Copyright 2016-2025 Anthony Beaumont." }
     ]
   });
   
@@ -207,10 +207,40 @@ async function debloat(cwd){
   }
 }
 
+function boxing(file){
+  return new Promise((success) => {
+
+    const evbConsole = "./build/vendor/Enigma Virtual Box/enigmavbconsole.exe";
+    const evbProject = "./build/project.evb";
+
+    const evb = spawn(
+      `"${resolve(evbConsole)}"`, 
+      [`"${resolve(evbProject)}"`],
+      { shell: true }
+    );
+    
+    evb.stdout.on("data", (data) => {
+      console.log(`${data}`);
+    });
+
+    evb.stderr.on("data", (data) => {
+      console.error(`${data}`);
+    });
+
+    evb.on("close", (code) => {
+      return success(code);
+    });
+  });
+}
+
 async function build(){
   const { values : args } = parseArgs({
     options: {
       asar: {
+        type: "boolean",
+        default: false
+      },
+      boxed: {
         type: "boolean",
         default: false
       }
@@ -253,6 +283,12 @@ async function build(){
     
     console.log("Cleaning up...")
     await rm(join(cwd, "resources/app"));
+  }
+  
+  //boxed single exe
+  if(args.boxed === true){
+    console.log("Boxing into single executable file...");
+    await boxing();
   }
 }
 

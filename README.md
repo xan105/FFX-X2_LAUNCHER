@@ -110,9 +110,14 @@ Build
   git clone https://github.com/xan105/FFX-X2_LAUNCHER.git && cd FFX-X2_LAUNCHER
   npm ci --arch=ia32 
   npm run build
+  //or
+  npm run build:asar
+  //or
+  npm run build:asar:boxed
   ```
 
-  ✔️ Application can be found in the `./dist` folder.
+  ✔️ Application can be found in the `./dist` folder.<br />
+  Boxed application can be found in the `./release` folder.
 
   NB: The boxed version (single executable file) is made by using [Enigma Virtual Box](https://enigmaprotector.com/en/aboutvb.html):
   its `.evb` project file is located in the `./build` folder (💡 it's just a xml file).
