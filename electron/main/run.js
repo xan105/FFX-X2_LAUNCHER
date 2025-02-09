@@ -6,7 +6,6 @@ found in the LICENSE file in the root directory of this source tree.
 
 import { spawn } from "node:child_process";
 import { join } from "node:path";
-import { app } from "electron";
 import { rm } from "@xan105/fs";
 import {
   shouldObj,

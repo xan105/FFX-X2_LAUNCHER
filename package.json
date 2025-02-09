@@ -2,7 +2,7 @@
   "private": true,
   "name": "FFX&X-2_LAUNCHER",
   "description": "Gamepad and UnX friendly Launcher for FINAL FANTASY X/X-2 HD Remaster (PC)",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "type": "module",
   "main": "./electron/main/boot.js",
   "engines": {
@@ -23,7 +23,8 @@
     "start:linux": "export $(cat .env | xargs) && electron .",
     "clean": "npm prune --production",
     "build": "node build/build.js",
-    "build:asar": "node build/build.js --asar"
+    "build:asar": "node build/build.js --asar",
+    "build:asar:boxed": "node build/build.js --asar --boxed"
   },
   "author": {
     "name": "Anthony Beaumont",
@@ -56,12 +57,12 @@
   "devDependencies": {
     "@electron/asar": "^3.2.18",
     "@electron/fuses": "^1.8.0",
-    "@eslint/js": "^8.56.0",
+    "@eslint/js": "^9.19.0",
     "cli-progress": "^3.12.0",
     "electron": "^34.0.2",
     "electron-context-menu": "^4.0.4",
-    "eslint": "^8.56.0",
-    "globals": "^14.0.0"
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0"
   },
   "dependencies": {
     "@xan105/error": "^1.7.1",
@@ -72,6 +73,6 @@
     "@xan105/usershellfolder": "^1.2.1",
     "@xan105/vanilla-query": "^1.8.0",
     "win-screen-resolution": "^3.0.2",
-    "xinput-ffi": "^4.0.0"
+    "xinput-ffi": "^4.0.2"
   }
 }
